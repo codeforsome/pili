@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="../public/css/reset.css" rel="stylesheet">
+    <link rel="stylesheet" id="pili-style-css" href="http://www.pilicn.com/wp-content/themes/pili/assets/app/css/style.css?ver=4.9.8" type="text/css" media="all">
+    <style>
+        body{
+            font-size: 16px;
+            color:white;
+ 
+        }
+        header{ 
+            position: absolute;
+            width:100%;
+            top:0;
+            z-index: 10;
+        }
+        .header-wrap{
+            display:flex;
+            display: -webkit-flex;
+            width:990px;
+            height: 80px;
+            justify-content: space-between;
+            font-size: 16px;
+            margin:0 auto;
+        }
+        .nav-menu{
+            display:flex;
+            display: -webkit-flex;
+            height: 80px;
+            align-items: center;
+            justify-content:space-around;
+        }
+        .nav-menu>li{
+            margin-left:2em;
+        }
+        .login-box{
+            display:flex;
+            height: 100%;
+            display: -webkit-flex;
+            align-items: center;
+            margin-right:1em;
+        }
+        .login-box>div{
+            margin-left:2em;
+        }
+        .menu-item{
+            position: relative;
+        }
+        .menu-item>a{
+            text-align: center;
+            padding-bottom:1em;
+            padding-top:1em;
+        }
+        .menu-item>a::before{
+            content: '';
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background-color: #062559;
+            border:2px solid white;
+            border-radius: 50%;
+            margin-right:5px;
+        }
+        .menu-item:hover>ul,.menu-item>ul:hover{
+           display: block;
+        }
+        .menu-item:hover{
+            top:2px;
+        }
+        .menu-item>ul{
+            display: none;
+            position: absolute;
+            width:100px;
+            top:3em;
+            text-align:center;
+        }
+        .sub-menu-item:hover>a{
+            color:rgb(196, 24, 196);
+        }
+        .sub-menu-item>a{
+            padding-bottom:1em;
+        }
+        @media only screen and (max-width:990px){
+            .header-wrap{
+                width:100%;
+
+            }
+            .nav-menu>li{
+                margin-left:1em;
+            }
+        }
+        @media only screen and (max-width:830px){
+            .header-wrap{
+
+            }
+            .nav-menu>li{
+            }
+        }
+        .slideshow-wrap{
+            position:relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        .slide-item{
+            position: absolute;
+            width: 100%;
+            background:none no-repeat center;
+            background-size: cover;
+            transition: transform .8s ease-in-out;
+            -webkit-transition: transform .8s ease-in-out;
+            -moz-transition:  transform .8s ease-in-out;
+        }
+        
+       .slide-button-wrap{
+           position:absolute;
+           right:60px;
+           bottom:60px;
+       }
+       .currentindex{
+           font-size: 3em;
+           color:white;
+       }
+       .item-count{
+           color:white;
+       }
+       .choise-button{
+           display:flex;
+           margin-top:5px;
+       }
+       .choise-button>.left,.choise-button>.right{
+           position: relative;
+           width:40px;
+           height: 40px;
+           text-align: center;
+           line-height: 40px;
+           border:2px solid white;
+       }
+     
+       .left::after,.right::after{
+           content: '';
+           position:absolute;
+           display: inline-block;
+           width:0;
+           height: 0;
+           left:2px;
+           top:9px;
+           border:10px solid white;
+       }
+       .left::after{
+            border-color:transparent white transparent transparent;
+       }
+       .right::after{
+            left:15px;
+            border-color:transparent transparent transparent white;
+       }
+       .left:hover,.right:hover{
+           cursor: pointer;
+            background-color: white;
+       }
+       .left:hover::after{
+            border-color:transparent black transparent transparent;
+       }
+       .right:hover::after{
+            border-color:transparent transparent transparent black;
+       }
+    
+       .line-wrap>.line-right,.line-wrap>.line-left{
+           position:absolute;
+           transition: bottom .5s ease-in,
+           left .5s ease-in,
+           right .5s ease-in;
+            -webkit-transition: bottom .5s ease-in,
+            left .5s ease-in,
+           right .5s ease-in;;
+            -moz-transition:  bottom .5s ease-in,
+            left .5s ease-in,
+           right .5s ease-in;;
+       }
+       .init{
+            bottom:0;
+            left:0;
+            opacity: 0;
+       }
+       .left-move{
+            bottom:188px;
+            left:46px
+       }
+       .right-move{
+            bottom:150px;
+            right:40px;
+       }
+       .line-left>a,.line-right>a{
+            width:500px;
+            height:54px;
+            background-size: 100% 100%;
+            text-align: center;
+            line-height: 54px;
+            color:#0d0a26;
+       }
+       .line-left>a{
+            text-align: left;
+            padding-left: 2em;
+            background-image: url('../public/images/line-left.png');
+       }
+       .line-right>a{
+           background-image: url('../public/images/line-right.png');
+       }
+
+
+        /* 展示新手入门标题信息导航 */
+        .container-wrap{
+            position: relative;
+            height:920px;
+            background-image:url('../public/images/container-top.png');
+        }
+        .container-top-wrap{
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .container-top{
+            float:right;
+            margin-top:50px;
+            margin-right: 50px;
+        }
+        .container-top>h3{
+            font-size:2.5em;
+            font-weight: bold;
+            margin-bottom:20px;
+        }
+        .container-top>p{
+            line-height: 20px;
+        }
+        .container-show{
+            position:absolute;
+            width: 1000px;
+            left:50%;
+            transform: translateX(-50%);
+            margin:180px auto 0;
+            z-index: 20;
+        }
+        .container-show>ul{
+            display:flex;
+        }
+         .container-show .container-item{
+            width:16.6%;
+            border:5px solid white;
+            margin-left:-5px;
+            transition: width .2s ease-in;
+            -webkit-transition: width .2s ease-in;
+            -moz-transition:  width .2s ease-in;
+        }
+        .container-item{
+            position: relative;
+            text-align: center;
+            font-size:2.5em;
+        }
+        .container-item>.number{
+            margin:30px auto;
+        }
+        .container-item>span{
+            display: inline-block;
+            margin:30px auto;
+        }
+        .container-item>.title{
+            width:72px;
+            margin: 0 auto;
+            border-left: 3px solid white;
+            border-right: 3px solid white;
+        }
+        .container-item>.title>p{
+            width:1em;
+            font-size:28px;
+            padding:0 10px;
+            margin: 0 auto;
+            font-family:  sans-serif;
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+        }
+        .container-item>a{
+            position:absolute;
+            display: block;
+            width:100%;
+            height: 100%;
+            top:0;
+            right: 0;
+        }
+        .container-item .item-img{
+            position: relative;
+            width:130%;
+            height: 100%;
+            left:-30%;
+        }
+        .container-item>.hd{
+            position:absolute;
+            top:-4em;
+            right:0;
+            z-index: 100;
+        }
+        .hd>p{
+            width:1em;
+            font-size:2em;
+            font-family: 禹卫书法隶书简体;
+        }
+        .hd .char:nth-child(1), .hd .char:nth-child(3){
+            display: inline-block;
+            transform: translateX(-20px);
+        }
+        .container-wrap::after{
+            content: '';
+            position:absolute;
+            display: block;
+            width:100%;
+            height:400px;
+            bottom:-1px;
+            z-index: 2;
+            background-image:url('../public/images/container-bottom.jpg');
+            background-size: cover;
+        }
+
+
+        .news-wrap{
+            position: relative;
+            background-image:url('../public/images/news_bg.png');
+
+        }
+        .news-top>h3{
+            text-align: right;
+            color:#1e1352;
+            font-size:42px;
+            padding:30px 30px 20px 0;
+        }
+        .news-show{
+            position: relative;
+            width: 1000px;
+            margin:10px auto;
+        }
+        .news-show P{
+            font-size:22px;
+            line-height:37px;
+            font-weight: bold;
+            color:#1e1352;
+        }
+        .news-show>.left-wrap{
+            width:60%;
+        }
+        .news-show .news-item{
+            width:100%;
+            padding:10px;
+            background-color:white;
+            transition: transform .2s ease-in-out;
+            -webkit-transition: transform .2s ease-in-out;
+            -moz-transition:  transform .2s ease-in-out;
+        }
+        .news-show .news-item img{
+            width:100%;
+            max-height: 380px;
+            transition: transform .2s ease-in-out;
+            -webkit-transition: transform .2s ease-in-out;
+            -moz-transition:  transform .2s ease-in-out;
+        }
+        .news-show .news-item:hover img{
+            transform: translateY(-10px);
+        }
+        .news-show .news-item:hover{
+            transform: translateY(-10px);
+        }
+        .left-wrap>.left-bottom{
+            width:70%;
+           margin-left:30%;
+           margin-top:20px;
+        }
+        .news-show .right-wrap{
+           position:absolute;
+           width:35%;
+           right:0;
+           top:0;
+        }
+        .right-wrap>.right-top{
+            margin-top:100px;
+        }
+        .right-wrap>.right-bottom{
+            margin-top:50px;
+        }
+        .reco-top-wrap>h3{
+            text-align: right;
+            color:#1e1352;
+            font-size:42px;
+            padding:30px 30px 20px 0;
+        }
+        .reco-show .reco-item{
+            width: 900px;
+            margin:0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航栏和登陆 --> 
+    <header>
+        <div class="header-wrap">
+            <nav class="header-nav">
+                <ul class="nav-menu">
+                    <li class="menu-item"><a href="#">首页</a></li>
+                    <li class="menu-item"><a href="#">霹雳剧集</a></li>
+                    <li class="menu-item"><a href="#">霹雳周边</a>
+                <ul>
+                        <li class="sub-menu-item"><a href="#">霹雳商品馆</a></li>
+                    </ul>
+                    </li>
+                    <li class="menu-item"><a href="#">霹雳资料库</a>
+                    <ul>
+                        <li class="sub-menu-item"><a href="#">霹雳人物</a></li>
+                        <li class="sub-menu-item"><a href="#">霹雳图库</a></li>
+                        <li class="sub-menu-item"><a href="#">霹雳武器</a></li>
+                        <li class="sub-menu-item"><a href="#">霹雳商店</a></li>
+                    </ul>
+                    </li>
+                    <li class="menu-item"><a href="#">资讯中心</a>
+                    <ul>
+                        <li class="sub-menu-item"><a href="#">霹雳活动</a></li>
+                        <li class="sub-menu-item"><a href="#">霹雳新闻</a></li>
+                    </ul></li>
+                    <li class="menu-item"><a href="#">关于我们</a>
+                        <ul>
+                        <li class="sub-menu-item"><a href="#">了解我们</a></li>
+                        <li class="sub-menu-item"><a href="#">霹雳文化</a></li>
+                        <li class="sub-menu-item"><a href="#">霹雳大事件</a></li>
+                        <li class="sub-menu-item"><a href="#">联系我们</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><a href="#">新手入门</a>
+                     <ul>
+                        <li class="sub-menu-item"><a href="#">霹雳世界</a></li>
+                        <li class="sub-menu-item"><a href="#">霹雳人物</a></li>
+                        <li class="sub-menu-item"><a href="#">霹雳音乐</a></li>
+                        <li class="sub-menu-item"><a href="#">霹雳图库</a></li>
+                    </ul></li>
+                    </ul>
+                </nav>
+                <div class="login-box">
+                    <div class="login"><a href="#">登陆</a></div>
+                    <div class="register"><a href="#">注册</a></div>
+                </div>
+        </div>
+    </header>
+        <div id="slideshow" class="slideshow-wrap"  v-bind:style="{height:getClientHeight()}"  >
+            <!-- 轮播图 -->
+            <div  class=" slide-item "   v-bind:style="[{backgroundImage:'url('+imgUrl[imgUrl.length-1].url+')',height:getClientHeight(),left:-100+'%'},transitionStyle]" > </div>
+            <div v-for="(item,index) in imgUrl"  :key='index'  class=" slide-item "  v-bind:style="[{backgroundImage:'url('+item.url+')',height:getClientHeight(),left:index*100+'%'},transitionStyle]" >
+             </div>
+            <div  class=" slide-item "  v-bind:style="[{backgroundImage:'url('+imgUrl[0].url+')',height:getClientHeight(),left:imgUrl.length*100+'%'},transitionStyle]" > </div>
+           <!-- 控制轮播图左右移动 -->
+            <div class="slide-button-wrap">
+                 <div class="number">
+                     <span class="currentindex">{{currentIndex+1}}</span>
+                     <span class="item-count">/{{imgUrl.length}}</span>
+                 </div>
+                 <div class="choise-button" >
+                    <div class="left" @click="leftMove">
+                    </div>
+                   <div class="right" @click="rightMove">
+                   </div>
+                </div>
+            </div>     
+           <!--轮播图信息  -->
+           <div class="line-wrap" >
+                <div class="line-left" v-bind:class="{'init': isTure, 'left-move': !isTure}" >
+                    <a href="#" >{{imgUrl[currentIndex].leftContent}}</a>
+                </div>
+                <div class="line-right" v-bind:class="{'init': isTure, 'right-move': !isTure}" >
+                    <a href="#">{{imgUrl[currentIndex].rightContent}}</a>
+                </div>
+            </div> 
+
+        </div>
+        
+        <!-- 展示新手入门标题信息导航 -->
+        <div id="container" class="container-wrap">
+            <div class="container-top-wrap">
+                <div class="container-top">
+                <h3>新手入门</h3>
+                <p>从这里，走近霹雳，<br>
+                了解霹雳，喜欢上霹雳。</p>
+                </div>
+            </div>
+            <div class="container-show">
+                <ul>
+                    <li class="container-item" v-bind:style="{width:+getItemWidth(index)+'%',}" v-for="(item,index) in  containerList" @mousemove="show(index)">
+                        <div class="number" >{{'0'+ (index+1)}}</div>
+                        <div class="hd" v-show="index==currentIndex">
+                               <p>
+                                    <span class="char" v-for="char in item.title">{{char}}</span>
+                               </p>
+                        </div>
+                        <span>/</span>
+                        <div class="title">
+                            <p>{{item.title}}</p>
+                        </div>
+                        <a href="#" v-bind:style="{backgroundImage:'url('+getBGImage(index)+')',}">
+                            <img  class="item-img" v-bind:src="item.imgUrl"  alt="" v-show="index==currentIndex">
+                        </a>
+                        <span>/</span>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+
+        <!-- 展示重要新闻 -->
+        <div id="news" class="news-wrap">
+            <div class="news-top-wrap">
+                <div class="news-top">
+                    <h3>霹雳新闻</h3>
+                </div>
+            </div>
+            <div class="news-show">
+                <div class="left-wrap">
+                    <div class="left-top news-item">
+                        <a href="#">
+                            <img src="../public/images/2.jpg" alt="">
+                            <p>霹雳布袋戏走进东方卫视《喝彩中华》！霍尊、方芳、王佩瑜等嘉宾坐阵！</p>
+                        </a>
+                    </div>
+                    <div class="left-bottom news-item">
+                        <a href="#">
+                            <img src="../public/images/69ab5d1bly1fzt2uveltij21400u0wva.jpg"  alt="">
+                            <p>广东卫视《木偶总动员》2月15日21:10！霹雳群侠齐上阵！</p>
+                        </a>
+                    </div>
+        
+                </div>
+                <div class="right-wrap">
+                    <div class="right-top news-item">
+                        <a href="#">
+                            <img src="../public/images/slide3.jpg"  alt="">
+                            <p>《刀说异数》每周三晚7点！bilibili独家播出！</p>
+                        </a>
+                    </div>
+                    <div class="right-bottom news-item">
+                        <a href="#">
+                            <p>《霹雳英雄战纪之刀说异数》正式预告曝光！</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="news-bottom-wrap"  style="text-align:right">
+                    <a href="#">
+                        <p class="news-more">更多新闻</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="reco-wrap">
+            <div class="reco-top-wrap">
+                    <h3>霹雳剧集</h3>
+            </div>
+            <div class="reco-show" id="reco">
+                <ul>
+                    <li class="reco-item" v-for="(item,index) in textList" :key="index">
+                        <div class="reco-img">
+                            <a href="#">
+                                <img :src="item.imgUrl" alt="">
+                            </a>
+                        </div>
+                        <div class="text">
+                            <p class="text-title">{{item.title}}</p>
+                            <p class="text-content">{{item.content}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+</body>
+<script src="../public/js/vue.js"></script>
+<script>
+    var slideshow=new Vue({
+        el:'#slideshow',
+        data:{
+            imgUrl:[
+               {url:'../public/images/slide1.jpg',
+               leftContent:'《东离剑游纪》插画大赛11.1开启！',
+               rightContent:'10月1日 优酷独播！'
+              },
+               {url:'../public/images/slide2.jpg', 
+               leftContent:'《霹雳魔封》2018年末新档大戏 11.23强势上线',
+               rightContent:'霹雳视频会员活动开启！'},
+               {url:'../public/images/slide3.jpg', 
+               leftContent:'霹雳英雄战纪之刀说异数  普通话版',
+               rightContent:'刀说异数-重启篇！'},
+            ],
+            isTure:false,
+            currentIndex:0,
+            distance:0, //图片移动的距离
+            maxdistance:0,
+            mixdistance:0,
+            transitionStyle:{},
+            scale:100, //移到的距离增加的比例为1倍即100%
+        },
+        created:function(){
+            this.maxDistance=100;
+            this.minDistance=-this.imgUrl.length*this.scale;   
+            this.autoPlay();
+        },
+        methods:{
+            timer:function(){},
+            autoPlay:function(){
+                var _this=this;
+                this.timer=setInterval(function(){
+                     _this.rightMoveAll();
+                },5000);
+            },
+            moveDistance:function(distance,style){
+                this.distance+=distance;
+                this.transitionStyle={
+                transition: style,
+                transform:'translateX('+this.distance+'%)',
+                };
+            },
+            rightMoveAll:function(){
+                setTimeout(() => {
+                    this.isTure=true;                    
+                }, 300);
+                setTimeout(() => {
+                    this.currentIndex++;
+                    if(this.currentIndex>=this.imgUrl.length){
+                        this.currentIndex=0;
+                    }
+                    this.isTure=false;                    
+                }, 700);
+                if(this.distance<=this.minDistance){
+                    setTimeout(() => {
+                       this.moveDistance(-this.scale,'transform 1s ease-in-out');
+                    }, 100);
+                     this.distance=0;
+                     this.moveDistance(0,'none');
+                    return;
+                }
+                this.moveDistance(-this.scale,'transform 1s ease-in-out');
+            },
+            leftMoveAll:function(){
+                setTimeout(() => {
+                    this.isTure=true;                    
+                }, 300);
+                setTimeout(() => {
+                    this.currentIndex--;
+                    if(this.currentIndex<0){
+                        this.currentIndex=this.imgUrl.length-1;
+                    }
+                    this.isTure=false;                    
+                }, 700);
+                if(this.distance>=this.maxDistance){
+                    setTimeout(() => {
+                       this.moveDistance(this.scale,'transform 1s ease-in-out');
+                    }, 100);
+                     this.distance=this.minDistance+this.scale;
+                     this.moveDistance(0,'none');
+                    return;
+                }
+                this.moveDistance(this.scale,'transform 1s ease-in-out');
+            },
+            rightMove:function(){
+                clearInterval(this.timer);
+                this.rightMoveAll();
+                this.autoPlay();
+            },
+            leftMove:function(){
+                clearInterval(this.timer);
+                this.leftMoveAll();
+                this.autoPlay();
+            },
+            getClientHeight:function(){
+                var clientHeight=0;
+                if (window.innerHeight)
+                clientHeight = window.innerHeight;
+                else if ((document.body) && (document.body.clientHeight))
+                clientHeight = document.body.clientHeight;
+                return clientHeight+'px';
+            },
+        
+        },
+    })
+    
+    var container=new Vue({
+        el:'#container',
+        data:{
+            containerList:[
+                {title:'霹雳世界',imgUrl:'../public/images/new1.png'},
+                {title:'霹雳人物',imgUrl:'../public/images/new2.png'},
+                {title:'霹雳音乐',imgUrl:'../public/images/new3.png'},
+                {title:'霹雳武器',imgUrl:'../public/images/new4.png'},
+                {title:'霹雳图库',imgUrl:'../public/images/new5.png'},
+            ],
+            currentIndex:0,
+            itemMaxWidth:33.3,
+            itemMinWidth:16.6,
+            itemBGImag:'../public/images/download.png',
+        },
+        methods:{
+            show:function(index){
+                this.currentIndex=index;
+            },
+            getItemWidth:function(index){
+                if(this.currentIndex==index)
+                return this.itemMaxWidth;
+                else
+                return this.itemMinWidth;
+            },
+            getBGImage:function(index){
+                if(this.currentIndex==index)
+                return this.itemBGImag;
+                else
+                return '';
+            }
+
+        }
+    })
+ 
+    var rcco=new Vue({
+        el:'#reco',
+        data:{
+            textList:[
+                {imgUrl:'../public/images/text1.jpg',title:'霹雳天命之战祸邪神',content:'\
+	                                      八部齐现神州荡，道法顶峰染秋水，无欲脱俗谈文武，龙脑再扬圣龙威\
+                                    人觉非常君的阴谋算计，使得奉天逍遥以及一页书等武林栋梁惨亏其手下，一一陨落，血闇之力更被其利用，\
+                                    造成神州的空前危机。此时，潜藏在神州的危机也一一爆发，天邪八部众陆续问世，踏...  \ '},
+                {imgUrl:'../public/images/text2.jpg',title:'霹雳天命之战祸邪神Ⅱ破邪传',content:' 邪神觉醒神州动，梵天救世纳天命，心在人间莫言悔，神愆御命帝龙行。\
+武林动乱不止，八部众群起进攻，御天者号令众人侵略神州。云海仙门、德风古道、道武王谷，武林群侠挺身而出，剑子仙迹、谈无欲、云徽子、玉离经众人力战天邪八部众，双方互有胜负，也使...                            '},
+                {imgUrl:'../public/images/text3.jpg',title:'霹雳惊涛',content:'末日终章，最终圣战，为消灭厄祸之初，一页书完全激发血闇之能，成就近神之威，八歧邪神，百世经纶，无间地狱上的对决，空前霹雳。\
+八歧邪神释放邪气，遍及神州武林，邪染无数苍生，而剑子仙迹、奉天逍遥、青阳子、云徽子等正道栋梁，此时皆受重创，天下之...             '},
+                {imgUrl:'../public/images/text4.jpg',title:'霹雳天命之仙魔鏖锋Ⅱ斩魔录',content:' 末日十七殉道行，厄祸之始鬼神惊。\
+风云尽写斩魔录，邪心魔佛动苍穹。\
+武林风云卷动，瞬息万变。有生之莲解锋镝为了挽救一线生，决意挺身一探险境。解锋镝在夸幻之父身上寄下武林希望，随后牵制斡旋各方势力，最终踏上仙脚之巅，化为清香白莲\素还真，在云...                                ',},
+                {imgUrl:'../public/images/text5.jpg',title:'霹雳魔封',content:' 龙脑青阳子久违再出，挺身率领圣龙口一战来自炽炼界的异魔者六弒荒魔！乱世之秋，三教再出，佛剑分说与剑子仙迹、疏楼龙宿，三人即将再续三教顶峰之会。面对三教之战，莫召奴、谈无欲、净琉璃又要如何力挽狂澜？欲知一连串精彩结果，尽在霹雳魔封。'}
+            ]
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../public/css/reset.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="/public/images/icon/favicon.png">
+    <title>注册</title>
+    <style>
+        body {
+            background-image: url('../public/images/login/login_bg.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% auto;
+        }
+
+        @media only screen and (max-width:1000px) {
+            body {
+                background-size: auto auto;
+                background-position: 0 0;
+            }
+        }
+        .login{
+            width:400px;
+            margin:70px auto;
+            color:white;
+            background-color:rgba(33,55,55, 0.7);
+            padding:40px;
+        }
+        .form>div{
+            margin-top:30px;
+            /* margin-left: 30px; */
+        }
+        .submit{
+            border:none;
+            color:black;
+        }
+        header{
+            height:70px;
+            background-color:#0d0a26;
+            padding:0 30px;
+        }
+       
+        .logo>.login-link{
+            width:140px;
+            height:70px;
+            background-image: url('../public/images/header-logo.png') ;
+            background-repeat:no-repeat;
+            background-size:cover;
+        }
+       .back{
+           width:140px;
+           height:35px;
+           vertical-align:150%;
+           margin-left:20px;
+       }
+       .captcha-img{
+           display: inline-block;
+            width: 143px;
+            height: 46px;
+            background-color: white;
+       }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="/" class="login-link"></a>
+            <a href="/" class="back">返回首页</a>
+        </div>
+    </header>
+    <div class="login">
+        <form action="/register" method="POST" class="form">
+            <div class="user">
+                <label>账号：</label><input name="username" type="text">
+            </div>
+            <div class="password">
+                    <label>密码：</label><input name="password" type="password">
+            </div>
+            <div class="again-password">
+                    <label>再次输入密码：</label><input name="passwordAgain" type="password">
+            </div>
+            <div class="captcha">
+                    <label>验证码</label><input name="captcha" type="text">
+                    <img src="/captcha" alt="" class="captcha-img" onclick="this.src='/captcha?'+new Date()" id="captcha-img">
+            </div>
+            <div class="button">
+                 <button class="submit" type="submit">点击注册</button>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+   
+</script>
+</html>

@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>霹雳布袋戏</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/public/images/icon/favicon.png">
     <link href="../public/css/reset.css" rel="stylesheet">
-    <link rel="stylesheet" id="pili-style-css" href="http://www.pilicn.com/wp-content/themes/pili/assets/app/css/style.css?ver=4.9.8"
-        type="text/css" media="all">
     <style>
         html,
         body {
@@ -60,11 +59,9 @@
         .nav-menu {
             display: flex;
             display: -webkit-flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-around;
         }
-
-
 
         .login-box {
             display: flex;
@@ -262,7 +259,7 @@
         /* 展示新手入门标题信息导航 */
         .container-wrap {
             position: relative;
-            height: 920px;
+            min-height: 920px;
             background-image: url('../public/images/container-top.png');
         }
 
@@ -309,11 +306,9 @@
             -webkit-transition: width .2s ease-in;
             -moz-transition: width .2s ease-in;
         }
-        .container-item:first-child,.container-item:nth-child(4) {
-          border-left: none;
-        }
-        .container-item:nth-child(4),.container-item:nth-child(5) {
-            border-top: 5px solid white;
+
+        .container-item:first-child {
+            border-left: none;
         }
 
         .container-item {
@@ -458,7 +453,17 @@
             margin-left: 30%;
             margin-top: 20px;
         }
-
+        .news-wrap::after{
+            /* content: '';
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 400px;
+            bottom: -1px;
+            z-index: 2;
+            background-image: url('../public/images/news-bottom-bg.jpg');
+            background-size: cover; */
+        }
         .news-show .right-wrap {
             position: absolute;
             width: 35%;
@@ -542,8 +547,61 @@
             right: 200px;
             z-index: 1000;
         }
+        footer{
+            background-color:black;
+            padding: 60px 40px;
+        }
+        .footer-wrap{
+            display:flex;
+            justify-content: space-around;
 
-
+        }
+        .footer-logo>.logo-link {
+                width: 140px;
+                height: 70px;
+                margin-left: 20px;
+                background: url('../public/images/header-logo.png') no-repeat;
+                background-size: 100% 100%;
+                text-indent: -1000px;
+            }
+        .footer-nav .menu-item>ul{
+            display: block;
+            position:static;
+        }    
+        .footer-nav .sub-menu-item>a{
+            color:#5e5e5e;
+        }    
+        .footer-nav .menu-item{
+            position: static;
+            display:flex;
+            width:100px;
+            flex-wrap: wrap;
+        }
+        .footer-nav .sub-menu-item:hover>a {
+            color: #bb3623;
+        }
+        .share>a{
+            width:50px;
+            height: 30px;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+        .share>a:nth-child(1){
+            background-image:url('../public/images/share1.png');
+        }
+        .share>a:nth-child(2){
+            background-image:url('../public/images/share2.png');
+        }
+        .share>a:nth-child(3){
+            background-image:url('../public/images/share3.png');
+        }
+        .share>a:nth-child(4){
+            background-image:url('../public/images/share4.png');
+        }
+        .addr{
+            color:#5e5e5e;
+        }
+       
         @media only screen and (max-width:1100px) {
             .container-show {
                 width: 90%;
@@ -552,16 +610,17 @@
         }
 
         @media only screen and (max-width:1030px) {
-            .header-wrap {
-                width: 100%;
-            }
-            .news-show,
             .reco-show .reco-item {
+                width:90%;
+            }
+            .news-show, .header-wrap,
+             .reco-item {
                 width: 100%;
             }
             .menu-item {
                 margin-left: 1em;
             }
+
         }
 
         @media only screen and (max-width:850px) {
@@ -573,7 +632,7 @@
                 justify-content: space-between;
                 background-color: black;
             }
-            .header-nav {
+            .header-nav ,.footer-nav{
                 font-size: 2em;
                 height: 100%;
             }
@@ -588,9 +647,29 @@
                 0px 30px 0px 2px white;
             }
             .container-show>ul {
-            flex-wrap:wrap;
+                flex-wrap: wrap;
+            }
+            .container-item:nth-child(4),
+            .container-item:nth-child(5) {
+                border-top: 5px solid white;
+            }
+            .container-item:nth-child(4) {
+                border-left: none;
+            }
+            .container-wrap {
+            min-height: 1300px;
         }
-
+            .container-item .item-img {
+                height: auto;
+                bottom:0;
+            }
+            .container-item>.hd{
+                top:0;
+            }
+            .hd>p{
+                font-size: 1.2em;
+                top:3em;
+            }
             .menu-button {
                 position: relative;
                 width: 40px;
@@ -657,9 +736,58 @@
                 background: url('../public/images/header-logo.png') no-repeat;
                 background-size: 100% 100%;
             }
-            .nav-menu>li {}
+            .news-show>.left-wrap, .news-show .right-wrap {
+                width: 90%;
+                margin:0 auto;
+            }
+            .news-item,.left-wrap>.left-bottom{
+                width: 100%;
+                margin-left: 0;
+            }
+            .right-wrap>.right-bottom,
+            .right-wrap>.right-top{
+                margin-top:20px;
+            }
+            .news-show .right-wrap {
+                position: static;
+            }
+            .reco-img-wrap a,.reco-item .text{
+               width: 280px;
+            }
+           
+           
+        }
+        @media only screen and (max-width:650px) {
+            .reco-show{
+                height: 1200px;
+            }
+            .reco-show .reco-item{
+                display: block;
+            }
+            .reco-img-wrap a,.reco-item .text{
+                width:100%;
+            }
+            .reco-item .text{
+                margin-top:160px;
+            }
+            .reco-show>.contro{
+                bottom: 275px;
+                right:50px;
+            }
+        }
+        @media only screen and (max-width:580px) {
+            .reco-show{
+                height: 1000px;
+            }
+            .reco-show .reco-item{
+                width:75%;
+            }
+            .reco-show>.contro{
+                bottom:10px;
+            }
         }
     </style>
+
 </head>
 
 <body>
@@ -713,8 +841,8 @@
                     </ul>
                 </nav>
                 <div class="login-box">
-                    <div class="login"><a href="#">登陆</a></div>
-                    <div class="register"><a href="#">注册</a></div>
+                    <div class="login"><a href="/login">登陆</a></div>
+                    <div class="register"><a href="/register">注册</a></div>
                 </div>
             </div>
 
@@ -732,8 +860,8 @@
         <!-- 控制轮播图左右移动 -->
         <div class="slide-button-wrap">
             <div class="number">
-                <span class="currentindex">{{currentIndex+1}}</span>
-                <span class="item-count">/{{imgUrl.length}}</span>
+                <span class="currentindex">${currentIndex+1}</span>
+                <span class="item-count">/${imgUrl.length}</span>
             </div>
             <div class="choise-button">
                 <div class="left" @click="leftMove">
@@ -745,10 +873,10 @@
         <!--轮播图信息  -->
         <div class="line-wrap">
             <div class="line-left" v-bind:class="{'init': isTure, 'left-move': !isTure}">
-                <a href="#">{{imgUrl[currentIndex].leftContent}}</a>
+                <a href="#">${imgUrl[currentIndex].leftContent}</a>
             </div>
             <div class="line-right" v-bind:class="{'init': isTure, 'right-move': !isTure}">
-                <a href="#">{{imgUrl[currentIndex].rightContent}}</a>
+                <a href="#">${imgUrl[currentIndex].rightContent}</a>
             </div>
         </div>
 
@@ -759,7 +887,6 @@
         <div class="container-top-wrap">
             <div class="container-top">
                 <h3>新手入门</h3>
-                <p>{{screenWidth}}</p>
                 <p>从这里，走近霹雳，<br> 了解霹雳，喜欢上霹雳。
                 </p>
             </div>
@@ -767,15 +894,15 @@
         <div class="container-show">
             <ul>
                 <li class="container-item" v-bind:style="{width:+getItemWidth(index)+'%',}" v-for="(item,index) in  containerList" @mousemove="show(index)">
-                    <div class="number">{{'0'+ (index+1)}}</div>
+                    <div class="number">${'0'+ (index+1)}</div>
                     <div class="hd" v-show="index==currentIndex">
                         <p>
-                            <span class="char" v-for="char in item.title">{{char}}</span>
+                            <span class="char" v-for="char in item.title">${char}</span>
                         </p>
                     </div>
                     <span>/</span>
                     <div class="title">
-                        <p>{{item.title}}</p>
+                        <p>${item.title}</p>
                     </div>
                     <a href="#" v-bind:style="{backgroundImage:'url('+getBGImage(index)+')',}">
                         <img class="item-img" v-bind:src="item.imgUrl" alt="" v-show="index==currentIndex">
@@ -830,7 +957,7 @@
             </div>
         </div>
     </div>
-
+<!-- 霹雳剧集简介 导览 -->
     <div class="reco-wrap">
         <div class="reco-top-wrap">
             <h3>霹雳剧集</h3>
@@ -845,8 +972,8 @@
                         </a>
                     </div>
                     <div class="text" :style="{'display':isShow(index),}">
-                        <p class="text-title">{{item.title}}</p>
-                        <p class="text-content">{{item.content}}</p>
+                        <p class="text-title">${item.title}</p>
+                        <p class="text-content">${item.content}</p>
                     </div>
                 </li>
             </ul>
@@ -861,6 +988,64 @@
         </div>
 
     </div>
+
+    <!-- 网站底部 -->
+    <footer class="footer">
+        <div class="footer-wrap">
+            <h1 class="footer-logo">
+                <a href="#" class="logo-link">霹雳布袋戏</a>
+            </h1>
+            <nav class="footer-nav ">
+                <ul class="nav-menu">
+                    <li class="menu-item"><a href="#">霹雳周边</a>
+                        <ul>
+                            <li class="sub-menu-item"><a href="#">霹雳商品馆</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><a href="#">霹雳资料库</a>
+                        <ul>
+                            <li class="sub-menu-item"><a href="#">霹雳人物</a></li>
+                            <li class="sub-menu-item"><a href="#">霹雳图库</a></li>
+                            <li class="sub-menu-item"><a href="#">霹雳武器</a></li>
+                            <li class="sub-menu-item"><a href="#">霹雳商店</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><a href="#">资讯中心</a>
+                        <ul>
+                            <li class="sub-menu-item"><a href="#">霹雳活动</a></li>
+                            <li class="sub-menu-item"><a href="#">霹雳新闻</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><a href="#">关于我们</a>
+                        <ul>
+                            <li class="sub-menu-item"><a href="#">了解我们</a></li>
+                            <li class="sub-menu-item"><a href="#">霹雳文化</a></li>
+                            <li class="sub-menu-item"><a href="#">霹雳大事件</a></li>
+                            <li class="sub-menu-item"><a href="#">联系我们</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><a href="#">新手入门</a>
+                        <ul>
+                            <li class="sub-menu-item"><a href="#">霹雳世界</a></li>
+                            <li class="sub-menu-item"><a href="#">霹雳人物</a></li>
+                            <li class="sub-menu-item"><a href="#">霹雳音乐</a></li>
+                            <li class="sub-menu-item"><a href="#">霹雳图库</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="concet">
+                <div class="share">
+                    <a href="#"></a>
+                    <a href="#"></a>
+                    <a href="#"></a>
+                    <a href="#"></a>
+                </div>
+                <div class="addr">上海市徐汇区桂平路353号2号楼</div>
+            </div>
+        </div>
+    
+    </footer>
 </body>
 <script src="../public/js/vue.js"></script>
 <script>
@@ -884,6 +1069,7 @@
     });
 
     var slideshow = new Vue({
+        delimiters: ['${', '}'],
         el: '#slideshow',
         data: {
             imgUrl: [
@@ -914,7 +1100,7 @@
         created: function () {
             this.maxDistance = 100;
             this.minDistance = -this.imgUrl.length * this.scale;
-            // this.autoPlay();
+            this.autoPlay();
         },
         methods: {
             timer: function () { },
@@ -995,6 +1181,7 @@
     })
 
     var container = new Vue({
+        delimiters: ['${', '}'],
         el: '#container',
         data: {
             containerList: [
@@ -1007,9 +1194,9 @@
             currentIndex: 0,
             itemMaxWidth: 33.3,
             itemMinWidth: 16.6,
-            screenWidth:0,
-            screenHeight:0,
-            containerWidth:839,
+            screenWidth: 0,
+            screenHeight: 0,
+            containerWidth: 850,
             itemBGImag: '../public/images/download.png',
         },
 
@@ -1028,10 +1215,10 @@
                 this.currentIndex = index;
             },
             getItemWidth: function (index) {
-                if(this.screenWidth<=this.containerWidth){
-                    if(index<3){
+                if (this.screenWidth <= this.containerWidth) {
+                    if (index < 3) {
                         return this.itemMaxWidth;
-                    }else{
+                    } else {
                         return 50;
                     }
                 }
@@ -1052,6 +1239,7 @@
     })
 
     var reco = new Vue({
+        delimiters: ['${', '}'],
         el: '#reco',
         data: {
             textList: [
@@ -1139,6 +1327,8 @@
             }
         }
     })
+
+
 </script>
 
 </html>

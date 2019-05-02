@@ -1,54 +1,36 @@
-var clickCount = 0;
-var menuButton = document.querySelector('.menu-button');
-menuButton.addEventListener('click', function (event) {
-    var target = event.target, navMenu = document.querySelector('.nav-menu'), body = document.body;
-    clickCount++;
-    if (clickCount % 2 == 1) {
-        target.classList.remove("icon-menu");
-        target.classList.add("icon-close");
-        navMenu.style.display = 'block';
-        body.classList.add("body-full");
-    } else {
-        target.classList.remove("icon-close");
-        target.classList.add("icon-menu");
-        navMenu.style.display = 'none';
-        body.classList.remove("body-full");
-    }
 
-});
 
 var slideshow = new Vue({
     delimiters: ['${', '}'],
     el: '#slideshow',
     data: {
         imgUrl: [
-            {
-                url: '../public/images/slide1.jpg',
-                leftContent: '《东离剑游纪》插画大赛11.1开启！',
-                rightContent: '10月1日 优酷独播！'
-            },
-            {
-                url: '../public/images/slide2.jpg',
-                leftContent: '《霹雳魔封》2018年末新档大戏 11.23强势上线',
-                rightContent: '霹雳视频会员活动开启！'
-            },
-            {
-                url: '../public/images/slide3.jpg',
-                leftContent: '霹雳英雄战纪之刀说异数  普通话版',
-                rightContent: '刀说异数-重启篇！'
-            },
+            // {
+            //     url: '../public/images/slide1.jpg',
+            //     leftContent: '《东离剑游纪》插画大赛11.1开启！',
+            //     rightContent: '10月1日 优酷独播！'
+            // },
+            // {
+            //     url: '../public/images/slide2.jpg',
+            //     leftContent: '《霹雳魔封》2018年末新档大戏 11.23强势上线',
+            //     rightContent: '霹雳视频会员活动开启！'
+            // },
+            // {
+            //     url: '../public/images/slide3.jpg',
+            //     leftContent: '霹雳英雄战纪之刀说异数  普通话版',
+            //     rightContent: '刀说异数-重启篇！'
+            // },
         ],
         isTure: false,
         currentIndex: 0,
         distance: 0, //图片移动的距离
-        maxdistance: 0,
-        mixdistance: 0,
+        minDistance: 0,
+        maxDistance: 0,
         transitionStyle: {},
         scale: 100, //移到的距离增加的比例为1倍即100%
     },
     created: function () {
         this.maxDistance = 100;
-        this.minDistance = -this.imgUrl.length * this.scale;
         this.autoPlay();
     },
     methods: {
@@ -112,6 +94,8 @@ var slideshow = new Vue({
             this.moveDistance(this.scale, 'transform 1s ease-in-out');
         },
         rightMove: function () {
+        this.minDistance = -this.imgUrl.length * this.scale;
+
             clearInterval(this.timer);
             this.rightMoveAll();
             this.autoPlay();
@@ -130,7 +114,7 @@ var slideshow = new Vue({
             return clientHeight + 'px';
         },
     },
-})
+}) 
 
 var container = new Vue({
     delimiters: ['${', '}'],
@@ -149,7 +133,7 @@ var container = new Vue({
         screenWidth: 0,
         screenHeight: 0,
         containerWidth: 850,
-        itemBGImag: '../public/images/download.png',
+        itemBGImag: '../public/images/bg.png',
     },
 
     mounted() {
@@ -227,9 +211,6 @@ var reco = new Vue({
         }
     },
     methods: {
-        prePage: function (index) {
-
-        },
         isShow: function (index) {
             return index == this.currentIndex ? 'block' : 'none';
         },
@@ -239,6 +220,15 @@ var reco = new Vue({
             this.calculateZIndex();
             if (this.currentIndex < 0) {
                 this.preIndex = this.currentIndex = this.textList.length - 1;
+                return;
+            }
+        },
+        prePage:function(){
+            this.isBegin = false;
+            this.preIndex = this.currentIndex++;
+            this.calculateZIndex();
+            if (this.currentIndex >this.textList.length-1) {
+                this.preIndex = this.currentIndex = 0;
                 return;
             }
         },

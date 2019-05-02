@@ -1,0 +1,24 @@
+{% extends 'models/base.html' %}
+{% block style %}
+<style>
+    .content{
+        height: 460px;
+        background-image:url('/public/images/bg.jpg');
+    }
+    .text{
+        width:300px;
+        margin:0 auto;
+        padding-top: 200px;
+    }
+</style>
+{% endblock %}
+{% block main %}
+<div class="content">
+    <div class="text">
+            内容区
+            {{data.title}}
+    </div>
+   
+</div>
+
+{% endblock %}

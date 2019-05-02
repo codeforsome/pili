@@ -9,12 +9,14 @@ var imgFile = {
 }
 
 exports.getAdmin = function (req, res, next) {
-    res.render('admin/dist/component/layout_top.html')
+    res.render('admin/dist/component/layout_top.html',{
+        title:'管理员首页',
+    })
 }
 
 exports.getSilideshow = function (req, res, next) {
     res.render('admin/dist/change_slideshow.html',{
-        text:23423,
+            title:'轮播图操作',
     })
 }
 
@@ -122,4 +124,32 @@ exports.addSlideshow = function (req, res, next) {
 
     });
 
+}
+
+exports.deleteSildeshow=function(req,res,next){
+    var id=req.query.id || '';
+    IndexSlideshow.findById(id).then(function(item){
+        if(item){
+            fs.exists('.' + item.url, function (exists) {
+                if (exists) {
+                    fs.unlink('.' + item.url, function (err) {
+                        if (err) {
+                            console.log("删除失败");
+                        } else { }
+                    });
+                } else {
+                    console.log("文件不存在")
+                }
+            })
+            IndexSlideshow.remove({
+                _id:id
+            },function(err,res){
+                if(err) {
+                    console.log('删除失败');
+                    res.send(utils.setResultData(false, "删除失败", null));
+                }
+            })
+            res.send(utils.setResultData(true, "删除成功", null));
+        }
+    });
 }

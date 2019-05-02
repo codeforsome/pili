@@ -1,275 +1,158 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!-- 一些资料产品展示通用的页面模板 -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>霹雳布袋戏</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/public/images/icon/favicon.png">
-    <link href="../public/css/reset.css" rel="stylesheet">
-    <link href="../public/css/index.css" rel="stylesheet">
-
-</head>
-
-<body>
-    <!-- 头部导航栏和登陆 -->
-    <header>
-        <div class="header-wrap">
-            <h1 class="header-logo">
-                <a href="#" class="logo-link">霹雳布袋戏</a>
-            </h1>
-            <div class="header-nav-wrap">
-                <nav class="header-nav ">
-                    <div class="menu-button icon-menu" title="菜单"></div>
-                    <ul class="nav-menu">
-                        <li class="menu-item"><a href="#">首页</a></li>
-                        <li class="menu-item"><a href="#">霹雳剧集</a></li>
-                        <li class="menu-item"><a href="#">霹雳周边</a>
-                            <ul>
-                                <li class="sub-menu-item"><a href="#">霹雳商品馆</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item"><a href="#">霹雳资料库</a>
-                            <ul>
-                                <li class="sub-menu-item"><a href="#">霹雳人物</a></li>
-                                <li class="sub-menu-item"><a href="#">霹雳图库</a></li>
-                                <li class="sub-menu-item"><a href="#">霹雳武器</a></li>
-                                <li class="sub-menu-item"><a href="#">霹雳商店</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item"><a href="#">资讯中心</a>
-                            <ul>
-                                <li class="sub-menu-item"><a href="#">霹雳活动</a></li>
-                                <li class="sub-menu-item"><a href="#">霹雳新闻</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item"><a href="#">关于我们</a>
-                            <ul>
-                                <li class="sub-menu-item"><a href="#">了解我们</a></li>
-                                <li class="sub-menu-item"><a href="#">霹雳文化</a></li>
-                                <li class="sub-menu-item"><a href="#">霹雳大事件</a></li>
-                                <li class="sub-menu-item"><a href="#">联系我们</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item"><a href="#">新手入门</a>
-                            <ul>
-                                <li class="sub-menu-item"><a href="#">霹雳世界</a></li>
-                                <li class="sub-menu-item"><a href="#">霹雳人物</a></li>
-                                <li class="sub-menu-item"><a href="#">霹雳音乐</a></li>
-                                <li class="sub-menu-item"><a href="#">霹雳图库</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="login-box">
-                    <div class="login"><a href="/login">登陆</a></div>
-                    <div class="register"><a href="/register">注册</a></div>
-                </div>
-            </div>
-
-        </div>
-    </header>
-
-    <div id="slideshow"  class="slideshow-wrap" v-bind:style="{height:getClientHeight()}">
-        <!-- 轮播图 -->
-        <div class=" slide-item " @mouseover="stopPlay" @mouseout="autoPlay" v-bind:style="[{backgroundImage:'url('+imgUrl[imgUrl.length-1].url+')',height:getClientHeight(),left:-100+'%'},transitionStyle]">
-        </div>
-        <div v-for="(item,index) in imgUrl" @mouseover="stopPlay" @mouseout="autoPlay" :key='index' class=" slide-item " v-bind:style="[{backgroundImage:'url('+item.url+')',height:getClientHeight(),left:index*100+'%'},transitionStyle]">
-        </div>
-        <div class=" slide-item " @mouseover="stopPlay" @mouseout="autoPlay" v-bind:style="[{backgroundImage:'url('+imgUrl[0].url+')',height:getClientHeight(),left:imgUrl.length*100+'%'},transitionStyle]">
-        </div>
-        <!-- 控制轮播图左右移动 -->
-        <div class="slide-button-wrap">
-            <div class="number">
-                <span class="currentindex">${currentIndex+1}</span>
-                <span class="item-count">/${imgUrl.length}</span>
-            </div>
-            <div class="choise-button">
-                <div class="left" @click="leftMove">
-                </div>
-                <div class="right" @click="rightMove">
-                </div>
-            </div>
-        </div>
-        <!--轮播图信息  -->
-        <div class="line-wrap">
-            <div class="line-left" v-bind:class="{'init': isTure, 'left-move': !isTure}">
-                <a href="#">${imgUrl[currentIndex].leftContent}</a>
-            </div>
-            <div class="line-right" v-bind:class="{'init': isTure, 'right-move': !isTure}">
-                <a href="#">${imgUrl[currentIndex].rightContent}</a>
-            </div>
-        </div>
-
+{% extends 'models/base.html' %} {% block style %}
+<link href="/public/css/index.css" rel="stylesheet">
+ {% endblock %} 
+{% block main %}
+<div id="slideshow" class="slideshow-wrap" v-bind:style="{height:getClientHeight()}">
+    <!-- 轮播图 -->
+    <div class=" slide-item " @mouseover="stopPlay" @mouseout="autoPlay" v-bind:style="[{backgroundImage:'url('+imgUrl[imgUrl.length-1].url+')',height:getClientHeight(),left:-100+'%'},transitionStyle]">
     </div>
-
-    <!-- 展示新手入门标题信息导航 -->
-    <div id="container" class="container-wrap">
-        <div class="container-top-wrap">
-            <div class="container-top">
-                <h3>新手入门</h3>
-                <p>从这里，走近霹雳，<br> 了解霹雳，喜欢上霹雳。
-                </p>
+    <div v-for="(item,index) in imgUrl" @mouseover="stopPlay" @mouseout="autoPlay" :key='index' class=" slide-item " v-bind:style="[{backgroundImage:'url('+item.url+')',height:getClientHeight(),left:index*100+'%'},transitionStyle]">
+    </div>
+    <div class=" slide-item " @mouseover="stopPlay" @mouseout="autoPlay" v-bind:style="[{backgroundImage:'url('+imgUrl[0].url+')',height:getClientHeight(),left:imgUrl.length*100+'%'},transitionStyle]">
+    </div>
+    <!-- 控制轮播图左右移动 -->
+    <div class="slide-button-wrap">
+        <div class="number">
+            <span class="currentindex">${currentIndex+1}</span>
+            <span class="item-count">/${imgUrl.length}</span>
+        </div>
+        <div class="choise-button">
+            <div class="left" @click="leftMove">
+            </div>
+            <div class="right" @click="rightMove">
             </div>
         </div>
-        <div class="container-show">
-            <ul>
-                <li class="container-item" v-bind:style="{width:+getItemWidth(index)+'%',}" v-for="(item,index) in  containerList" @mousemove="show(index)">
-                    <div class="number">${'0'+ (index+1)}</div>
-                    <div class="hd" v-show="index==currentIndex">
-                        <p>
-                            <span class="char" v-for="char in item.title">${char}</span>
-                        </p>
-                    </div>
-                    <span>/</span>
-                    <div class="title">
-                        <p>${item.title}</p>
-                    </div>
-                    <a href="#" v-bind:style="{backgroundImage:'url('+getBGImage(index)+')',}">
-                        <img class="item-img" v-bind:src="item.imgUrl" alt="" v-show="index==currentIndex">
-                    </a>
-                    <span>/</span>
-                </li>
-
-            </ul>
+    </div>
+    <!--轮播图信息  -->
+    <div class="line-wrap">
+        <div class="line-left" v-bind:class="{'init': isTure, 'left-move': !isTure}">
+            <a href="#">${imgUrl[currentIndex].leftContent}</a>
+        </div>
+        <div class="line-right" v-bind:class="{'init': isTure, 'right-move': !isTure}">
+            <a href="#">${imgUrl[currentIndex].rightContent}</a>
         </div>
     </div>
 
-    <!-- 展示重要新闻 -->
-    <div id="news" class="news-wrap">
-        <div class="news-top-wrap">
-            <div class="news-top">
-                <h3>霹雳新闻</h3>
-            </div>
-        </div>
-        <div class="news-show">
-            <div class="left-wrap">
-                <div class="left-top news-item">
-                    <a href="#">
-                        <img src="../public/images/2.jpg" alt="">
-                        <p>霹雳布袋戏走进东方卫视《喝彩中华》！霍尊、方芳、王佩瑜等嘉宾坐阵！</p>
-                    </a>
-                </div>
-                <div class="left-bottom news-item">
-                    <a href="#">
-                        <img src="../public/images/69ab5d1bly1fzt2uveltij21400u0wva.jpg" alt="">
-                        <p>广东卫视《木偶总动员》2月15日21:10！霹雳群侠齐上阵！</p>
-                    </a>
-                </div>
+</div>
 
-            </div>
-            <div class="right-wrap">
-                <div class="right-top news-item">
-                    <a href="#">
-                        <img src="../public/images/slide3.jpg" alt="">
-                        <p>《刀说异数》每周三晚7点！bilibili独家播出！</p>
-                    </a>
+<!-- 展示新手入门标题信息导航 -->
+<div id="container" class="container-wrap">
+    <div class="container-top-wrap">
+        <div class="container-top">
+            <h3>新手入门</h3>
+            <p>从这里，走近霹雳，<br> 了解霹雳，喜欢上霹雳。
+            </p>
+        </div>
+    </div>
+    <div class="container-show">
+        <ul>
+            <li class="container-item" v-bind:style="{width:+getItemWidth(index)+'%',}" v-for="(item,index) in  containerList" @mousemove="show(index)">
+                <div class="number">${'0'+ (index+1)}</div>
+                <div class="hd" v-show="index==currentIndex">
+                    <p>
+                        <span class="char" v-for="char in item.title">${char}</span>
+                    </p>
                 </div>
-                <div class="right-bottom news-item">
-                    <a href="#">
-                        <p>《霹雳英雄战纪之刀说异数》正式预告曝光！</p>
-                    </a>
+                <span>/</span>
+                <div class="title">
+                    <p>${item.title}</p>
                 </div>
-            </div>
-            <div class="news-bottom-wrap" style="text-align:right">
+                <a href="#" v-bind:style="{backgroundImage:'url('+getBGImage(index)+')',}">
+                    <img class="item-img" v-bind:src="item.imgUrl" alt="" v-show="index==currentIndex">
+                </a>
+                <span>/</span>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+<!-- 展示重要新闻 -->
+<div id="news" class="news-wrap">
+    <div class="news-top-wrap">
+        <div class="news-top">
+            <h3>霹雳新闻</h3>
+        </div>
+    </div>
+    <div class="news-show">
+        <div class="left-wrap">
+            <div class="left-top news-item">
                 <a href="#">
-                    <p class="news-more">更多新闻</p>
+                    <img src="../public/images/2.jpg" alt="">
+                    <p>霹雳布袋戏走进东方卫视《喝彩中华》！霍尊、方芳、王佩瑜等嘉宾坐阵！</p>
+                </a>
+            </div>
+            <div class="left-bottom news-item">
+                <a href="#">
+                    <img src="../public/images/69ab5d1bly1fzt2uveltij21400u0wva.jpg" alt="">
+                    <p>广东卫视《木偶总动员》2月15日21:10！霹雳群侠齐上阵！</p>
+                </a>
+            </div>
+
+        </div>
+        <div class="right-wrap">
+            <div class="right-top news-item">
+                <a href="#">
+                    <img src="../public/images/slide3.jpg" alt="">
+                    <p>《刀说异数》每周三晚7点！bilibili独家播出！</p>
+                </a>
+            </div>
+            <div class="right-bottom news-item">
+                <a href="#">
+                    <p>《霹雳英雄战纪之刀说异数》正式预告曝光！</p>
                 </a>
             </div>
         </div>
+        <div class="news-bottom-wrap" style="text-align:right">
+            <a href="#">
+                <p class="news-more">更多新闻</p>
+            </a>
+        </div>
     </div>
+</div>
 <!-- 霹雳剧集简介 导览 -->
-    <div class="reco-wrap">
-        <div class="reco-top-wrap">
-            <h3>霹雳剧集</h3>
-        </div>
-
-        <div class="reco-show" id="reco">
-            <ul>
-                <li class="reco-item" :style="{'z-index':getZIndex(index),'top':getTop(index)+'px',}" v-for="(item,index) in textList" :key="index">
-                    <div class="reco-img-wrap">
-                        <a href="#">
-                            <img class="reco-img" :style="{'transform':'scale('+getSacle(index)+')',}" :src="item.imgUrl" alt="">
-                        </a>
-                    </div>
-                    <div class="text" :style="{'display':isShow(index),}">
-                        <p class="text-title">${item.title}</p>
-                        <p class="text-content">${item.content}</p>
-                    </div>
-                </li>
-            </ul>
-            <div class="contro">
-                <div class="choise-button">
-                    <div class="left" @click="prePage">
-                    </div>
-                    <div class="right" @click="nextPage">
-                    </div>
-                </div>
-            </div>
-        </div>
-
+<div class="reco-wrap">
+    <div class="reco-top-wrap">
+        <h3>霹雳剧集</h3>
     </div>
 
-    <!-- 网站底部 -->
-    <footer class="footer">
-        <div class="footer-wrap">
-            <h1 class="footer-logo">
-                <a href="#" class="logo-link">霹雳布袋戏</a>
-            </h1>
-            <nav class="footer-nav ">
-                <ul class="nav-menu">
-                    <li class="menu-item"><a href="#">霹雳周边</a>
-                        <ul>
-                            <li class="sub-menu-item"><a href="#">霹雳商品馆</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item"><a href="#">霹雳资料库</a>
-                        <ul>
-                            <li class="sub-menu-item"><a href="#">霹雳人物</a></li>
-                            <li class="sub-menu-item"><a href="#">霹雳图库</a></li>
-                            <li class="sub-menu-item"><a href="#">霹雳武器</a></li>
-                            <li class="sub-menu-item"><a href="#">霹雳商店</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item"><a href="#">资讯中心</a>
-                        <ul>
-                            <li class="sub-menu-item"><a href="#">霹雳活动</a></li>
-                            <li class="sub-menu-item"><a href="#">霹雳新闻</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item"><a href="#">关于我们</a>
-                        <ul>
-                            <li class="sub-menu-item"><a href="#">了解我们</a></li>
-                            <li class="sub-menu-item"><a href="#">霹雳文化</a></li>
-                            <li class="sub-menu-item"><a href="#">霹雳大事件</a></li>
-                            <li class="sub-menu-item"><a href="#">联系我们</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item"><a href="#">新手入门</a>
-                        <ul>
-                            <li class="sub-menu-item"><a href="#">霹雳世界</a></li>
-                            <li class="sub-menu-item"><a href="#">霹雳人物</a></li>
-                            <li class="sub-menu-item"><a href="#">霹雳音乐</a></li>
-                            <li class="sub-menu-item"><a href="#">霹雳图库</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-            <div class="concet">
-                <div class="share">
-                    <a href="#"></a>
-                    <a href="#"></a>
-                    <a href="#"></a>
-                    <a href="#"></a>
+    <div class="reco-show" id="reco">
+        <ul>
+            <li class="reco-item" :style="{'z-index':getZIndex(index),'top':getTop(index)+'px',}" v-for="(item,index) in textList" :key="index">
+                <div class="reco-img-wrap">
+                    <a href="#">
+                        <img class="reco-img" :style="{'transform':'scale('+getSacle(index)+')',}" :src="item.imgUrl" alt="">
+                    </a>
                 </div>
-                <div class="addr">上海市徐汇区桂平路353号2号楼</div>
+                <div class="text" :style="{'display':isShow(index),}">
+                    <p class="text-title">${item.title}</p>
+                    <p class="text-content">${item.content}</p>
+                </div>
+            </li>
+        </ul>
+        <div class="contro">
+            <div class="choise-button">
+                <div class="left" @click="prePage">
+                </div>
+                <div class="right" @click="nextPage">
+                </div>
             </div>
         </div>
-    
-    </footer>
-</body>
-<script src="/public/js/vue.js"></script>
+    </div>
+
+</div>
+
+{% endblock %} {% block js %}
 <script src="/public/js/index.js"></script>
 
-</html>
+<script>
+    Ajax.get('/data/slideshow', function (result) {
+        var data = JSON.parse(result);
+        for (var index in data) {
+            slideshow.imgUrl.push(data[index])
+        }
+    }
+    );
+</script> {% endblock %}

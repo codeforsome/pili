@@ -116,6 +116,7 @@
 
     .line-left>a,
     .line-right>a {
+        display: inline-block;
         width: 500px;
         height: 54px;
         background-size: 100% 100%;
@@ -125,7 +126,6 @@
     }
 
     .line-left>a {
-        text-align: left;
         padding-left: 2em;
         background-image: url('/public/images/line-left.png');
     }
@@ -149,13 +149,39 @@
         <button class="btn btn-primary " id="updataBtn" type="button" data-toggle="modal" data-target="#primaryModal">修改当前轮播图信息</button>
     </div>
     <div class="delete">
-        <a href="#">删除当前轮播图</a>
+        <button class="btn btn-primary " id="deleteBtn" type="button" data-toggle="modal" data-target="#dangerModal">删除当前轮播图</button>
     </div>
     <div class="add">
         <button class="btn btn-primary " id="addBtn" type="button" data-toggle="modal" data-target="#primaryModal">添加新的轮播图信息</button>
     </div>
 
 </div>
+<div class="modal fade" id="dangerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">删除</h4>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>确定删除当前轮播图信息？</p>
+                <p class="upload-tip" style="color:red"></p>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">不删除</button>
+                <button class="btn btn-danger" id="deleteDataBtn" type="button">确定删除</button>
+            </div>
+        </div>
+        <!-- /.modal-content-->
+    </div>
+    <!-- /.modal-dialog-->
+</div>
+
+
+
 <div class="modal fade " id="primaryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-primary" role="document">
         <div class="modal-content">
@@ -213,12 +239,13 @@
 
 {% endblock %} {% block script %}
 <script>
-
     var updataBtn = $("#updataBtn");
     var addBtn = $('#addBtn');
     var saveChange = $('#saveChange');
+    var deleteBtn = $("#deleteBtn");
     //定义修改框弹出事件
     $('#primaryModal').on('show.bs.modal', function (e) {
+        $('.upload-tip').html('');
         if (e.relatedTarget == addBtn[0]) {
             saveChange.on('click', function () {
                 uploadFile('/admin/add/slideshow');
@@ -229,6 +256,18 @@
             });
         }
     });
+    $('#deleteDataBtn').on('click', function () {
+        $.ajax({
+            url: '/admin/delete/slideshow?id='+slideshow.imgUrl[slideshow.currentIndex]._id,
+            type: 'get',
+            success: function (result) {
+                $('.upload-tip').html(result.msg);
+                setTimeout(() => {
+                    window.location.href = "";
+                }, 1000);
+            },
+        })
+    })
     //检查上传的文件是否为图片
     function checkIsImgFile(file, callback) {
         if (file) {
@@ -240,14 +279,14 @@
                     image.src = reader.result;
                     //图片读取事件
                     image.onload = function () {
-                        if (image.naturalHeight &&  image.naturalWidth) {
+                        if (image.naturalHeight && image.naturalWidth) {
                             callback(true);
                         } else {
                             callback(false);
                         }
                     }
                     //图片加载失败
-                    image.onerror=function(){
+                    image.onerror = function () {
                         callback(false);
                     }
                 };
@@ -257,6 +296,7 @@
         }
     }
     function uploadFile(reqUrl) {
+        var maxSize = 5 * 1024 * 1024;
         var formData = new FormData();
         var file = document.getElementById("img-file").files[0];
         var leftText = $('#leftText');
@@ -265,7 +305,22 @@
         formData.append("imgFile", file);
         formData.append('leftContent', leftText.val());
         formData.append('rightContent', rightText.val());
+        formData.append('imgId', slideshow.imgUrl[slideshow.currentIndex] ? slideshow.imgUrl[slideshow.currentIndex]._id : " ");
+        if (file) {
+            if (file.size > maxSize) {
+                $('.upload-tip').html('图片文件大小不能大于5M');
+                return;
+            }
+            var type = file.type.split('/')[1].toLowerCase();
+            if (type != 'png' && type != 'jpg' && type != 'jpeg') {
+                $('.upload-tip').html('上传的图片类型只能为jpg或者png格式');
+                return;
+            }
+        }
         checkIsImgFile(file, function (flag) {
+            if (!file) {
+                flag = true;
+            }
             if (flag) {
                 $.ajax({
                     url: reqUrl,

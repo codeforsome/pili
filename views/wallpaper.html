@@ -1,0 +1,142 @@
+{% extends 'models/showbase.html' %} {% block childstyle %}
+<style>
+   
+
+    .wallpaper-show {
+        width: 90%;
+        margin: 20px auto;
+    }
+
+    .wallpaper-show>.wallpaper-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .wallpaper-list>.wallpaper-item {
+        width: 45%;
+        margin-bottom: 20px;
+    }
+
+    .wallpaper-item>.wallpaper-link {
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    .wallpaper-item>.wallpaper-link::after {
+        content: '';
+        display: none;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(50, 60, 152, 0.89);
+    }
+
+    .wallpaper-item>.wallpaper-link:hover::after,
+    .wallpaper-item>.wallpaper-link:hover>.item-search-icon {
+        display: block;
+    }
+
+    .item-bottom {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px;
+    }
+
+    .item-bottom>.title {
+        font-size: 20px;
+        color: black;
+    }
+
+    .wallpaper-link>.wallpaper-img {
+        width: 100%;
+        height: auto;
+    }
+
+    .item-bottom>.down-img {
+        height: 20px;
+        line-height: 20px;
+        font-size: 18px;
+        color: #b1b1b1;
+        transition: color .6s;
+    }
+
+    .item-bottom>.down-img:hover {
+        color: #333;
+    }
+
+    .item-bottom>.down-img::after {
+        content: '';
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-image: url('/public/images/download.png');
+        background-size: 100% auto;
+    }
+
+    .item-search-icon {
+        display: none;
+        position: absolute;
+        width: 38px;
+        height: 38px;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 3;
+        background-image: url('/public/images/search2.png');
+        background-size: 100% auto;
+    }
+
+    @media only screen and (max-width:850px) {
+        .item-bottom>.title {
+            font-size: 16px;
+        }
+        .item-bottom>.down-img {
+            font-size: 14px;
+        }
+        .item-bottom>.down-img::after {
+            width: 12px;
+            height: 12px;
+        }
+
+    }
+</style>
+{% endblock %} {% block childmain %}
+<div class="wallpaper-show" id="wallpaper-link">
+      <span>  {{wallpaper.bgUrl}}</span>
+    <ul class="wallpaper-list">
+        <li class="wallpaper-item" v-for="(item,index) in wallpaperList">
+            <a class="wallpaper-link" href="#"><img class="wallpaper-img" :src="item.url" alt=""><i class="item-search-icon"></i></a>
+            <div class="item-bottom">
+                <span class="title">${item.title}</span>
+                <a href="#" class="down-img">下载：</a>
+            </div>
+        </li>
+
+    </ul>
+</div>
+
+{% endblock %} {% block childjs %}
+<script>
+    var wallpaper = new Vue({
+        delimiters: ['${', '}'],
+        el: '#wallpaper-link',
+        data: {
+            wallpaperList: [
+                { title: '空的哦名字', url: '/public/images/wallpaper1.jpg' },
+                { title: '空的哦名字', url: '/public/images/wallpaper2.jpg' },
+                { title: '空的哦名字', url: '/public/images/wallpaper3.jpg' },
+                { title: '空的哦名字', url: '/public/images/wallpaper4.jpg' },
+                { title: '空的哦名字', url: '/public/images/wallpaper5.jpg' },
+                { title: '空的哦名字', url: '/public/images/wallpaper6.jpg' },
+            ]
+        },
+        methods: {
+            wallpaperClick: function (event) {
+            },
+        }
+    });
+</script> {% endblock %}

@@ -1,3 +1,4 @@
+<!-- 页面的头部和底部的模板 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -5,9 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>霹雳布袋戏</title>
+    <title>{{data.title}}</title>
     <link rel="shortcut icon" type="image/x-icon" href="/public/images/icon/favicon.png">
-
+    <link href="/public/css/reset.css" rel="stylesheet">
+    <link href="/public/css/base.css" rel="stylesheet"> {% block style %} {% endblock %}
 </head>
 
 <body>
@@ -20,8 +22,8 @@
             <div class="header-nav-wrap">
                 <nav class="header-nav ">
                     <div class="menu-button icon-menu" title="菜单"></div>
-                    <ul class="nav-menu">
-                        <li class="menu-item"><a href="#">首页</a></li>
+                    <ul class="nav-menu display-none">
+                        <li class="menu-item"><a href="/">首页</a></li>
                         <li class="menu-item"><a href="#">霹雳剧集</a></li>
                         <li class="menu-item"><a href="#">霹雳周边</a>
                             <ul>
@@ -30,10 +32,10 @@
                         </li>
                         <li class="menu-item"><a href="#">霹雳资料库</a>
                             <ul>
-                                <li class="sub-menu-item"><a href="#">霹雳人物</a></li>
+                                <li class="sub-menu-item"><a href="/figure">霹雳人物</a></li>
                                 <li class="sub-menu-item"><a href="/wallpaper">霹雳图库</a></li>
                                 <li class="sub-menu-item"><a href="#">霹雳武器</a></li>
-                                <li class="sub-menu-item"><a href="#">霹雳商店</a></li>
+                                <li class="sub-menu-item"><a href="/shoop">霹雳商店</a></li>
                             </ul>
                         </li>
                         <li class="menu-item"><a href="#">资讯中心</a>
@@ -67,9 +69,10 @@
             </div>
 
         </div>
-    </header>
 
-  
+
+    </header>
+    {% block main %} {% endblock %}
     <!-- 网站底部 -->
     <footer class="footer">
         <div class="footer-wrap">
@@ -125,10 +128,34 @@
                 <div class="addr">上海市徐汇区桂平路353号2号楼</div>
             </div>
         </div>
-      
-    </footer>
-</body>
-<script src="/public/js/vue.js"></script>
 
+    </footer>
+    <script>
+        var clickCount = 0;
+        var menuButton = document.querySelector('.menu-button');
+        menuButton.addEventListener('click', function (event) {
+            var target = event.target, navMenu = document.querySelector('.nav-menu'), body = document.body;
+            clickCount++;
+            if (clickCount % 2 == 1) {
+                target.classList.remove("icon-menu");
+                target.classList.add("icon-close");
+                navMenu.classList.remove("display-none");
+                navMenu.classList.add("display-block");
+                body.classList.add("body-full");
+            } else {
+                target.classList.remove("icon-close");
+                target.classList.add("icon-menu");
+                navMenu.classList.remove("display-block");
+                navMenu.classList.add("display-none");
+                body.classList.remove("body-full");
+            }
+
+        });
+    </script>
+<script src="/public/js/vue.js"></script>
+<script src="/public/js/public/base.js"></script>
+
+    {% block js %} {% endblock %}
+</body>
 
 </html>

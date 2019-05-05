@@ -1,30 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link href="../public/css/reset.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="/public/images/icon/favicon.png">
+    <title>登陆</title>
     <style>
-        body{
+        body {
             background-image: url('../public/images/login/login_bg.jpg');
-            background-repeat:no-repeat;
+            background-repeat: no-repeat;
             background-size: 100% auto;
         }
-        @media only screen and (max-width:1000px){
-            body{
-            background-size:auto auto ;
-            background-position:0 0;
+
+        @media only screen and (max-width:1000px) {
+            body {
+                background-size: auto auto;
+                background-position: 0 0;
             }
+        }
+
+        .login {
+            width: 400px;
+            margin: 70px auto;
+            color: white;
+            background-color: rgba(33, 55, 55, 0.7);
+            padding: 40px;
+        }
+
+        .form>div {
+            margin-top: 30px;
+            /* margin-left: 30px; */
+        }
+
+        .form input {
+            position: relative;
+            height: 22px;
+            border-radius: 6px;
+        }
+
+        .submit {
+            font-size: 22px;
+            border: none;
+            color: white;
+            background-color: #0d0a26;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .submit:hover {
+            color: #0d0a26;
+            background-color: white;
+        }
+
+        header {
+            height: 70px;
+            background-color: #0d0a26;
+            padding: 0 30px;
+        }
+
+        .logo>.login-link {
+            width: 140px;
+            height: 70px;
+            background-image: url('../public/images/header-logo.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .back {
+            width: 140px;
+            height: 35px;
+            vertical-align: 150%;
+            margin-left: 20px;
+        }
+        .captcha-wrap{
+            display: flex;
+            align-items:flex-end;
+        }
+        .captcha-img {
+            display: inline-block;
+            width: 133px;
+            height: 36px;
+            background-color: white;
+        }
+        .captcha{
+            margin-right: 10px;
+        }
+        input::after {
+            content: 'afdssssss';
+            position: absolute;
+            display: block;
+            top: 2px;
+            left: 3px;
+            width: 20px;
+            height: 30px;
         }
     </style>
 </head>
+
 <body>
+    <header>
+        <div class="logo">
+            <a href="/" class="login-link"></a>
+            <a href="/" class="back">返回首页</a>
+        </div>
+    </header>
     <div class="login">
-        <form action="/login">
-        <label>账号：</label><input type="text">
-        <label>密码：</label><input type="password">
-        </form>
+        <div action="/register" method="POST" class="form">
+            <div class="username-wrap">
+                <label>输入账号：</label><input class="username" name="username" type="text">
+            </div>
+            <div class="password-wrap">
+                <label>输入密码：</label><input class="password" name="password" type="password">
+            </div>
+           
+            <div class="captcha-wrap">
+                <label>验证码：</label><input class="captcha" class="" name="captcha" type="text">
+                <img src="/captcha" alt="" class="captcha-img" onclick="this.src='/captcha?'+new Date()" id="captcha-img">
+            </div>
+            <div class="button">
+                <button class="submit" id="submit">点击登陆</button>
+            </div>
+        </div>
     </div>
+    <script src="../public/js/public/base.js"></script>
+    <script>
+        function submitData() {
+            var submit = document.getElementById('submit');
+            var username = document.getElementsByClassName('username')[0];
+            var password = document.getElementsByClassName('password')[0];
+            var captcha = document.getElementsByClassName('captcha')[0];
+            submit.addEventListener('click', function (event) {
+                var data = {};
+                data.username = username.value;
+                data.password = password.value;
+                data.captcha = captcha.value;
+                Ajax.post('/login', JSON.stringify(data), function (result) {
+                    var data=JSON.parse(result);
+                    if(data.success){
+                        window.location.href="/";
+                    }
+                })
+            })
+        }
+        submitData();
+    </script>
 </body>
+
 </html>

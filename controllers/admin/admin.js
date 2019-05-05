@@ -1,17 +1,27 @@
-const formidable = require('formidable');
 const fs = require('fs');
 const IndexSlideshow = require('../../models/IndexSildeshow');
 const utils = require('../../common/utils');
 const uuid = require('node-uuid');
-var imgFile = {
+const mongoose = require('mongoose');
+
+var imgConfig = {
     types: ['jpg', 'png', 'jpeg'],
-    savePath: 'public/files/slide-img',
+    uploadDir: 'public/files/slide-img',//上传目录，指的是服务器的路径，如果不存在将会报错。
+    keepExtensions: true, //保留后缀
+    maxFieldsSize:  5 * 1024 * 1024//byte//最大可上传大小
 }
+
 
 exports.getAdmin = function (req, res, next) {
     res.render('admin/dist/component/layout_top.html',{
         title:'管理员首页',
     })
+}
+
+exports.getAllData=function(req,res,next){
+    IndexSlideshow.find().then(function(schemas){
+        res.send(schemas);
+    });
 }
 
 exports.getSilideshow = function (req, res, next) {
@@ -46,30 +56,10 @@ function checkIsImgFile(file, callback) {
     }
 }
 
-//上传图片文件
-function uploadImg(req, res, callback) {
-    var form = formidable.IncomingForm({
-        encoding: 'utf-8',//上传编码
-        uploadDir: imgFile.savePath,//上传目录，指的是服务器的路径，如果不存在将会报错。
-        keepExtensions: true,//保留后缀
-        maxFieldsSize: 5 * 1024 * 1024//byte//最大可上传大小
-    });
-    form.parse(req, function (err, fromData, files) {
-        if (err) {
-            res.send(utils.setResultData(false, "操作失败" + err, null));
-        }
-        callback(fromData, files);
-        form.on('file', function (filed, file) {
-        }).on('end', function () {
-            res.end('上传成功！');
-        }).on('error', function (err) {
-            console.error('上传失败：', err.message);
-            next(err);
-        });
-    });
-}
+
+
 exports.updataSlideshow = function (req, res, next) {
-    uploadImg(req, res, function (fromData, files) {
+    utils.uploadImg(req, res,imgConfig, function (fromData, files) {
         var targetId = fromData.imgId || '';// 用户要求修改的图片id
         IndexSlideshow.findById(targetId).then(function (item) {
             // 当数据库存在该图片
@@ -101,18 +91,17 @@ exports.updataSlideshow = function (req, res, next) {
                     });
 
             } else {
-                res.send(utils.setResultData(false, "你要修改的目标图片不存在", null));
-                return;
+                return  res.send(utils.setResultData(false, "你要修改的目标图片不存在", null));
             }
         });
-        res.send(utils.setResultData(true, "修改成功", null));
+     return    res.send(utils.setResultData(true, "修改成功", null));
 
     });
 }
 
 exports.addSlideshow = function (req, res, next) {
     // 上传图片 
-    uploadImg(req, res, function (fromData, files) {
+    utils.uploadImg(req, res,imgConfig,function (fromData, files) {
         // 保存用户发送的信息
         var indexSlideshow = new IndexSlideshow({
             url: '/' + files.imgFile.path.replace(/\\/g, "/"),
@@ -120,14 +109,14 @@ exports.addSlideshow = function (req, res, next) {
             rightContent: fromData.rightContent,
         });
         indexSlideshow.save();
-        res.send(utils.setResultData(true, "添加成功", null));
+      return  res.send(utils.setResultData(true, "添加成功", null));
 
     });
 
 }
 
 exports.deleteSildeshow=function(req,res,next){
-    var id=req.query.id || '';
+    var id=mongoose.Types.ObjectId((req.query.id || ' ')); 
     IndexSlideshow.findById(id).then(function(item){
         if(item){
             fs.exists('.' + item.url, function (exists) {
@@ -153,3 +142,4 @@ exports.deleteSildeshow=function(req,res,next){
         }
     });
 }
+

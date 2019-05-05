@@ -1,0 +1,260 @@
+{% extends 'component/layout_top.html' %} {% block style %} {% endblock %} {% block content %}
+<div class="col-lg-9" id="figure">
+    <div class="card">
+        <div class="card-header">
+            <i class="fa fa-align-justify"></i> 人物详情表 <button style="float:right" class="btn  btn-dark" type="button">添加人物</button></div>
+
+        <div class="card-body">
+            <table class="table table-responsive-sm table-striped">
+                <thead>
+                    <tr>
+                        <th>人物名</th>
+                        <th>添加日期</th>
+                        <th>阅读量</th>
+                        <th>点赞量</th>
+                        <th>评论量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr v-for="(item,index) in figureList">
+                        <td title="查看人物内容">${item.figureName}</td>
+                        <td>${item.addTime |formatDate}</td>
+                        <td>${item.views}</td>
+                        <td>${item.likes}</td>
+                        <td>${item.comments}</td>
+                        <td>
+                            <button class="btn btn-danger active" type="button" aria-pressed="true">删除</button>
+                            <a href="/admin/ueditor" target="_blank"> <button class="btn btn-primary " id="updataBtn" type="button"
+                                    data-toggle="modal">修改</button></a>
+                            <button class="btn  btn-dark" type="button">查看评论</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#">Prev</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">4</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" @click="nextPage()" href="#">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="options">
+    <div class="updata">
+        <button class="btn btn-primary " id="updataBtn" type="button" data-toggle="modal" data-target="#primaryModal">修改当前轮播图信息</button>
+    </div>
+    <div class="delete">
+        <button class="btn btn-primary " id="deleteBtn" type="button" data-toggle="modal" data-target="#dangerModal">删除当前轮播图</button>
+    </div>
+    <div class="add">
+        <button class="btn btn-primary " id="addBtn" type="button" data-toggle="modal" data-target="#primaryModal">添加新的轮播图信息</button>
+    </div>
+
+</div>
+<div class="modal fade" id="dangerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">删除</h4>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>确定删除当前轮播图信息？</p>
+                <p class="upload-tip" style="color:red"></p>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">不删除</button>
+                <button class="btn btn-danger" id="deleteDataBtn" type="button">确定删除</button>
+            </div>
+        </div>
+        <!-- /.modal-content-->
+    </div>
+    <!-- /.modal-dialog-->
+</div>
+
+
+
+<div class="modal fade " id="primaryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">修改</h4>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>图像上传</label> <input type="file" id="img-file"><br>
+                <label>左侧文字</label> <input type="text" name="leftText" id="leftText"><br>
+                <label>右侧文字</label> <input type="text" name="rightText" id="rightText">
+                <p class="upload-tip" style="color:red"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">关闭窗口</button>
+                <button class="btn btn-primary" type="button" id="saveChange">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} {% block script %}
+<script>
+    var updataBtn = $("#updataBtn");
+    var addBtn = $('#addBtn');
+    var saveChange = $('#saveChange');
+    var deleteBtn = $("#deleteBtn");
+    //定义修改框弹出事件
+    $('#primaryModal').on('show.bs.modal', function (e) {
+        $('.upload-tip').html('');
+        if (e.relatedTarget == addBtn[0]) {
+            saveChange.on('click', function () {
+                uploadFile('/admin/add/slideshow');
+            });
+        } else if (e.relatedTarget == updataBtn[0]) {
+            saveChange.on('click', function () {
+                uploadFile('/admin/updata/slideshow');
+            });
+        }
+    });
+    $('#deleteDataBtn').on('click', function () {
+        $.ajax({
+            url: '/admin/delete/slideshow?id=' + slideshow.imgUrl[slideshow.currentIndex]._id,
+            type: 'get',
+            success: function (result) {
+                $('.upload-tip').html(result.msg);
+                setTimeout(() => {
+                    window.location.href = "";
+                }, 1000);
+            },
+        })
+    })
+    var padDate = function (value) {
+        return value < 10 ? '0' + value : value;
+    }
+    var figure = new Vue({
+        delimiters: ['${', '}'],
+        el: '#figure',
+        data: {
+            figureList: [],
+            currentPage: 1,
+            targetUrl: '/admin/data/figure?page=',
+        },
+        filters: {
+            formatDate: function (value) {
+                var date = new Date(value);
+                // new Date(value);
+                var year = date.getFullYear();
+                var month = padDate(date.getMonth() + 1);
+                var day = padDate(date.getDate());
+                var hours = padDate(date.getHours());
+                var minutes = padDate(date.getMinutes());
+                var seconds = padDate(date.getSeconds());
+                return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+            }
+        },
+        methods: {
+            nextPage: function () {
+                this.currentPage++;
+                this.ajaxGetData(this.targetUrl+this.currentPage);
+            },
+            ajaxGetData: function (url) {
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    success: function (result) {
+                        figure.figureList=[];
+                        for (var index in result) {
+                            figure.figureList.push(result[index])
+                        }
+                    },
+                });
+            }
+        }
+    })
+    function uploadFile(reqUrl) {
+        var maxSize = 5 * 1024 * 1024;
+        var formData = new FormData();
+        var file = document.getElementById("img-file").files[0];
+        var leftText = $('#leftText');
+        var rightText = $('#rightText');
+        formData.enctype = "multipart/form-data";
+        formData.append("imgFile", file);
+        formData.append('leftContent', leftText.val());
+        formData.append('rightContent', rightText.val());
+        formData.append('imgId', slideshow.imgUrl[slideshow.currentIndex] ? slideshow.imgUrl[slideshow.currentIndex]._id : " ");
+        if (file) {
+            if (file.size > maxSize) {
+                $('.upload-tip').html('图片文件大小不能大于5M');
+                return;
+            }
+            var type = file.type.split('/')[1].toLowerCase();
+            if (type != 'png' && type != 'jpg' && type != 'jpeg') {
+                $('.upload-tip').html('上传的图片类型只能为jpg或者png格式');
+                return;
+            }
+        }
+        checkIsImgFile(file, function (flag) {
+            if (!file) {
+                flag = true;
+            }
+            if (flag) {
+                $.ajax({
+                    url: reqUrl,
+                    type: "post",
+                    // contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    data: formData,
+                    // 告诉jQuery不要去处理发送的数据
+                    processData: false,
+                    // 告诉jQuery不要去设置Content-Type请求头
+                    contentType: false,
+                    success: function (result) {
+                        $('.upload-tip').html(result.msg);
+                        setTimeout(() => {
+                            window.location.href = "";
+                        }, 1000);
+                    },
+                    error: function (error) {
+                    }
+                });
+            } else {
+                $('.upload-tip').html('请上传图片文件，此文件不是图片文件');
+            }
+        });
+
+
+    }
+
+    $.ajax({
+        url: '/admin/data/figure',
+        type: 'get',
+        success: function (result) {
+
+            for (var index in result) {
+                figure.figureList.push(result[index])
+            }
+        },
+    })
+</script> {% endblock %}

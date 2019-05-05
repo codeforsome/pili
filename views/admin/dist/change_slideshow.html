@@ -143,7 +143,7 @@
         font-size: 2em;
     }
 </style>
-{% endblock %} {% block content %}
+{% endblock %} {% block content %}8
 <div class="options">
     <div class="updata">
         <button class="btn btn-primary " id="updataBtn" type="button" data-toggle="modal" data-target="#primaryModal">修改当前轮播图信息</button>
@@ -192,9 +192,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <label>图像上传</label> <input type="file" id="img-file"><br>
-                <label>左侧文字</label> <input type="text" name="leftText" id="leftText"><br>
-                <label>右侧文字</label> <input type="text" name="rightText" id="rightText">
+                <label>图像上传</label> <input type="file"  id="img-file"><br>
+                <label>左侧文字</label> <input type="text" style="width:280px;" name="leftText" id="leftText"><br>
+                <label>右侧文字</label> <input type="text" style="width:280px;" name="rightText" id="rightText">
                 <p class="upload-tip" style="color:red"></p>
             </div>
             <div class="modal-footer">
@@ -243,8 +243,12 @@
     var addBtn = $('#addBtn');
     var saveChange = $('#saveChange');
     var deleteBtn = $("#deleteBtn");
+    var leftText = $('#leftText');
+    var rightText = $('#rightText');
     //定义修改框弹出事件
     $('#primaryModal').on('show.bs.modal', function (e) {
+        leftText.val(slideshow.imgUrl[slideshow.currentIndex].leftContent);
+        rightText.val(slideshow.imgUrl[slideshow.currentIndex].rightContent);
         $('.upload-tip').html('');
         if (e.relatedTarget == addBtn[0]) {
             saveChange.on('click', function () {
@@ -268,55 +272,23 @@
             },
         })
     })
-    //检查上传的文件是否为图片
-    function checkIsImgFile(file, callback) {
-        if (file) {
-            if (window.FileReader) {
-                var image = new Image();
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function (e) {
-                    image.src = reader.result;
-                    //图片读取事件
-                    image.onload = function () {
-                        if (image.naturalHeight && image.naturalWidth) {
-                            callback(true);
-                        } else {
-                            callback(false);
-                        }
-                    }
-                    //图片加载失败
-                    image.onerror = function () {
-                        callback(false);
-                    }
-                };
-            }
-        } else {
-            callback(false);
-        }
-    }
+    
     function uploadFile(reqUrl) {
-        var maxSize = 5 * 1024 * 1024;
+        var maxSize = 1 * 1024 * 1024;
         var formData = new FormData();
+        var imgType=['png','jpg','jpeg'];
         var file = document.getElementById("img-file").files[0];
-        var leftText = $('#leftText');
-        var rightText = $('#rightText');
         formData.enctype = "multipart/form-data";
         formData.append("imgFile", file);
         formData.append('leftContent', leftText.val());
         formData.append('rightContent', rightText.val());
         formData.append('imgId', slideshow.imgUrl[slideshow.currentIndex] ? slideshow.imgUrl[slideshow.currentIndex]._id : " ");
-        if (file) {
-            if (file.size > maxSize) {
-                $('.upload-tip').html('图片文件大小不能大于5M');
-                return;
-            }
-            var type = file.type.split('/')[1].toLowerCase();
-            if (type != 'png' && type != 'jpg' && type != 'jpeg') {
-                $('.upload-tip').html('上传的图片类型只能为jpg或者png格式');
-                return;
-            }
-        }
+
+      var result= checkImgSpecifi(file,maxSize,imgType);
+      if(!result.isPass){
+        $('.upload-tip').html(result.msg);
+        return;
+      }
         checkIsImgFile(file, function (flag) {
             if (!file) {
                 flag = true;
@@ -344,9 +316,9 @@
                 $('.upload-tip').html('请上传图片文件，此文件不是图片文件');
             }
         });
-
-
     }
+
+
     var slideshow = new Vue({
         delimiters: ['${', '}'],
         el: '#slideshow',

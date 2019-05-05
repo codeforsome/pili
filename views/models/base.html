@@ -63,8 +63,13 @@
                     </ul>
                 </nav>
                 <div class="login-box">
+                    {% if user  %}
+                    <div class="login"><a href="/logout">退出</a></div>                    
+                    <div class="login"><a href="/user">{{user.username}}</a></div>                    
+                    {% else%}
                     <div class="login"><a href="/login">登陆</a></div>
                     <div class="register"><a href="/register">注册</a></div>
+                    {% endif %}
                 </div>
             </div>
 

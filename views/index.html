@@ -150,8 +150,8 @@
 <script>
     Ajax.get('/data/slideshow', function (result) {
         var data = JSON.parse(result);
-        for (var index in data) {
-            slideshow.imgUrl.push(data[index])
+        for (var index in data.data) {
+            slideshow.imgUrl.push(data.data[index])
         }
     }
     );

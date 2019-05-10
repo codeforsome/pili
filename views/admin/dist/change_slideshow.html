@@ -192,7 +192,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <label>图像上传</label> <input type="file"  id="img-file"><br>
+                <label>图像上传</label> <input type="file" id="img-file"><br>
                 <label>左侧文字</label> <input type="text" style="width:280px;" name="leftText" id="leftText"><br>
                 <label>右侧文字</label> <input type="text" style="width:280px;" name="rightText" id="rightText">
                 <p class="upload-tip" style="color:red"></p>
@@ -247,22 +247,56 @@
     var rightText = $('#rightText');
     //定义修改框弹出事件
     $('#primaryModal').on('show.bs.modal', function (e) {
-        leftText.val(slideshow.imgUrl[slideshow.currentIndex].leftContent);
-        rightText.val(slideshow.imgUrl[slideshow.currentIndex].rightContent);
         $('.upload-tip').html('');
         if (e.relatedTarget == addBtn[0]) {
+            leftText.val('');
+            rightText.val('');
             saveChange.on('click', function () {
-                uploadFile('/admin/add/slideshow');
+                var data = {};
+                data['leftContent'] = leftText.val();
+                data['rightContent'] = rightText.val();
+                var file = document.getElementById("img-file").files[0];
+                if (file) {
+                    data['imgFile'] = file;
+                    uploadImgFile(file, function (isSuccess) {
+                        if (!isSuccess) {
+                            return;
+                        } else {
+                            uploadData('/admin/add/slideshow', data);
+                        }
+                    });
+                } else {
+                     $('.upload-tip').html('图片文件不能为空，请上传图片');
+                }
             });
         } else if (e.relatedTarget == updataBtn[0]) {
+            $('.upload-tip').html('提示：如果不选择上传图片，则默认使用原图片');
+            leftText.val(slideshow.imgUrl[slideshow.currentIndex].leftContent);
+            rightText.val(slideshow.imgUrl[slideshow.currentIndex].rightContent);
             saveChange.on('click', function () {
-                uploadFile('/admin/updata/slideshow');
+                var data = {};
+                data['leftContent'] = leftText.val();
+                data['rightContent'] = rightText.val();
+                data['imgId'] = slideshow.imgUrl[slideshow.currentIndex]._id;
+                var file = document.getElementById("img-file").files[0];
+                if (file) {
+                    data['imgFile'] = file;
+                    uploadImgFile(file, function (isSuccess) {
+                        if (!isSuccess) {
+                            return;
+                        } else {
+                            uploadData('/admin/updata/slideshow', data);
+                        }
+                    });
+                } else {
+                    uploadData('/admin/updata/slideshow', data);
+                }
             });
         }
     });
     $('#deleteDataBtn').on('click', function () {
         $.ajax({
-            url: '/admin/delete/slideshow?id='+slideshow.imgUrl[slideshow.currentIndex]._id,
+            url: '/admin/delete/slideshow?id=' + slideshow.imgUrl[slideshow.currentIndex]._id,
             type: 'get',
             success: function (result) {
                 $('.upload-tip').html(result.msg);
@@ -272,50 +306,53 @@
             },
         })
     })
-    
-    function uploadFile(reqUrl) {
-        var maxSize = 1 * 1024 * 1024;
-        var formData = new FormData();
-        var imgType=['png','jpg','jpeg'];
-        var file = document.getElementById("img-file").files[0];
-        formData.enctype = "multipart/form-data";
-        formData.append("imgFile", file);
-        formData.append('leftContent', leftText.val());
-        formData.append('rightContent', rightText.val());
-        formData.append('imgId', slideshow.imgUrl[slideshow.currentIndex] ? slideshow.imgUrl[slideshow.currentIndex]._id : " ");
 
-      var result= checkImgSpecifi(file,maxSize,imgType);
-      if(!result.isPass){
-        $('.upload-tip').html(result.msg);
-        return;
-      }
-        checkIsImgFile(file, function (flag) {
-            if (!file) {
-                flag = true;
-            }
+
+    //检查上传图片文件
+    function uploadImgFile(file, callback) {
+        var maxSize = 5 * 1024 * 1024, imgType = ['png', 'jpg', 'jpeg'];
+        var result = checkImgSpecifi(file, maxSize, imgType); //检查图片格式 文件大小是否符合
+        if (!result.isPass) {
+            $('.upload-tip').html(result.msg);
+            callback(false);
+        }
+        checkIsImgFile(file, function (flag) { //检查上传的是不是图片
             if (flag) {
-                $.ajax({
-                    url: reqUrl,
-                    type: "post",
-                    // contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                    data: formData,
-                    // 告诉jQuery不要去处理发送的数据
-                    processData: false,
-                    // 告诉jQuery不要去设置Content-Type请求头
-                    contentType: false,
-                    success: function (result) {
-                        $('.upload-tip').html(result.msg);
-                        setTimeout(() => {
-                            window.location.href = "";
-                        }, 1000);
-                    },
-                    error: function (error) {
-                    }
-                });
+                callback(true);
             } else {
                 $('.upload-tip').html('请上传图片文件，此文件不是图片文件');
+                callback(false);
             }
         });
+    };
+
+    //上传数据
+    function uploadData(reqUrl, data) {
+        var formData = new FormData();
+        formData.enctype = "multipart/form-data";
+        // 把要上传的数据赋值给formdata
+        for (key in data) {
+            formData.append(key, data[key]);
+        }
+        $.ajax({
+            url: reqUrl,
+            type: "post",
+            // contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data: formData,
+            // 告诉jQuery不要去处理发送的数据
+            processData: false,
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType: false,
+            success: function (result) {
+                $('.upload-tip').html(result.msg);
+                setTimeout(() => {
+                    window.location.href = "";
+                }, 1000);
+            },
+            error: function (error) {
+            }
+        });
+
     }
 
 
@@ -421,8 +458,8 @@
         url: '/data/slideshow',
         type: 'get',
         success: function (result) {
-            for (var index in result) {
-                slideshow.imgUrl.push(result[index])
+            for (var index in result.data) {
+                slideshow.imgUrl.push(result.data[index])
             }
         },
     })

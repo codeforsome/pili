@@ -1,8 +1,46 @@
-{% extends 'component/layout_top.html' %} {% block style %} {% endblock %} {% block content %}
-<div class="col-lg-9" id="figure">
-    <div class="card">
+{% extends 'component/layout_top.html' %} {% block style %}
+<style>
+    div.figure-wrap{
+        width:85%;
+        margin: 20px auto;
+    }
+    .figure-name{
+        position: relative;
+        text-align: center;
+        cursor: pointer;
+        color:firebrick;
+    }
+    .figure-name::after{
+        position: absolute;
+        left: 25%;
+        bottom:20px;
+        content: '';
+        display: block;
+        width:50%;
+        height: 2px;
+        border-bottom:3px solid firebrick;
+    }
+    .content{
+        /* color:white; */
+        border: 2px solid rgba(53, 63, 156, 0.45);
+        font-size: 16px;
+    }
+    .content div{
+        margin-bottom: 10px;
+    }
+    .back{
+        padding-right: 100px;
+        text-align: right;
+        color: brown;
+        cursor: pointer;
+    }
+</style>
+{% endblock %} {% block content %}
+<div class="col-lg-9 figure-wrap" id="figure">
+    <div class="card"  v-show="isShow">
         <div class="card-header">
-            <i class="fa fa-align-justify"></i> 人物详情表 <button style="float:right" class="btn  btn-dark" type="button">添加人物</button></div>
+            <i class="fa fa-align-justify"></i> 人物详情表
+            <a href="/figure/ueditor" target="_blank"><button style="float:right" class="btn  btn-dark" type="button">添加人物</button></div></a>
 
         <div class="card-body">
             <table class="table table-responsive-sm table-striped">
@@ -19,15 +57,14 @@
                 <tbody>
 
                     <tr v-for="(item,index) in figureList">
-                        <td title="查看人物内容">${item.figureName}</td>
+                        <td title="查看人物内容" @click="clickFiugure(index)" class="figure-name">${item.figureName}</td>
                         <td>${item.addTime |formatDate}</td>
                         <td>${item.views}</td>
                         <td>${item.likes}</td>
                         <td>${item.comments}</td>
                         <td>
-                            <button class="btn btn-danger active" type="button" aria-pressed="true">删除</button>
-                            <a href="/admin/ueditor" target="_blank"> <button class="btn btn-primary " id="updataBtn" type="button"
-                                    data-toggle="modal">修改</button></a>
+                            <button class="btn btn-danger " type="button"  data-toggle="modal"  @click="clickBtn(index)" data-target="#dangerModal">删除</button>
+                            <a href="#"> <button class="btn btn-primary " id="updataBtn" type="button" data-toggle="modal">修改</button></a>
                             <button class="btn  btn-dark" type="button">查看评论</button>
                         </td>
                     </tr>
@@ -35,7 +72,7 @@
             </table>
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#">Prev</a>
+                    <a class="page-link" @click="prevPage()" href="#">Prev</a>
                 </li>
                 <li class="page-item active">
                     <a class="page-link" href="#">1</a>
@@ -55,22 +92,21 @@
             </ul>
         </div>
     </div>
+    <div class="content" v-show="!isShow">
+        <div class="back" @click="isShow=!isShow" >返回管理页面</div>
+        <div class="figure">
+          <span class="name">人物名： </span> ${figureList[clickIndex].figureName}
+        </div>
+        <div class="wallpaper">
+            <div >人物壁纸： </div> 
+            <img :src="figureList[clickIndex].imgUrl" width="200px" alt="">
+        </div>
+        <div>人物内容介绍：</div>
+        <div v-html="figureList[clickIndex].content"></div>
+    </div>
 </div>
 
 
-
-<div class="options">
-    <div class="updata">
-        <button class="btn btn-primary " id="updataBtn" type="button" data-toggle="modal" data-target="#primaryModal">修改当前轮播图信息</button>
-    </div>
-    <div class="delete">
-        <button class="btn btn-primary " id="deleteBtn" type="button" data-toggle="modal" data-target="#dangerModal">删除当前轮播图</button>
-    </div>
-    <div class="add">
-        <button class="btn btn-primary " id="addBtn" type="button" data-toggle="modal" data-target="#primaryModal">添加新的轮播图信息</button>
-    </div>
-
-</div>
 <div class="modal fade" id="dangerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-danger" role="document">
         <div class="modal-content">
@@ -81,9 +117,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>确定删除当前轮播图信息？</p>
+                <p>确定删除当前人物？</p>
                 <p class="upload-tip" style="color:red"></p>
-
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">不删除</button>
@@ -97,75 +132,42 @@
 
 
 
-<div class="modal fade " id="primaryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-primary" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">修改</h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <label>图像上传</label> <input type="file" id="img-file"><br>
-                <label>左侧文字</label> <input type="text" name="leftText" id="leftText"><br>
-                <label>右侧文字</label> <input type="text" name="rightText" id="rightText">
-                <p class="upload-tip" style="color:red"></p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">关闭窗口</button>
-                <button class="btn btn-primary" type="button" id="saveChange">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 {% endblock %} {% block script %}
 <script>
+    var uploadTip=$('.upload-tip');
     var updataBtn = $("#updataBtn");
-    var addBtn = $('#addBtn');
-    var saveChange = $('#saveChange');
-    var deleteBtn = $("#deleteBtn");
-    //定义修改框弹出事件
-    $('#primaryModal').on('show.bs.modal', function (e) {
-        $('.upload-tip').html('');
-        if (e.relatedTarget == addBtn[0]) {
-            saveChange.on('click', function () {
-                uploadFile('/admin/add/slideshow');
-            });
-        } else if (e.relatedTarget == updataBtn[0]) {
-            saveChange.on('click', function () {
-                uploadFile('/admin/updata/slideshow');
-            });
-        }
-    });
-    $('#deleteDataBtn').on('click', function () {
-        $.ajax({
-            url: '/admin/delete/slideshow?id=' + slideshow.imgUrl[slideshow.currentIndex]._id,
-            type: 'get',
-            success: function (result) {
-                $('.upload-tip').html(result.msg);
-                setTimeout(() => {
-                    window.location.href = "";
-                }, 1000);
-            },
-        })
-    })
     var padDate = function (value) {
         return value < 10 ? '0' + value : value;
     }
+    $('#dangerModal').on('show.bs.modal', function (e) {
+        $('#deleteDataBtn').on('click',function(){
+            $.ajax({
+                url:'/figure/delete?id='+figure.figureList[figure.clickIndex]._id,
+                type:'get',
+                success:function(result){
+                    uploadTip.html(result.msg);
+                    setTimeout(() => {
+                        window.location.href="";
+                    }, 1000);
+                }
+            })
+        });
+    });
+
     var figure = new Vue({
         delimiters: ['${', '}'],
         el: '#figure',
         data: {
             figureList: [],
             currentPage: 1,
-            targetUrl: '/admin/data/figure?page=',
+            targetUrl: '/figure/data?page=',
+            maxItem: 5,//每一个分页最多5条数据
+            clickIndex:0,//用户点击删除按钮,人物名字时保存该索引
+            isShow:true,
         },
         filters: {
             formatDate: function (value) {
                 var date = new Date(value);
-                // new Date(value);
                 var year = date.getFullYear();
                 var month = padDate(date.getMonth() + 1);
                 var day = padDate(date.getDate());
@@ -177,83 +179,44 @@
         },
         methods: {
             nextPage: function () {
-                this.currentPage++;
-                this.ajaxGetData(this.targetUrl+this.currentPage);
+                if (this.figureList.length == this.maxItem)
+                    this.currentPage++;
+                this.ajaxGetData(this.targetUrl + this.currentPage);
+            },
+            prevPage: function () {
+                this.currentPage--;
+                if (this.currentPage == 0) this.currentPage = 1;
+                this.ajaxGetData(this.targetUrl + this.currentPage);
             },
             ajaxGetData: function (url) {
                 $.ajax({
                     url: url,
                     type: 'get',
                     success: function (result) {
-                        figure.figureList=[];
-                        for (var index in result) {
-                            figure.figureList.push(result[index])
+                        figure.figureList = [];
+                        for (var index in result.data) {
+                            figure.figureList.push(result.data[index])
                         }
                     },
                 });
-            }
+            },
+            clickFiugure:function(index){
+                this.clickIndex=index;
+                this.isShow=false;
+            },
+            clickBtn: function (index) {
+                this.clickIndex=index;
+            },
         }
-    })
-    function uploadFile(reqUrl) {
-        var maxSize = 5 * 1024 * 1024;
-        var formData = new FormData();
-        var file = document.getElementById("img-file").files[0];
-        var leftText = $('#leftText');
-        var rightText = $('#rightText');
-        formData.enctype = "multipart/form-data";
-        formData.append("imgFile", file);
-        formData.append('leftContent', leftText.val());
-        formData.append('rightContent', rightText.val());
-        formData.append('imgId', slideshow.imgUrl[slideshow.currentIndex] ? slideshow.imgUrl[slideshow.currentIndex]._id : " ");
-        if (file) {
-            if (file.size > maxSize) {
-                $('.upload-tip').html('图片文件大小不能大于5M');
-                return;
-            }
-            var type = file.type.split('/')[1].toLowerCase();
-            if (type != 'png' && type != 'jpg' && type != 'jpeg') {
-                $('.upload-tip').html('上传的图片类型只能为jpg或者png格式');
-                return;
-            }
-        }
-        checkIsImgFile(file, function (flag) {
-            if (!file) {
-                flag = true;
-            }
-            if (flag) {
-                $.ajax({
-                    url: reqUrl,
-                    type: "post",
-                    // contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                    data: formData,
-                    // 告诉jQuery不要去处理发送的数据
-                    processData: false,
-                    // 告诉jQuery不要去设置Content-Type请求头
-                    contentType: false,
-                    success: function (result) {
-                        $('.upload-tip').html(result.msg);
-                        setTimeout(() => {
-                            window.location.href = "";
-                        }, 1000);
-                    },
-                    error: function (error) {
-                    }
-                });
-            } else {
-                $('.upload-tip').html('请上传图片文件，此文件不是图片文件');
-            }
-        });
-
-
-    }
+    });
 
     $.ajax({
-        url: '/admin/data/figure',
+        url: '/figure/data',
         type: 'get',
         success: function (result) {
 
-            for (var index in result) {
-                figure.figureList.push(result[index])
+            for (var index in result.data) {
+                figure.figureList.push(result.data[index])
             }
         },
     })

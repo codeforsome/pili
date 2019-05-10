@@ -7,13 +7,15 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const swig = require('swig');
 const path = require('path');
-const config=require('./config');
+const config = require('./config');
+const routers = require('./routers/routers');
+const  MongoStore = require('connect-mongo')(session);
 // const ueditor_backend = require('ueditor-backend');
 
 //加载ueditor 模块
 const ueditor = require("ueditor");
 
-app.config=config;//挂载配置文件中的数据信息
+app.config = config;//挂载配置文件中的数据信息
 
 // 开发过程取消缓存机制 无需重启服务器 便能访问更改后的页面
 swig.setDefaults({ cache: false });
@@ -81,17 +83,22 @@ app.use("/ueditor/ue", ueditor(path.join(__dirname, 'ueditor'), function (req, r
 }));
 
 
-const moment = require('moment');
-
 // 挂载session中间件
 app.use(session({
-  secret: " config.secretKey",  // 每一次在生成Cookie的时候，通过一个私钥生成一个字符串然后再交给客户端(读取我的配置文件里面的私钥key)
+  name:'pili',
+  secret: config.secretKey,  // 每一次在生成Cookie的时候，通过一个私钥生成一个字符串然后再交给客户端(读取我的配置文件里面的私钥key)
   resave: false,
   saveUninitialized: true,
-  // cookie : {secure : true }
+  cookie: {maxAge:1000*60*60*10 },//cookie保存时间
+  store: new MongoStore({   //创建新的mongodb数据库  保存用户登陆状态
+    url: 'mongodb://localhost/pili',
+    host: 'localhost',    //数据库的地址，本机的话就是127.0.0.1，也可以是网络主机
+    port: 27017,          //数据库的端口号
+    db: 'pili'        //数据库的名称。
+  }),
 }));
 
-
+routers.use(app);
 
 // 加载路由中间件（最后进入到路由）
 app.use(router);
@@ -101,15 +108,16 @@ mongoose.connect('mongodb://localhost:27017/pili', function (error) {
     console.log('数据库连接失败');
     return;
   } else {
-    app.listen(8080, '127.0.0.1', function () {
+    app.listen(config.port, config.host, function () {
       console.log('服务器启动了。。。。');
-    })
+
+    });
   }
 });
 /**
  * 连接断开
  */
-mongoose.connection.on('disconnected', function () {    
-  console.log('Mongoose connection disconnected');  
-}); 
+mongoose.connection.on('disconnected', function () {
+  console.log('Mongoose connection disconnected');
+});
 

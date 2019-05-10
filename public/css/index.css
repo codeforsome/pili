@@ -1,4 +1,4 @@
-
+﻿
 
 /* 轮播图 */
 .slideshow-wrap {
@@ -269,7 +269,7 @@
     background-size: cover;
 }
 
-
+//新闻
 .news-wrap {
     position: relative;
     background-image: url('/public/images/news_bg.png');

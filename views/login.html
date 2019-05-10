@@ -137,7 +137,7 @@
                 data.username = username.value;
                 data.password = password.value;
                 data.captcha = captcha.value;
-                Ajax.post('/login', JSON.stringify(data), function (result) {
+                Ajax.post('/user/login', JSON.stringify(data), function (result) {
                     var data=JSON.parse(result);
                     if(data.success){
                         window.location.href="/";

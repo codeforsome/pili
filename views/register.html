@@ -133,7 +133,7 @@
             data.username=username.value;
             data.password=password.value;
             data.captcha=captcha.value;
-            Ajax.post('/register', JSON.stringify(data), function (result) {
+            Ajax.post('/user/register', JSON.stringify(data), function (result) {
                 console.log(result)
             })
         })

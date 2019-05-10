@@ -10,7 +10,7 @@
         width: 1000px;
         margin: 20px auto;
         padding: 20px 30px;
-        border:2px solid rgba(53, 63, 156, 0.45);
+        border: 2px solid rgba(53, 63, 156, 0.45);
     }
 
     .wallpaper {
@@ -34,8 +34,9 @@
     .upload-img {
         display: none;
     }
-    .sumbit-wrap{
-        margin-top:20px;
+
+    .sumbit-wrap {
+        margin-top: 20px;
     }
 </style>
 {% endblock %} {% block content %}
@@ -46,17 +47,17 @@
     </div>
     <div class="form-group row col-sm-6">
         <label class="col-sm-4 col-form-label" for="inputSuccess1">人物展示壁纸：</label>
-        <img class="wallpaper" src="" width="230px" height="350px" alt="">
+        <img class="wallpaper" src="" width="250px" height="380px" alt="">
         <input class="upload-img" id="uploadImg" type="file">
     </div>
-    <p>文本内容</p>
+    <p>人物内容介绍</p>
     <script id="editor" type="text/plain" style="width:940px;height:500px;"></script>
     <div class="sumbit-wrap">
-            <button class="btn btn-primary " id="sumbitBtn" type="button" data-toggle="modal" data-target="#primaryModal">提交上传</button>
-            <p class="upload-tip" style="color:red;font-size:24px;"></p>
+        <button class="btn btn-primary " id="sumbitBtn" type="button" data-toggle="modal" data-target="#primaryModal">提交上传</button>
+        <p class="upload-tip" style="color:red;font-size:24px;"></p>
     </div>
 </div>
-<div id="btns">
+<!-- <div id="btns">
     <div>
         <button onclick="getAllHtml()">获得整个html的内容</button>
         <button onclick="getContent()">获得内容</button>
@@ -91,22 +92,21 @@
         创建编辑器</button>
     <button onclick="deleteEditor()">
         删除编辑器</button>
-</div>
+</div> -->
 
 {% endblock %} {% block script %}
 <script>
     $(".wallpaper").on('click', function () {
         $('#uploadImg').click();
     })
-    $('#uploadImg').on('change',function(){
+    $('#uploadImg').on('change', function () {
         onloadImg();
     });
-    $('#sumbitBtn').on('click',function(){
-        uploadFile('/admin/add/figure');
+    $('#sumbitBtn').on('click', function () {
+        uploadData('/figure/add');
     });
-   
     function onloadImg() {
-        var file=document.getElementById("uploadImg").files[0];
+        var file = document.getElementById("uploadImg").files[0];
         var image = $(".wallpaper")[0];
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -123,23 +123,31 @@
             }
         };
     }
- 
-    function uploadFile(reqUrl) {
+
+    function uploadData(reqUrl) {
         var maxSize = 3 * 1024 * 1024;
         var formData = new FormData();
-        var imgType=['png','jpg','jpeg'];
-        var file=document.getElementById("uploadImg").files[0];
+        var imgType = ['png', 'jpg', 'jpeg'];
+        var file = document.getElementById("uploadImg").files[0];
         formData.enctype = "multipart/form-data";
         formData.append("imgFile", file);
         formData.append('figureName', $('#figureName').val());
         formData.append('content', UE.getEditor('editor').getContent());
-        // formData.append('imgId', slideshow.imgUrl[slideshow.currentIndex] ? slideshow.imgUrl[slideshow.currentIndex]._id : " ");
-
-      var result= checkImgSpecifi(file,maxSize,imgType);
-      if(!result.isPass){
-        $('.upload-tip').html(result.msg);
-        return;
-      }
+        if(!formData.get('figureName')){
+            $('.upload-tip').html('人物名字不能为空');
+            return;
+        }else if(!file){
+            $('.upload-tip').html('上传的壁纸不能为空');
+            return;
+        }else if(!formData.get('content')){
+            $('.upload-tip').html('人物内容介绍不能为空');
+            return;
+        }
+        var result = checkImgSpecifi(file, maxSize, imgType);
+        if (!result.isPass) {
+            $('.upload-tip').html(result.msg);
+            return;
+        }
         checkIsImgFile(file, function (flag) {
             if (!file) {
                 flag = true;
@@ -157,7 +165,7 @@
                     success: function (result) {
                         $('.upload-tip').html(result.msg);
                         setTimeout(() => {
-                            // window.location.href = "";
+                            window.location.href = "";
                         }, 1000);
                     },
                     error: function (error) {

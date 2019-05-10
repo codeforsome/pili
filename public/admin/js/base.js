@@ -10,6 +10,7 @@ function checkIsImgFile(file, callback) {
                 //图片读取事件
                 image.onload = function () {
                     if (image.naturalHeight && image.naturalWidth) {
+                        isSuccess=true;
                         callback(true);
                     } else {
                         callback(false);
@@ -27,6 +28,12 @@ function checkIsImgFile(file, callback) {
 }
 //检查上传的图片规格 图片文件大小是否符合要求
 function checkImgSpecifi(file,maxSize,type){
+    if( !file || !maxSize || !type){
+        return {
+            isPass:false,
+            msg:'传入的参数不能有空值'
+        }
+    }
     if (file.size > maxSize) {
         return {
             isPass:false,

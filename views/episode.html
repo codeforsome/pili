@@ -1,0 +1,184 @@
+{% extends 'models/showbase.html' %} {% block childstyle %}
+<style>
+    .episode-wrap {
+        width: 1024px;
+        margin: 40px auto;
+    }
+
+    .episode-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    .title-link {
+        font-size: 24px;
+        font-weight: bold;
+        color: #0e0b27;
+    }
+
+    .episode-item>.left {
+        width: 30%;
+    }
+
+    .episode-item>.right {
+        width: 60%;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .time,
+    .episode-number {
+        font-weight: bold;
+    }
+
+    .left>.link-img,
+    .link-img>.episode-img {
+        width: 100%;
+    }
+
+    .play-link {
+        float: right;
+        width: 50px;
+        height: 50px;
+        background-image: url('/public/images/episode_play.png');
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+    }
+
+    .episode-item .top {
+        margin: 40px 0;
+        overflow: hidden;
+    }
+
+    .play-link:hover {
+        opacity: 0.8;
+    }
+
+    .episode-title {
+        margin-bottom: 10px;
+    }
+
+    @media only screen and (max-width:1024px) {
+        .episode-wrap {
+            width: 90%;
+        }
+    }
+
+    @media only screen and (max-width:670px) {
+        .episode-wrap {
+            width: 95%;
+        }
+        .episode-item>.left {
+            width: 40%;
+        }
+
+        .episode-item>.right {
+            width: 55%;
+        }
+        .title-link {
+            font-size: 18px;
+        }
+        .episode-number {
+            display: block;
+            margin-top: 10px;
+        }
+    }
+
+    @media only screen and (max-width:670px) {
+        .episode-item .top {
+            margin-top: 0;
+        }
+        .play-link {
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+    @media only screen and (max-width:480px) {
+        .episode-item {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .episode-item>.left,
+        .episode-item>.right {
+            width: 80%;
+        }
+
+        .episode-item .top {
+            margin: 10px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #666;
+        }
+    }
+</style>
+{% endblock %} {% block childmain %}
+<div class="episode-wrap" id="episode">
+    <ul class="episode-list">
+        <li class="episode-item" v-for="(item,index) in episodeList">
+            <div class="left">
+                <a href="#" class="link-img">
+                    <img :src="item.imgUrl" class="episode-img" alt="">
+                </a>
+            </div>
+            <div class="right">
+                <div class="top">
+                    <a href="#" class="play-link"></a>
+                    <h5 class="episode-title"><a href="#" class="title-link">${item.title}</a></h5>
+                    <span class="time">发行日期：${item.time}</span>
+                    <span class="episode-number">章数：${item.number}集</span>
+                </div>
+                <div class="content">
+                    ${item.content}
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock %} {% block childjs %}
+<script>
+    var episode = new Vue({
+        delimiters: ['${', '}'],
+        el: '#episode',
+        data: {
+            episodeList: [
+                {
+                    title: '霹雳英雄战纪之刀说异数',
+                    time: '23/01/2019',
+                    number: '43',
+                    imgUrl: '/public/images/episode_img.jpg',
+                    content: ' 腥风血雨的武林斗争，在六大高手联手下，终于平定了欧阳世家之乱。而北域金阳圣帝，却是血腥镇压中原各大门派，素还真为消灭金阳圣帝，不惜背誓再涉武 ...',
+                },
+                {
+                    title: '霹雳英雄战纪之刀说异数',
+                    time: '23/01/2019',
+                    number: '43',
+                    imgUrl: '/public/images/episode_img.jpg',
+                    content: ' 腥风血雨的武林斗争，在六大高手联手下，终于平定了欧阳世家之乱。而北域金阳圣帝，却是血腥镇压中原各大门派，素还真为消灭金阳圣帝，不惜背誓再涉武 ...',
+                },
+                {
+                    title: '霹雳英雄战纪之刀说异数',
+                    time: '23/01/2019',
+                    number: '43',
+                    imgUrl: '/public/images/episode_img.jpg',
+                    content: ' 腥风血雨的武林斗争，在六大高手联手下，终于平定了欧阳世家之乱。而北域金阳圣帝，却是血腥镇压中原各大门派，素还真为消灭金阳圣帝，不惜背誓再涉武 ...',
+                },
+                {
+                    title: '霹雳英雄战纪之刀说异数',
+                    time: '23/01/2019',
+                    number: '43',
+                    imgUrl: '/public/images/episode_img.jpg',
+                    content: ' 腥风血雨的武林斗争，在六大高手联手下，终于平定了欧阳世家之乱。而北域金阳圣帝，却是血腥镇压中原各大门派，素还真为消灭金阳圣帝，不惜背誓再涉武 ...',
+                },
+                {
+                    title: '霹雳英雄战纪之刀说异数',
+                    time: '23/01/2019',
+                    number: '43',
+                    imgUrl: '/public/images/episode_img.jpg',
+                    content: ' 腥风血雨的武林斗争，在六大高手联手下，终于平定了欧阳世家之乱。而北域金阳圣帝，却是血腥镇压中原各大门派，素还真为消灭金阳圣帝，不惜背誓再涉武 ...',
+                },
+            ]
+        }
+    })
+</script> {% endblock %}

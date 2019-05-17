@@ -1,0 +1,69 @@
+{% extends 'models/showbase.html' %} {% block childstyle %}
+<style>
+    .activity-item {
+        display:flex;
+        justify-content: space-between;
+        background-color: rgb(218, 206, 206);
+    }
+
+    .activity-img {
+        height:100%;
+        filter: grayscale(100%);    
+    }
+    .activity-item:hover .activity-img{
+        filter: grayscale(0);
+    }
+</style>
+{% endblock %} {% block childmain %}
+<div class="activity-wrap" id="activity">
+    <ul class="activity-list">
+        <li class="activity-item" v-for="(item,index)  in  activityList">
+            <div class="left">
+                <p class="time">${item.time}</p>
+                <p class="title">${item.title}</p>
+            </div>
+            <img :src="item.imgUrl" class="activity-img" alt="">
+        </li>
+    </ul>
+</div>
+{% endblock %} {% block childjs %}
+<script>
+    var acitvity = new Vue({
+        delimiters: ['${', '}'],
+        el: '#activity',
+        data: {
+            activityList: [
+                {
+                    title: '解锋镝',
+                    time: '3.6-5.4',
+                    imgUrl: '/public/images/activity1.png'
+                },
+                {
+                    title: '解锋镝',
+                    time: '3.6-5.4',
+                    imgUrl: '/public/images/activity1.png'
+                },
+                {
+                    title: '解锋镝',
+                    time: '3.6-5.4',
+                    imgUrl: '/public/images/activity1.png'
+                },
+                {
+                    title: '解锋镝',
+                    time: '3.6-5.4',
+                    imgUrl: '/public/images/activity1.png'
+                },
+                {
+                    title: '解锋镝',
+                    time: '3.6-5.4',
+                    imgUrl: '/public/images/activity1.png'
+                },
+                {
+                    title: '解锋镝',
+                    time: '3.6-5.4',
+                    imgUrl: '/public/images/activity1.png'
+                },
+            ]
+        }
+    })
+</script> {% endblock %}

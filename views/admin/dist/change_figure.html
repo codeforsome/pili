@@ -24,6 +24,7 @@
         /* color:white; */
         border: 2px solid rgba(53, 63, 156, 0.45);
         font-size: 16px;
+        padding: 15px;
     }
     .content div{
         margin-bottom: 10px;
@@ -40,7 +41,7 @@
     <div class="card"  v-show="isShow">
         <div class="card-header">
             <i class="fa fa-align-justify"></i> 人物详情表
-            <a href="/figure/ueditor" target="_blank"><button style="float:right" class="btn  btn-dark" type="button">添加人物</button></div></a>
+            <a href="/figure/ueditor" target="_blank"><button style="float:right" class="btn  btn-dark" type="button">添加新人物</button></div></a>
 
         <div class="card-body">
             <table class="table table-responsive-sm table-striped">
@@ -64,7 +65,7 @@
                         <td>${item.comments}</td>
                         <td>
                             <button class="btn btn-danger " type="button"  data-toggle="modal"  @click="clickBtn(index)" data-target="#dangerModal">删除</button>
-                            <a href="#"> <button class="btn btn-primary " id="updataBtn" type="button" data-toggle="modal">修改</button></a>
+                            <a :href="'/figure/ueditor?updata=true&id='+item._id"> <button class="btn btn-primary " id="updataBtn" type="button" data-toggle="modal">修改</button></a>
                             <button class="btn  btn-dark" type="button">查看评论</button>
                         </td>
                     </tr>

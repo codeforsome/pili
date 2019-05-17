@@ -12,8 +12,15 @@ var imgConfig = {
     maxFieldsSize: 5 * 1024 * 1024//byte//最大可上传大小
 }
 exports.getUeditor = function (req, res, next) {
+    var updata;
+    if(req.query.updata==='true'){
+        updata=true;
+    }else{
+        updata=false;
+    }
     res.render('admin/dist/ueditor.html', {
         title: '文本编辑',
+        updata:updata,
     })
 }
 
@@ -22,11 +29,21 @@ exports.getFigure = function (req, res, next) {
         title: '人物资料管理'
     })
 }
-
+exports.getFigureDataById = function (req, res, next) {
+    var id= mongoose.Types.ObjectId( (req.params.id || '') );
+    Figure.findById(id).then(function(item){
+        if(item){
+           return res.json(utils.setResultData(true,'查找成功',item));
+        }else{
+            return  res.json(utils.setResultData(false,'没有该人物'));
+        }
+    });
+}
 //从数据库中分页获取数据
 exports.getFiugreData = function (req, res, next) {
-    var page = Number(req.query.page || 1), limit = 5, pages;
-
+    var page = Number(req.query.page || 1), 
+    limit = Number(req.query.limit || 5), 
+    pages;
     Figure.count().then(function (count) {
         // count为数据的总条数 向上取整
         pages = Math.ceil(count / limit);
@@ -44,7 +61,10 @@ exports.getFiugreData = function (req, res, next) {
 
 exports.addFigure = function (req, res, next) {
     // 上传图片 
-    utils.uploadImg(req, res, imgConfig, function (fromData, files) {
+    utils.uploadImg(req, res, imgConfig, function (fromData, files,success,msg) {
+        if(!success && files.imgFile){
+            return res.json(utils.setResultData(false,msg,null));
+        }
         // 保存用户发送的信息
         var figure = new Figure({
             figureName: fromData.figureName,//人物名
@@ -70,11 +90,16 @@ exports.deleteFigure = function (req, res, next) {
     var id = mongoose.Types.ObjectId((req.query.id || ''));
     Figure.findById(id).then(function (item) {
         if (item) {
+            fs.unlink('.'+item.imgUrl, function (err) {
+                if (err) console.log("文件删除失败"+'.'+item.url);
+            });
             Figure.findByIdAndRemove(id, function (err) {
                 if (err)
                     return res.json(utils.setResultData(false, '删除失败'));
-                else
+                else{
+                   
                     return res.json(utils.setResultData(true, '删除成功'));
+                }
 
             })
         }
@@ -83,15 +108,23 @@ exports.deleteFigure = function (req, res, next) {
 
 
 exports.updataFigure = function (req, res, next) {
-    var id=mongoose.Types.ObjectId( (req.query.id || '') );
-    Figure.findByIdAndUpdate(
-        {_id,id},
-        { figureName: fromData.figureName,//人物名
-            addTime: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
-            content: fromData.content,//主体内容
-            imgUrl: '/' + files.imgFile.path.replace(/\\/g, "/"),
-        },function(err){
-            if(err) return res.json(utils.setResultData(false,'修改出现错误'+err));
+     // 上传图片 
+     utils.uploadImg(req, res, imgConfig, function (fromData, files,success,msg) {
+        if(!success && files.imgFile){
+            return res.json(utils.setResultData(false,msg,null));
         }
-    )
+        var id=fromData.id;
+        
+        Figure.findByIdAndUpdate(
+            {_id:id},
+            { figureName: fromData.figureName,//人物名
+                content: fromData.content,//主体内容
+                imgUrl:files.imgFile ?  '/' + files.imgFile.path.replace(/\\/g, "/") : fromData.oldImgUrl,
+            },function(err){
+                if(err) return res.json(utils.setResultData(false,'修改出现错误'+err));
+            }
+        );
+        return res.json(utils.setResultData(true, "添加成功", null));
+    });
+
 }

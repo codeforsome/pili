@@ -29,16 +29,18 @@
             background-color: rgba(33, 55, 55, 0.7);
             padding: 40px;
         }
-        
+
         .form>div {
             margin-top: 30px;
             /* margin-left: 30px; */
         }
-        .form input{
+
+        .form input {
             position: relative;
             height: 22px;
-            border-radius:6px;
+            border-radius: 6px;
         }
+
         .submit {
             font-size: 22px;
             border: none;
@@ -80,14 +82,15 @@
             height: 46px;
             background-color: white;
         }
-        input::after{
-            content:'afdssssss';
-            position:absolute;
-            display:block;
-            top:2px;
-            left:3px;
-            width:20px;
-            height:30px;
+
+        input::after {
+            content: 'afdssssss';
+            position: absolute;
+            display: block;
+            top: 2px;
+            left: 3px;
+            width: 20px;
+            height: 30px;
         }
     </style>
 </head>
@@ -112,10 +115,12 @@
             </div>
             <div class="captcha-wrap">
                 <label>验证码：</label><input class="captcha" class="" name="captcha" type="text">
-                <img src="/captcha" alt="" class="captcha-img" onclick="this.src='/captcha?'+new Date()" id="captcha-img">
+                <img src="/data/captcha" alt="" class="captcha-img" onclick="this.src='/captcha?'+new Date()" id="captcha-img">
             </div>
             <div class="button">
                 <button class="submit" id="submit">点击注册</button>
+                <p class="msg-tip" style="color:red;font-size: 18px;margin-top:15px;">
+                </p>
             </div>
         </div>
     </div>
@@ -126,15 +131,20 @@
         var submit = document.getElementById('submit');
         var username = document.getElementsByClassName('username')[0];
         var password = document.getElementsByClassName('password')[0];
-        var againPassword =document.getElementsByClassName('again-password')[0];
+        var againPassword = document.getElementsByClassName('again-password')[0];
         var captcha = document.getElementsByClassName('captcha')[0];
         submit.addEventListener('click', function (event) {
-            var data={};
-            data.username=username.value;
-            data.password=password.value;
-            data.captcha=captcha.value;
+            var data = {};
+            data.username = username.value;
+            data.password = password.value;
+            data.captcha = captcha.value;
             Ajax.post('/user/register', JSON.stringify(data), function (result) {
-                console.log(result)
+                var data = JSON.parse(result);
+                if (data.success) {
+                    window.location.href = "/";
+                }else{
+                    document.getElementsByClassName('msg-tip')[0].innerText=data.msg;
+                }
             })
         })
     }

@@ -40,18 +40,6 @@ app.set('views', './views');
 app.set('view engine', 'html');
 
 
-// 错误信息处理机制 config.isDebug)
-if (true) {
-  app.use(function (err, req, res, next) {
-    // res.send('500, Interal Server Error'+ err);
-    console.log(err)
-  })
-} else {
-  app.use(function (err, req, res, next) {
-    // res.send('500, Interal Server Error'+ err);
-    logger.info(err);
-  })
-}
 
 //使用模块
 app.use("/ueditor/ue", ueditor(path.join(__dirname, 'ueditor'), function (req, res, next) {
@@ -102,6 +90,29 @@ routers.use(app);
 
 // 加载路由中间件（最后进入到路由）
 app.use(router);
+
+app.use(function (err, req, res, next) {
+   console.error(err);
+   res.status(500);
+  //  根据请求的 Accept 头部中的 MIME type 返回不同的格式
+   res.format({
+    json:function(){
+      res.json({
+        success:false,
+        msg:'访问出错',
+      });
+    },
+     text:function(){
+       res.send('访问出错');
+     },
+     
+     html:function(){
+      res.render('404');
+     }
+   })
+  
+
+});
 
 mongoose.connect('mongodb://localhost:27017/pili', function (error) {
   if (error) {

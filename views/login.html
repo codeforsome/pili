@@ -118,10 +118,12 @@
            
             <div class="captcha-wrap">
                 <label>验证码：</label><input class="captcha" class="" name="captcha" type="text">
-                <img src="/captcha" alt="" class="captcha-img" onclick="this.src='/captcha?'+new Date()" id="captcha-img">
+                <img src="/data/captcha" alt="" class="captcha-img" onclick="this.src='/captcha?'+new Date()" id="captcha-img">
             </div>
             <div class="button">
                 <button class="submit" id="submit">点击登陆</button>
+                <p class="msg-tip" style="color:red;font-size: 18px;margin-top:15px;">
+                </p>
             </div>
         </div>
     </div>
@@ -141,6 +143,8 @@
                     var data=JSON.parse(result);
                     if(data.success){
                         window.location.href="/";
+                    }else{
+                        document.getElementsByClassName('msg-tip')[0].innerText=data.msg;
                     }
                 })
             })

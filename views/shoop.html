@@ -1,40 +1,140 @@
-{% extends 'models/showbase.html' %}
+{% extends 'models/showbase.html' %} {% block childstyle %}
+<style>
+    .shoop-wrap {
+        width:1024px;
+        margin:20px auto;
+    }
 
- {% block childstyle %}
-
-{% endblock %}
- {% block childmain %}
+    .shoop-wrap,
+    .shoop-wrap a{
+        color: black;
+    }
+    .shoop-list {
+        display: flex;
+        width:100%;
+        flex-wrap: wrap;
+    }
+    .shoop-item{
+        box-sizing: border-box;
+        width:25%;
+    }
+    .shoop-link{
+        width:90%;
+        overflow:hidden;
+    }
+    .shoop-link:hover{
+        color: #4e4e4e;
+    }
+    .shoop-img{
+        width:100%;
+        transition: all .3s ease-in-out;
+    }
+    .shoop-img:hover{
+        transform: scale(1.10);
+    }
+    .price,.shoop-link{
+        margin-bottom: 10px;
+    }
+    .price{
+        color: #4e4e4e;
+    }
+</style>
+{% endblock %} {% block childmain %}
 <div class="shoop-wrap" id="shoop">
     <ul class="shoop-list">
         <li class="shoop-item" v-for="(item,index) in shoopList">
-            <span class="title">${item.title}</span>
-            <a :href="'/shoop/noe?title='+item.title" class="shoop-link"><img class="shoop-img" :src="item.imgUrl" alt=""></a>
+            <a href="#" class="shoop-link">
+                <img :src="item.imgUrl" alt="" class="shoop-img">
+            </a>
+            <a href="#" class="shoop-link"> <h3>${item.title}</h3></a>
+            <p class="price">价格：${item.price}元</p>
         </li>
     </ul>
 </div>
-
 {% endblock %} {% block childjs %}
 <script>
-    var shoop = new Vue({
+    var shoops = new Vue({
         delimiters: ['${', '}'],
         el: '#shoop',
         data: {
             shoopList: [
-                { title: '御均衡', imgUrl: '/public/images/shoop1.png' },
-                { title: '众天邪王', imgUrl: '/public/images/shoop2.png' },
-                { title: '宫无后', imgUrl: '/public/images/shoop3.png' },
-                { title: '原无乡', imgUrl: '/public/images/shoop4.png' },
-                { title: '倦收天', imgUrl: '/public/images/shoop5.png' },
-                { title: '暂时没有名字', imgUrl: '/public/images/shoop6.png' },
-                { title: '系雪衣', imgUrl: '/public/images/shoop7.png' },
-                { title: '乱世狂刀', imgUrl: '/public/images/shoop8.png' },
-                { title: '凄城', imgUrl: '/public/images/shoop9.png' },
-                { title: '伽蓝', imgUrl: '/public/images/shoop10.png' },
-                { title: '暂时没有名字', imgUrl: '/public/images/shoop11.png' },
-                { title: '云忘归', imgUrl: '/public/images/shoop12.png' },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
+                {
+                    imgUrl: '/public/images/shoop1.jpg',
+                    title: '商品名',
+                    price: 0
+                },
             ],
-            currentPage:0,
-            maxPage:0,
         }
     })
+
 </script> {% endblock %}

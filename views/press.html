@@ -1,0 +1,124 @@
+{% extends 'models/showbase.html' %} {% block childstyle %}
+<style>
+    .first-press{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 40px 0;
+        background-image: url('/public/images/bg.png');
+    }
+    .press-left,.press-right{
+        width:40%;
+    }
+    
+    .press-left>.press-title{
+        font-size: 28px;
+        font-weight: bold;
+        margin:20px 0 ;
+    }
+    .link-img,.link,.press-list,.img-wrap{
+        width: 100%;
+        overflow: hidden;
+    }
+    .press-list{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .press-wrap{
+        width: 1024px;
+        margin:30px auto;
+    }
+    .press-item{
+        width:47%;
+        margin-bottom: 20px;
+    }
+    .link>.press-title{
+        font-size: 22px;
+        font-weight: bold;
+        color: #4e4e4e;
+        margin:10px 0 15px 0;
+    }
+    .link>.press-time{
+        font-size: 16px;
+        color: #4e4e4e;
+    }
+    .press-item:hover .press-title{
+        color: #bb3623; 
+    }
+    .link-img{
+        transition:.3s ;
+    }
+    .press-item:hover .link-img{
+        transform: scale(1.1);
+    }
+</style> {% endblock %} 
+{% block childmain %}
+<div class="first-press">
+    <div class="press-left">
+        <h5 class="press-title">“霹雳风华”华服及汉元素设计大赛火热开启！“</h5>
+        <span class="press-time">2019-04-18</span>
+    </div>
+    <div class="press-right">
+        <a href="#" class="link">
+            <img class="link-img" src="/public/images/press1.jpg" alt="">
+        </a>
+    </div>
+</div>
+<div class="press-wrap" id="press">
+    <ul class="press-list">
+        <li class="press-item" v-for="(item,index) in pressList">
+            <a href="#" class="link" >
+                <div class="img-wrap">
+                     <img class="link-img" :src="item.imgUrl" alt="">
+                </div>
+                <h5 class="press-title">${item.title}</h5>
+                <span class="press-time"> ${item.time}</span>
+            </a>
+        </li>
+    </ul>
+</div>
+{% endblock %} {% block childjs %}
+<script>
+   document.querySelector('.search-wrap').style.display='none';
+   var press=new Vue({
+    delimiters: ['${', '}'],
+
+       el:'#press',
+       data:{
+           pressList:[
+               {
+                   title:'霹雳风华服及汉元素设计大赛火热开启！',
+                   imgUrl:'/public/images/press1.jpg',
+                   time:'2019-04-18',
+               },
+               {
+                   title:'霹雳风华服及汉元素设计大赛火热开启！',
+                   imgUrl:'/public/images/press1.jpg',
+                   time:'2019-04-18',
+               },
+               {
+                   title:'霹雳风华服及汉元素设计大赛火热开启！',
+                   imgUrl:'/public/images/press1.jpg',
+                   time:'2019-04-18',
+               },
+               {
+                   title:'霹雳风华服及汉元素设计大赛火热开启！',
+                   imgUrl:'/public/images/press1.jpg',
+                   time:'2019-04-18',
+               },
+               {
+                   title:'霹雳风华服及汉元素设计大赛火热开启！',
+                   imgUrl:'/public/images/press1.jpg',
+                   time:'2019-04-18',
+               },
+               {
+                   title:'霹雳风华服及汉元素设计大赛火热开启！',
+                   imgUrl:'/public/images/press1.jpg',
+                   time:'2019-04-18',
+               },
+           ]
+       }
+   })
+</script> {% endblock %}

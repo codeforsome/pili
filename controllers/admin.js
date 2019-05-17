@@ -32,8 +32,8 @@ exports.getSilideshow = function (req, res, next) {
 
 
 exports.updataSlideshow = function (req, res, next) {
-    utils.uploadImg(req, res, imgConfig, function (fromData, files,isSuccess,msg) {
-        if(!isSuccess && files.imgFile){
+    utils.uploadImg(req, res, imgConfig, function (fromData, files,success,msg) {
+        if(!success && files.imgFile){
             return res.json(utils.setResultData(false,msg,null));
         }
         var targetId = fromData.imgId || '';// 用户要求修改的图片id
@@ -72,7 +72,10 @@ exports.updataSlideshow = function (req, res, next) {
 
 exports.addSlideshow = function (req, res, next) {
     // 上传图片 
-    utils.uploadImg(req, res, imgConfig, function (fromData, files) {
+    utils.uploadImg(req, res, imgConfig, function (fromData, files,success,msg) {
+        if(!success && files.imgFile){
+            return res.json(utils.setResultData(false,msg,null));
+        }
         // 保存用户发送的信息
         var indexSlideshow = new IndexSlideshow({
             url: '/' + files.imgFile.path.replace(/\\/g, "/"),

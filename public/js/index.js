@@ -4,23 +4,7 @@ var slideshow = new Vue({
     delimiters: ['${', '}'],
     el: '#slideshow',
     data: {
-        imgUrl: [
-            // {
-            //     url: '../public/images/slide1.jpg',
-            //     leftContent: '《东离剑游纪》插画大赛11.1开启！',
-            //     rightContent: '10月1日 优酷独播！'
-            // },
-            // {
-            //     url: '../public/images/slide2.jpg',
-            //     leftContent: '《霹雳魔封》2018年末新档大戏 11.23强势上线',
-            //     rightContent: '霹雳视频会员活动开启！'
-            // },
-            // {
-            //     url: '../public/images/slide3.jpg',
-            //     leftContent: '霹雳英雄战纪之刀说异数  普通话版',
-            //     rightContent: '刀说异数-重启篇！'
-            // },
-        ],
+        imgUrl: [ ],
         isTure: false,
         currentIndex: 0,
         distance: 0, //图片移动的距离
@@ -94,8 +78,8 @@ var slideshow = new Vue({
             this.moveDistance(this.scale, 'transform 1s ease-in-out');
         },
         rightMove: function () {
-        this.minDistance = -this.imgUrl.length * this.scale;
-
+            // 初始化有问题  在数据初始化后赋值
+             this.minDistance = -this.imgUrl.length * this.scale;
             clearInterval(this.timer);
             this.rightMoveAll();
             this.autoPlay();

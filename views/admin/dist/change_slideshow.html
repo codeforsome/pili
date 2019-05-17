@@ -258,8 +258,8 @@
                 var file = document.getElementById("img-file").files[0];
                 if (file) {
                     data['imgFile'] = file;
-                    uploadImgFile(file, function (isSuccess) {
-                        if (!isSuccess) {
+                    uploadImgFile(file, function (success) {
+                        if (!success) {
                             return;
                         } else {
                             uploadData('/admin/add/slideshow', data);
@@ -312,7 +312,7 @@
     function uploadImgFile(file, callback) {
         var maxSize = 5 * 1024 * 1024, imgType = ['png', 'jpg', 'jpeg'];
         var result = checkImgSpecifi(file, maxSize, imgType); //检查图片格式 文件大小是否符合
-        if (!result.isPass) {
+        if (!result.success) {
             $('.upload-tip').html(result.msg);
             callback(false);
         }

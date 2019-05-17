@@ -26,7 +26,9 @@
     .search-wrap>.input-wrap {
         width: 1000px;
         background-image: url('/public/images/wallpaper_input_bg.png');
-        background-size: 100% auto;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+
         margin: 0 auto;
         padding: 16px 6px 14px;
     }
@@ -62,37 +64,76 @@
         background-repeat: no-repeat;
         background-position: center center;
     }
-    .page-wrap{
-        display:flex;
-        justify-content:space-between;
-        width:1100px;
+
+    .page-wrap {
+        display: flex;
+        justify-content: space-between;
+        width: 1024px;
         padding-top: 25px;
-        margin:20px auto;
+        margin: 20px auto;
         border-top: 1px solid #d9d9d9;
         border-bottom: 1px solid #d9d9d9;
     }
-    .page-wrap a{
+
+    .page-wrap a {
         color: black;
-        font-weight:bold;
-        margin-right:30px;
+        font-weight: bold;
+        margin-right: 30px;
     }
-    .center>a{
-        height:40px;
+
+    .center>a {
+        height: 40px;
     }
-    .page-number{
+
+    .page-number {
         font-size: 16px;
-        padding:0 20px;
-        margin:0 10px;
+        padding: 0 20px;
+        margin: 0 10px;
     }
-   .page-wrap>.left{
-       margin-left:60px;
-   }
-   .page-wrap>.right{
-       margin-right:60px;
-   }
-   .selected-link{
-       border-bottom: 2px solid black;
-   }
+
+    .page-wrap>.left {
+        margin-left: 60px;
+    }
+
+    .page-wrap>.right {
+        margin-right: 60px;
+    }
+
+    .selected-link {
+        border-bottom: 2px solid black;
+    }
+
+    @media only screen and (max-width:1100px) {
+        .page-wrap {
+            width: 100%;
+        }
+        .search-wrap>.input-wrap {
+            width: 85%;
+
+        }
+    }
+
+    @media only screen and (max-width:800px) {
+        .page-wrap>.left {
+            margin-left: 20px;
+        }
+        .page-wrap>.right {
+            margin-right: 20px;
+        }
+        .page-wrap a {
+            margin-right: 0;
+        }
+        .page-number {
+            padding: 5px;
+        }
+        .center>a {
+            height: 20px;
+        }
+        .search-wrap>.input-wrap {
+            width: 80%;
+
+        }
+    }
 </style>
 {% block childstyle %} {% endblock %} {% endblock %} {% block main %}
 <div class="wallpaper">
@@ -100,29 +141,24 @@
 </div>
 <div class="search-wrap">
     <div class="input-wrap">
-        <input type="text" class="search-input" placeholder={{'搜索'+data.title}}>
+        <input type="text" class="search-input" placeholder={{ '搜索'+data.title}}>
         <span class="search-icon"></span>
     </div>
 </div>
-{% block childmain %} {% endblock %} 
+{% block childmain %} {% endblock %}
 <div class="page-wrap">
-        <div class="left">
-            <a href="#">第一页 </a>
-            <a href="#">上一页</a>
-        </div>
-        <div class="center">
-            <a class="page-number selected-link" href="#">1</a>
-            <a class="page-number" href="#">2</a>
-            <a class="page-number" href="#">3</a>
-            <a class="page-number" href="#">4</a>
-            <a class="page-number" href="#">5</a>
-        </div>
-        <div class="right">
-                <a href="#"> 下一页</a>
-                <a href="#">最后一页</a>
-             
-        </div>
+    <div class="left">
+        <a href="#">上一页</a>
     </div>
-{% endblock %} 
-
-{% block js %} {% block childjs %} {% endblock %} {% endblock %}
+    <div class="center">
+        <a class="page-number selected-link" href="#">1</a>
+        <a class="page-number" href="#">2</a>
+        <a class="page-number" href="#">3</a>
+        <a class="page-number" href="#">4</a>
+        <a class="page-number" href="#">5</a>
+    </div>
+    <div class="right">
+        <a href="#"> 下一页</a>
+    </div>
+</div>
+{% endblock %} {% block js %} {% block childjs %} {% endblock %} {% endblock %}

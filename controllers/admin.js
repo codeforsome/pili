@@ -12,7 +12,7 @@ var imgConfig = {
 
 
 exports.getAdmin = function (req, res, next) {
-    res.render('admin/dist/component/layout_top.html', {
+    res.render('admin/layout_top.html', {
         title: '管理员首页',
     })
 }
@@ -24,7 +24,7 @@ exports.getAllData = function (req, res, next) {
 }
 
 exports.getSilideshow = function (req, res, next) {
-    res.render('admin/dist/change_slideshow.html', {
+    res.render('admin/change_slideshow.html', {
         title: '轮播图操作',
     })
 }

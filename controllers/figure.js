@@ -18,14 +18,14 @@ exports.getUeditor = function (req, res, next) {
     }else{
         updata=false;
     }
-    res.render('admin/dist/ueditor.html', {
+    res.render('admin/ueditor.html', {
         title: '文本编辑',
         updata:updata,
     })
 }
 
 exports.getFigure = function (req, res, next) {
-    res.render('admin/dist/change_figure.html', {
+    res.render('admin/change_figure.html', {
         title: '人物资料管理'
     })
 }

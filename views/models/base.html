@@ -1,4 +1,3 @@
-<!-- 页面的头部和底部的模板 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -17,31 +16,31 @@
     <header>
         <div class="header-wrap">
             <h1 class="header-logo">
-                <a href="#" class="logo-link">霹雳布袋戏</a>
+                <a href="/" class="logo-link">霹雳布袋戏</a>
             </h1>
             <div class="header-nav-wrap">
                 <nav class="header-nav ">
                     <div class="menu-button icon-menu" title="菜单"></div>
                     <ul class="nav-menu display-none">
                         <li class="menu-item"><a href="/">首页</a></li>
-                        <li class="menu-item"><a href="/data/episode">霹雳剧集</a></li>
+                        <li class="menu-item"><a href="/view/episode">霹雳剧集</a></li>
                         <li class="menu-item"><a href="#">霹雳周边</a>
                             <ul>
-                                <li class="sub-menu-item"><a href="/data/shoop">霹雳商品馆</a></li>
+                                <li class="sub-menu-item"><a href="/view/shoop">霹雳商品馆</a></li>
                             </ul>
                         </li>
                         <li class="menu-item"><a href="#">霹雳资料库</a>
                             <ul>
-                                <li class="sub-menu-item"><a href="/data/figure">霹雳人物</a></li>
-                                <li class="sub-menu-item"><a href="/data/wallpaper">霹雳图库</a></li>
+                                <li class="sub-menu-item"><a href="/view/figure">霹雳人物</a></li>
+                                <li class="sub-menu-item"><a href="/view/wallpaper">霹雳图库</a></li>
                                 <li class="sub-menu-item"><a href="#">霹雳武器</a></li>
-                                <li class="sub-menu-item"><a href="/data/music">霹雳音乐</a></li>
+                                <li class="sub-menu-item"><a href="/view/music">霹雳音乐</a></li>
                             </ul>
                         </li>
                         <li class="menu-item"><a href="#">资讯中心</a>
                             <ul>
-                                <li class="sub-menu-item"><a href="/data/activity">霹雳活动</a></li>
-                                <li class="sub-menu-item"><a href="/data/press">霹雳新闻</a></li>
+                                <li class="sub-menu-item"><a href="/view/activity">霹雳活动</a></li>
+                                <li class="sub-menu-item"><a href="/view/press">霹雳新闻</a></li>
                             </ul>
                         </li>
                         <li class="menu-item"><a href="#">关于我们</a>
@@ -136,23 +135,25 @@
 
     </footer>
     <script>
-        var clickCount = 0;
-        var menuButton = document.querySelector('.menu-button');
+        var clickCount = 0,
+        menuButton = document.querySelector('.menu-button'),
+        navMenu = document.querySelector('.nav-menu'),
+        headerWrap = document.querySelector('.header-wrap');
         menuButton.addEventListener('click', function (event) {
-            var target = event.target, navMenu = document.querySelector('.nav-menu'), body = document.body;
+            var target = event.target;
             clickCount++;
             if (clickCount % 2 == 1) {
                 target.classList.remove("icon-menu");
                 target.classList.add("icon-close");
                 navMenu.classList.remove("display-none");
                 navMenu.classList.add("display-block");
-                body.classList.add("body-full");
+                headerWrap.classList.add("body-full");
             } else {
                 target.classList.remove("icon-close");
                 target.classList.add("icon-menu");
                 navMenu.classList.remove("display-block");
                 navMenu.classList.add("display-none");
-                body.classList.remove("body-full");
+                headerWrap.classList.remove("body-full");
             }
 
         });

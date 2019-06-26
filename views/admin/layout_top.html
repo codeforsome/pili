@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+  <meta name="author" content="Łukasz Holeczek">
+  <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+  <title>{{title}}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: rgb(32, 88, 79);
+    }
+
+    .add-goods {
+      margin: 0;
+      padding: 0;
+      border: 1px solid transparent;
+      outline: none;
+    }
+
+    header>.box a {
+      color: #eee;
+
+    }
+
+    input {
+      outline: none;
+      border: 1px solid #eee;
+      padding: 0 5px;
+    }
+     .header-wrap{
+      margin-bottom: 70px;
+     }
+    .header-wrap>header {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      font-size: 20px;
+      background-color: rgba(102, 102, 102, 0.7);
+      /* opacity: 0.7; */
+    }
+
+    header>.box {
+      width: 90%;
+      color: #323c99;
+      margin: 0 auto;
+      display: -webkit-flex;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+    }
+
+    .header-left {
+      display: -webkit-flex;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .logo_img {
+      margin-right: 20px;
+    }
+
+    .header-nav>ul {
+      display: -webkit-flex;
+      display: flex;
+      height: 100%;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .header-nav>ul>li {
+      margin-right: 20px;
+    }
+
+    .header-right {
+      display: -webkit-flex;
+      display: flex;
+      height: 100%;
+      justify-content: flex-start;
+      margin-top: 10px;
+    }
+
+    .header-right>.search {
+      height: 30px;
+      border-radius: 15px;
+    }
+
+    .header-right>.user_status {
+      margin: 0 10px;
+      display: -webkit-flex;
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .header-right .login-out-btn {
+      margin-left: 5px;
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    .shopping-bg {
+      margin-top: -12px;
+    }
+
+    .user_status>a {
+      margin-left: 15px;
+    }
+
+    .logout {
+      margin-left: 15px;
+      margin-top: 15px;
+      color: #eee;
+      font-size: 20px;
+    }
+
+    .shopping-bg {
+      width: 40px;
+      height: 40px;
+      background-image: url("/images/shopping.png");
+      background-size: 100% 100%;
+    }
+  </style>
+  {% block style %} {% endblock %}
+</head>
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+  <div class="header-wrap">
+    <header>
+      <div class="box">
+        <nav class="header-nav">
+          <ul>
+            <li><a href="/">首页</a></li>
+            <li><a href="/admin/sildeshow">轮播图管理</a></li>
+            <li><a href="/figure">壁纸人物管理</a></li>
+          </ul>
+        </nav>
+        <div class="header-right">
+          <div class="user_status">
+            <a href="/admin/logout">退出登陆</a>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+  <div class="app-body">
+
+    <main class="main" style="margin-left:0;">
+      {% block content %} {% endblock %}
+
+      <div class="container-fluid">
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="/public/js/vue.js"></script>
+  <script src="/public/js/jquery-3.2.1.min.js"></script>
+  <script src="/public/admin/js/base.js"></script> {% block script %} {% endblock %}
+</body>
+
+</html>

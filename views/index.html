@@ -1,40 +1,41 @@
 <!-- 一些资料产品展示通用的页面模板 -->
-
+<!-- left:-100+'%'  left:index*100+'%'  left:imgUrl.length*100+'%' -->
 {% extends 'models/base.html' %} {% block style %}
 <link href="/public/css/index.css" rel="stylesheet">
  {% endblock %} 
 {% block main %}
-<div id="slideshow" class="slideshow-wrap" v-bind:style="{height:getClientHeight()}">
-    <!-- 轮播图 -->
-    <div class=" slide-item " @mouseover="stopPlay" @mouseout="autoPlay" v-bind:style="[{backgroundImage:'url('+imgUrl[imgUrl.length-1].url+')',height:getClientHeight(),left:-100+'%'},transitionStyle]">
+<div id="slideshow" class="box">
+    <div  class="slideshow-wrap" >
+        <!-- 轮播图 -->
+        <div class=" slide-item " @mouseover="stopPlay" @mouseout="autoPlay" v-bind:style="[{backgroundImage:'url('+imgList[imgList.length-1].url+')',height:getClientHeight()+'px',},transitionStyle]">
+        </div>
+        <div v-for="(item,index) in imgList" @mouseover="stopPlay" @mouseout="autoPlay" :key='index' class=" slide-item " v-bind:style="[{backgroundImage:'url('+item.url+')',height:getClientHeight()+'px',},transitionStyle]">
+        </div>
+        <div class=" slide-item " @mouseover="stopPlay" @mouseout="autoPlay" v-bind:style="[{backgroundImage:'url('+imgList[0].url+')',height:getClientHeight()+'px',},transitionStyle]">
+        </div>
     </div>
-    <div v-for="(item,index) in imgUrl" @mouseover="stopPlay" @mouseout="autoPlay" :key='index' class=" slide-item " v-bind:style="[{backgroundImage:'url('+item.url+')',height:getClientHeight(),left:index*100+'%'},transitionStyle]">
-    </div>
-    <div class=" slide-item " @mouseover="stopPlay" @mouseout="autoPlay" v-bind:style="[{backgroundImage:'url('+imgUrl[0].url+')',height:getClientHeight(),left:imgUrl.length*100+'%'},transitionStyle]">
-    </div>
-    <!-- 控制轮播图左右移动 -->
-    <div class="slide-button-wrap">
+     <!-- 控制轮播图左右移动 -->
+     <div class="slide-button-wrap">
         <div class="number">
             <span class="currentindex">${currentIndex+1}</span>
-            <span class="item-count">/${imgUrl.length}</span>
+            <span class="item-count">/${imgList.length}</span>
         </div>
         <div class="choise-button">
-            <div class="left" @click="leftMove">
+            <div class="left" @click="preMove">
             </div>
-            <div class="right" @click="rightMove">
+            <div class="right" @click="nextMove">
             </div>
         </div>
     </div>
     <!--轮播图信息  -->
     <div class="line-wrap">
-        <div class="line-left" v-bind:class="{'init': isTure, 'left-move': !isTure}">
-            <a href="#">${imgUrl[currentIndex].leftContent}</a>
+        <div class="line-left bg-img" v-bind:class="{'hide': hide, 'left-move': !hide}">
+            <a href="#">${imgList[currentIndex].leftContent}</a>
         </div>
-        <div class="line-right" v-bind:class="{'init': isTure, 'right-move': !isTure}">
-            <a href="#">${imgUrl[currentIndex].rightContent}</a>
+        <div class="line-right bg-img" v-bind:class="{'hide': hide, 'right-move': !hide}">
+            <a href="#">${imgList[currentIndex].rightContent}</a>
         </div>
     </div>
-
 </div>
 
 <!-- 展示新手入门标题信息导航 -->
@@ -46,9 +47,10 @@
             </p>
         </div>
     </div>
-    <div class="container-show">
-        <ul>
-            <li class="container-item" v-bind:style="{width:+getItemWidth(index)+'%',}" v-for="(item,index) in  containerList" @mousemove="show(index)">
+    <!--  v-bind:style="{width:+getItemWidth(index)+'%',}" -->
+    <div class="container-show" >
+        <ul class="container-list">
+            <li class="container-item" :class="seleted(index)" v-for="(item,index) in  containerList" @mousemove="show(index)">
                 <div class="number">${'0'+ (index+1)}</div>
                 <div class="hd" v-show="index==currentIndex">
                     <p>
@@ -119,11 +121,11 @@
     </div>
 
     <div class="reco-show" id="reco">
-        <ul>
-            <li class="reco-item" :style="{'z-index':getZIndex(index),'top':getTop(index)+'px',}" v-for="(item,index) in textList" :key="index">
+        <ul >
+            <li class="reco-item"  :style="liStyle(index)" v-for="(item,index) in textList" :key="index">
                 <div class="reco-img-wrap">
                     <a href="#">
-                        <img class="reco-img" :style="{'transform':'scale('+getSacle(index)+')',}" :src="item.imgUrl" alt="">
+                        <img class="reco-img" :style="imgStyle(index)" :src="item.imgUrl" alt="">
                     </a>
                 </div>
                 <div class="text" :style="{'display':isShow(index),}">
@@ -148,11 +150,11 @@
 <script src="/public/js/index.js"></script>
 
 <script>
-    Ajax.get('/data/slideshow', function (result) {
-        var data = JSON.parse(result);
-        for (var index in data.data) {
-            slideshow.imgUrl.push(data.data[index])
-        }
-    }
-    );
+    // Ajax.get('/data/slideshow', function (result) {
+    //     var data = JSON.parse(result);
+    //     for (var index in data.data) {
+    //         slideshow.imgUrl.push(data.data[index])
+    //     }
+    // }
+    // );
 </script> {% endblock %}

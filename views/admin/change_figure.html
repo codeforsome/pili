@@ -1,0 +1,453 @@
+{% extends 'layout_top.html' %} {% block style %}
+<style>
+    .table-wrap {
+        width: 90%;
+        margin: 100px auto 30px;
+    }
+
+    table {
+        width: 100%;
+        font-size: 18px;
+        /* 改善表格呈现性能 */
+        table-layout: fixed;
+        /* 隐藏不必要的因素 */
+        empty-cells: show;
+        border-collapse: collapse;
+        margin: 0 auto;
+        border: 1px solid #cad0ea;
+        color: #666;
+    }
+
+    .table-head>th {
+        padding: 10px 0;
+    }
+
+    td {
+        font-size: 16px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+    }
+
+    td,
+    th {
+        border: 1px solid #cad9ea;
+    }
+
+    /* 实现隔行分色的效果 */
+    tr:nth-child(even) {
+        background-color: #f5fafe;
+    }
+
+    .btn {
+        color: white;
+        font-weight: bold;
+        padding: 5px 15px;
+        border-radius: 5px;
+    }
+    a{
+        color:white;
+    }
+    .delete,
+    .ok {
+        background-color: red;
+    }
+
+    .update,
+    .no {
+        background-color: #014a7b;
+    }
+
+    .submit {
+        padding: 5px 15px;
+    }
+
+    .form-wrap {
+        width: 500px;
+        margin: 70px auto;
+        color: white;
+        background-color: rgba(33, 55, 55, 0.7);
+        padding: 40px;
+    }
+
+    .form>div {
+        margin-top: 30px;
+    }
+
+    .form input {
+        position: relative;
+        height: 22px;
+        border-radius: 6px;
+    }
+
+    .submit {
+        font-size: 22px;
+        border: none;
+        color: white;
+        background-color: #0d0a26;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .submit:hover {
+        color: #0d0a26;
+        background-color: white;
+    }
+
+    input::after {
+        content: '';
+        position: absolute;
+        display: block;
+        top: 2px;
+        left: 3px;
+        width: 20px;
+        height: 30px;
+    }
+
+    label:after {
+        color: red;
+        font-weight: bold;
+    }
+
+    label[for="username"]:hover::after,
+    label[for="password"]:hover::after,
+    label[for="passwordAgain"]:hover::after {
+        content: '只能输入英文和数字组合';
+    }
+
+    .body-full {
+        position: fixed;
+        width: 100%;
+    }
+
+    .body-full::after {
+        content: '';
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        background-color: rgba(0, 0, 0, .58);
+        padding-top: 60px;
+    }
+
+    .model-wrap {
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+
+    }
+
+    .close-btn {
+        float: right;
+        background-color: #014a7b;
+    }
+
+
+    .multi-drop-menu {
+        font: 1em helvetica, arial, sans-serif;
+    }
+
+    .multi-drop-menu * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .multi-drop-menu a {
+        display: block;
+        /*让链接充满列表项*/
+        color: #555;
+        background-color: #eee;
+        padding: .2em 1em;
+        border-width: 3px;
+        border-color: transparent;
+        /*透明颜色*/
+        border-right-style: solid;
+        /*背景只出现在内边距区域后面*/
+        background-clip: padding-box;
+        text-decoration: none;
+    }
+
+    .multi-drop-menu li:hover>a {
+        color: #fff;
+        background-color: #aaa;
+    }
+
+    .multi-drop-menu a:active {
+        color: #ccc;
+        background-color: #fff;
+    }
+
+    .multi-drop-menu ul {
+        float: left;
+    }
+
+    .multi-drop-menu li {
+        float: left;
+        list-style-type: none;
+        position: relative;
+    }
+
+    .multi-drop-menu li:last-child a {
+        border-right-style: none;
+    }
+
+    .multi-drop-menu li li a {
+        border-right-style: none;
+        border-top-style: solid;
+    }
+
+    .multi-drop-menu li li {
+        float: none;
+    }
+
+    .multi-drop-menu li li ul {
+        display: none;
+    }
+
+    .multi-drop-menu li ul {
+        display: none;
+        position: absolute;
+        width: 100px;
+        left: 0;
+        top: 100%;
+    }
+
+    /* >只选择子元素 */
+    .multi-drop-menu li:hover>ul {
+        display: block;
+    }
+
+    .multi-drop-menu li li ul {
+        width: 100px;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        /*与父菜单项顶边对齐*/
+    }
+
+
+    /*顶级垂直菜单宽度*/
+    .multi-drop-menu.vertical {
+        width: 8em;
+    }
+
+    .multi-drop-menu.vertical li a {
+        border-right-style: none;
+        border-top-style: solid;
+    }
+
+    .multi-drop-menu.vertical li li a {
+        border-left-style: solid;
+    }
+
+    .multi-drop-menu.vertical ul,
+    .multi-drop-menu.vertical li {
+        float: none;
+    }
+
+    .multi-drop-menu.vertical li ul {
+        /*子菜单左边与上一级菜单右边对齐*/
+        left: 100%;
+        /*子菜单顶边与上一级菜单项顶边对齐*/
+        top: 0;
+    }
+
+    .table-header {
+        display: flex;
+        justify-content: flex-end;
+        margin: 60px auto 0;
+        padding: 10px 0;
+        background-color: #555;
+    }
+
+    .add-btn,
+    .pre,
+    .next {
+        background-color: #014a7b;
+        margin-right: 20px;
+    }
+
+    .table-bottom {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .page {
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+    }
+
+    .text,
+    .delete-tip {
+        margin: 30px 0;
+    }
+
+    .btn>a:hover {
+        color: black;
+    }
+</style>
+{% endblock %} {% block content %}
+
+<div class="table-wrap" id="figure">
+    <div class="table-header">
+        <button id="addBtn" class="btn add-btn">
+            <a target="_blank" href="/figure/ueditor">添加新人物</a>
+        </button>
+    </div>
+    <table>
+        <tr class="table-head">
+            <th>人物名</th>
+            <th>添加时间</th>
+            <th>阅读人数</th>
+            <th>点赞人数</th>
+            <th>简介</th>
+            <th>操作</th>
+        </tr>
+        <tr v-for="(item,index) in figureList" class="goods-id ">
+            <td title="查看人物内容" @click="clickFiugure(index)" class="figure-name">${item.figureName}</td>
+            <td>${item.addTime |formatDate}</td>
+            <td>${item.views}</td>
+            <td>${item.likes}</td>
+            <td>${item.comments}</td>
+            <td>
+                <button class="delete btn"  @click="deleteBtn(index)">删除</button>
+                <button class="update btn">修改</button>
+            </td>
+        </tr>
+    </table>
+    <div class="table-bottom">
+        <button class="btn pre"><a @click="prevPage()">上一页</a></button>
+        <div class="page">
+            <span id="tablePage"></span>
+            / <span id="sumPage"></span>
+        </div>
+        <button class="btn next"><a @click="nextPage()">下一页</a></button>
+    </div>
+</div>
+
+
+</div>
+<div id="deleteModel" class="model-wrap">
+    <div class="form-wrap">
+        <div class="top">
+            <button class="close-btn btn">关闭窗口</button>
+        </div>
+        <p class="text">确定删除？</p>
+        <p class="delete-tip" style="color: red;"></p>
+        <div style="display: flex;justify-content: space-between;">
+            <button class="btn close-btn">取消</button>
+            <button class="btn ok">确定</button>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %} {% block script %}
+<script>
+    var deleteModel = $('#deleteModel'),
+        deleteTip=$('.delete-tip');
+        body = $('body'),
+        padDate = function (value) {
+            return value < 10 ? '0' + value : value;
+        }
+
+    var figure = new Vue({
+        delimiters: ['${', '}'],
+        el: '#figure',
+        data: {
+            figureList: [],
+            currentPage: 1,
+            targetUrl: '/figure/data?page=',
+            maxItem: 5,//每一个分页最多5条数据
+            clickIndex: 0,//用户点击删除按钮,人物名字时保存该索引
+            isShow: true,
+        },
+        filters: {
+            formatDate: function (value) {
+                var date = new Date(value);
+                var year = date.getFullYear();
+                var month = padDate(date.getMonth() + 1);
+                var day = padDate(date.getDate());
+                var hours = padDate(date.getHours());
+                var minutes = padDate(date.getMinutes());
+                var seconds = padDate(date.getSeconds());
+                return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+            }
+        },
+        methods: {
+            nextPage: function () {
+                if (this.figureList.length == this.maxItem)
+                    this.currentPage++;
+                this.ajaxGetData(this.targetUrl + this.currentPage);
+            },
+            prevPage: function () {
+                this.currentPage--;
+                if (this.currentPage == 0) this.currentPage = 1;
+                this.ajaxGetData(this.targetUrl + this.currentPage);
+            },
+            ajaxGetData: function (url) {
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    success: function (result) {
+                        figure.figureList = [];
+                        for (var index in result.data) {
+                            figure.figureList.push(result.data[index])
+                        }
+                    },
+                });
+            },
+            clickFiugure: function (index) {
+                this.clickIndex = index;
+                this.isShow = false;
+            },
+            clickBtn: function (index) {
+                this.clickIndex = index;
+            },
+            deleteBtn: function (index) {
+                body.addClass('body-full');
+                deleteModel.css('display', 'block');
+                var _this=this;
+                $('.ok').on('click', function () {
+                    $.ajax({
+                        url: '/figure/delete?id=' + _this.figureList[index]._id,
+                        type: 'get',
+                        success: function (result) {
+                            deleteTip.html(result.msg);
+                            setTimeout(() => {
+                                window.location.href = "";
+                            }, 1000);
+                        }
+                    });
+            });
+            }
+        }
+    });
+
+    $.ajax({
+        url: '/figure/data',
+        type: 'get',
+        success: function (result) {
+
+            for (var index in result.data) {
+                figure.figureList.push(result.data[index])
+            }
+        },
+    });
+
+
+    $('.close-btn').on('click', function () {
+        body.removeClass('body-full');
+        $('.model-wrap').css('display', 'none');
+    });
+</script> {% endblock %}

@@ -52,3 +52,7 @@ button{
 	background-color: transparent;
 	outline:none;
 }
+.bg-img{
+	background-repeat: no-repeat;
+    background-size: 100% 100%;
+}

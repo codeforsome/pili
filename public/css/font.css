@@ -1,0 +1,2833 @@
+.alignleft {
+	display: inline;
+	float: left;
+	margin-right: 1.5em;
+}
+
+.alignright {
+	display: inline;
+	float: right;
+	margin-left: 1.5em;
+}
+
+.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*!
+ * base.css
+ */
+
+/*!
+ * agent.css
+ */
+
+/*!
+ * basic.css
+ */
+/*@font-face{
+	font-family: PingFang;
+	src: url(../fonts/PingFang.otf);
+}
+@font-face{
+	font-family: DIN;
+	src: url(../fonts/DIN.ttf);
+}
+@font-face{
+	font-family: ç¦¹å«ä¹¦æ³•è¡Œä¹¦ç®€ä½“;
+	src: url(../fonts/ç¦¹å«ä¹¦æ³•è¡Œä¹¦ç®€ä½“.ttf);
+}
+@font-face{
+	font-family: ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“;
+	src: url(../fonts/ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“.ttf);
+}*/
+
+@local{
+
+}
+
+@font-face{
+	font-family: PingFang;
+	src:
+
+	local('PingFang SC Light'),
+	local('PingFang TC Light'),
+	local('PingFang-SC-Light'),
+	local('PingFang-TC-Light'),
+	local('PingFang SC'),
+	local('PingFang TC'),
+
+	local('Hiragino Sans GB'),
+
+	local('Lantinghei TC Extralight'),
+	local('Lantinghei SC Extralight'),
+	local(FZLTXHB--B51-0),
+	local(FZLTZHK--GBK1-0),
+
+	local('Heiti SC Light'),
+	local(STHeitiSC-Light),
+	local('Heiti SC'),
+	local('Heiti TC Light'),
+	local(STHeitiTC-Light),
+	local('Heiti TC'),
+
+	local('Microsoft Yahei'),
+	local('Microsoft Jhenghei'),
+
+	local('Noto Sans CJK KR'),
+	local('Noto Sans CJK JP'),
+	local('Noto Sans CJK SC'),
+	local('Noto Sans CJK TC'),
+	local('Source Han Sans K'),
+	local('Source Han Sans KR'),
+	local('Source Han Sans JP'),
+	local('Source Han Sans CN'),
+	local('Source Han Sans HK'),
+	local('Source Han Sans TW'),
+	local('Source Han Sans TWHK'),
+	local('Droid Sans Fallback'),
+
+	url('http://cdn.fimvisual.com/wp-content/themes/fimvisual/fonts/PingFangRegular.eot?#iefix') format('embedded-opentype'),
+	url('http://cdn.fimvisual.com/wp-content/themes/fimvisual/fonts/PingFang Regular.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+}
+/*@font-face{
+	font-family: DIN;
+	src: url('http://cdn.fimvisual.com/wp-content/themes/fimvisual/fonts/DIN.ttf');
+}
+@font-face{
+	font-family: ç¦¹å«ä¹¦æ³•è¡Œä¹¦ç®€ä½“;
+	src: url('http://cdn.fimvisual.com/wp-content/themes/fimvisual/fonts/yuweixinshu.ttf');
+}*/
+@font-face{
+	font-family: ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“;
+	src: url('http://cdn.fimvisual.com/wp-content/themes/fimvisual/fonts/yuweilishu.eot');
+	src: url('http://cdn.fimvisual.com/wp-content/themes/fimvisual/fonts/yuweilishu.eot?#iefix') format('embedded-opentype'),
+	url('http://cdn.fimvisual.com/wp-content/themes/fimvisual/fonts/yuweilishu.ttf') format('truetype');
+}
+
+html{
+	font-size: 10px;
+}
+body{
+	font-family: PingFang, å¾®è½¯é›…é»‘;
+	font-size: 1.2rem;
+	display: block !important;
+	background-color: #ffffff;
+	color: #221815;
+}
+body:after{
+	content: '';
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .88);
+	transition: transform 300ms !important;
+	transform: scale(0);
+}
+body.on-mask:after,
+body.on-menu:after{
+	transform: scale(1);
+}
+.container{
+	width: 1200px;
+	padding: 0;
+	position: relative;
+	z-index: 1;
+}
+.container.full{
+	width: 100%;
+	padding: 0;
+}
+.container-fluid{
+
+}
+h1{
+
+}
+p{
+
+}
+a{
+
+}
+a:hover{
+
+}
+*:hover,
+*:hover:before,
+*:hover:after{
+	transition: color 300ms,
+	border-color 300ms,
+	background-color 300ms,
+	background-image 300ms,
+	opacity 300ms;
+}
+
+/*!
+ * model.css
+ */
+/*----------header----------*/
+header{
+	position: absolute;
+	z-index: 9;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+header .header-logo{
+	position: absolute;
+	top: 65px;
+	left: 65px;
+}
+header .header-logo a{
+	display: inline-block;
+	width: 51px;
+	height: 176px;
+	background: url(../img/logo-dk.png);
+	background-size: 100% 100%;
+}
+body.dark header .header-logo a{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/logo.png);
+}
+body.retina header .header-logo a{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/logo-dk@2x.png);
+}
+body.dark.retina header .header-logo a{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/logo@2x.png);
+}
+header .mbtn{
+	display: inline-block;
+	width: 28px;
+	height: 20px;
+	background: url(../img/icon-menu.png);
+	background-size: 100% 100%;
+	position: absolute;
+	top: 65px;
+	right: 65px;
+	display: none;
+}
+header .mbtn.on{
+	display: block;
+}
+body.dark header .mbtn{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-menu-wt.png);
+}
+body.retina header .mbtn{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-menu@2x.png);
+}
+body.dark.retina header .mbtn{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-menu-wt@2x.png);
+}
+header .menu{
+	text-align: center;
+	padding-top: 80px;
+}
+header .menu ul{
+	display: inline-block;
+}
+header .menu ul li{
+	float: left;
+	margin: 0 15px;
+}
+header .menu a{
+	display: block;
+	line-height: 40px;
+	width: 120px;
+	color: #0d0a26;
+	font-size: 16px;
+	position: relative;
+}
+header .menu a:after{
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-top: 2px solid #0d0a26;
+	border-bottom: 2px solid #0d0a26;
+	transition: transform 300ms;
+	transform: scale(0);
+}
+header .menu a.on:after,
+header .menu a:hover:after{
+	transform: scale(1);
+}
+header .menu a:before{
+	content: '';
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	background-color: #062559;
+	margin-right: 8px;
+}
+body.dark header .menu a{
+	color: #ffffff;
+}
+body.dark header .menu a:after{
+	border-top-color: #fff;
+	border-bottom-color: #fff;
+}
+header .user{
+	position: absolute;
+	top: 85px;
+	right: 65px;
+}
+header .user .hd{
+	border: 2px solid #0d0a26;
+}
+header .user .hd ul{
+
+}
+header .user .hd ul li{
+	float: left;
+	border-left: 2px solid #0d0a26;
+}
+header .user .hd ul li:first-child{
+	border-left: none;
+}
+header .user .hd a{
+	display: inline-block;
+	width: 56px;
+	line-height: 32px;
+	color: #0d0a26;
+	font-size: 14px;
+	text-align: center;
+}
+header .user .hd a.on{
+	background-color: #0d0a26;
+	color: #fff;
+}
+header .user .hd a:hover{
+	background-color: #0d0a26;
+	color: #fff;
+}
+body.dark header .user .hd{
+	border-color: #fff;
+}
+body.dark header .user .hd ul li{
+	border-left-color: #fff;
+}
+body.dark header .user .hd a{
+	color: #fff;
+}
+body.dark header .user .hd a.on{
+	background-color: #fff;
+	color: #0d0a26;
+}
+body.dark header .user .hd a:hover{
+	background-color: #fff;
+	color: #0d0a26;
+}
+
+
+
+
+
+/*-----------main-----------*/
+main{
+
+}
+
+/*----------footer----------*/
+footer{
+	background-color: #000000;
+	padding: 0 65px;
+}
+footer .container{
+
+}
+footer .a{
+	padding: 100px 0;
+	border-bottom: 1px solid rgba(255, 255, 255, .2)
+}
+footer .a >.l{
+	position: absolute;
+	left: 0;
+	top: 100px;
+	z-index: -1;
+}
+footer .a >.r{
+	position: absolute;
+	right: 0;
+	top: 105px;
+}
+footer .b{
+	padding: 40px 0;
+}
+footer .b >.r{
+	float: right;
+}
+footer .logo{
+
+}
+footer .logo img{
+	height: 108px;
+}
+footer .link{
+	text-align: center;
+}
+footer .link ul{
+	display: inline-block;
+}
+footer .link ul li{
+	float: left;
+	margin-left: 130px;
+}
+footer .link ul li:first-child{
+	margin-left: 0;
+}
+footer .link .i{
+	text-align: left;
+}
+footer .link .i >.hd{
+
+}
+footer .link .i >.hd p{
+	line-height: 1em;
+	text-align: center;
+	color: #fff;
+	font-size: 16px;
+}
+footer .link .i >.hd p a{
+	color: inherit;
+}
+footer .link .i >.hd p a:hover{
+	color: #bb3623;
+}
+footer .link .i >.ct{
+	margin-top: 16px;
+}
+footer .link .i >.ct p{
+	color: #8c8c8c;
+	line-height: 26px;
+}
+footer .link .i >.ct p a{
+	color: inherit;
+}
+footer .link .i >.ct p a:hover{
+	color: #bb3623;
+}
+footer .addr{
+
+}
+footer .addr >.hd{
+	text-align: right;
+}
+footer .addr >.hd p{
+
+}
+footer .addr >.hd p a{
+	display: inline-block;
+	margin-left: 30px;
+	background-size: 100% 100%;
+}
+footer .addr >.hd p a:hover{
+	opacity: .8;
+}
+footer .addr >.hd p a.ico1{
+	width: 45px;
+	height: 14px;
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/share-ico1.png);
+}
+body.retina footer .addr >.hd p a.ico1{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/share-ico1@2x.png);
+}
+footer .addr >.hd p a.ico2{
+	width: 20px;
+	height: 18px;
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/share-ico2.png);
+}
+body.retina footer .addr >.hd p a.ico2{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/share-ico2@2x.png);
+}
+footer .addr >.hd p a.ico3{
+	width: 22px;
+	height: 17px;
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/share-ico3.png);
+}
+body.retina footer .addr >.hd p a.ico3{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/share-ico3@2x.png);
+}
+footer .addr >.hd p a.ico4{
+	width: 21px;
+	height: 17px;
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/share-ico4.png);
+}
+body.retina footer .addr >.hd p a.ico4{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/share-ico4@2x.png);
+}
+footer .addr >.ct{
+	margin-top: 30px;
+}
+footer .addr >.ct p{
+	color: #5e5e5e;
+	line-height: 1em;
+	font-size: 14px;
+}
+footer .info{
+
+}
+footer .info p{
+	line-height: 1em;
+	color: #ececec;
+	font-size: 14px;
+	line-height: 40px;
+}
+footer .drop{
+	display: inline-block;
+	width: 228px;
+	height: 40px;
+	border: 1px solid #b3b3b3;
+}
+footer .drop >.hd{
+
+}
+footer .drop:hover >.hd{
+	background-color: rgba(255, 255, 255, .2);
+}
+footer .drop >.hd p{
+	padding: 0 16px;
+	line-height: 38px;
+	color: #ececec;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+footer .drop >.hd p a{
+	display: block;
+	color: inherit;
+	position: relative;
+}
+footer .drop >.hd p a:after{
+	content: '';
+	display: inline-block;
+	width: 5px;
+	height: 9px;
+	background: url(../img/awsr.png);
+	background-size: 100% 100%;
+	position: absolute;
+	top: 50%;
+	margin-top: -4px;
+	right: 0;
+}
+body.retina footer .drop >.hd p a:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/awsr@2x.png);
+}
+
+
+/*!
+ * module.css
+ */
+.ui-fullpart{
+	padding: 160px 0;
+	position: relative;
+}
+.ui-fullpart.nopd{
+	padding: 0;
+}
+.ui-fullpart .container{
+	z-index: 2;
+}
+.ui-homebanner{
+	position: relative;
+}
+.ui-homebanner .view{
+	height: 1400px;
+	background: none no-repeat center;
+	background-size: cover;
+	position: relative;
+	background-position: 50% 100%;
+}
+.ui-homebanner .view .img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.ui-homebanner .view .img.img1{
+	background: no-repeat center;
+	background-position: 50% 18%;
+}
+.ui-homebanner .view .img.img2{
+	background: no-repeat center;
+	background-position: 50% 38%;
+}
+.ui-homebanner .view .img.img3{
+	background: no-repeat center;
+	background-position: 50% 100%;
+}
+.ui-homebanner .img a{
+	position: absolute;
+	text-align: center;
+	color: #0d0a26;
+	font-size: 16px;
+	font-weight: bold;
+}
+.ui-homebanner .img a:hover{
+
+}
+.ui-homebanner .img a.l1{
+	display: inline-block;
+	width: 523px;
+	height: 67px;
+	background: url(../img/line-bg3.png);
+	background-size: 100% 100%;
+	top: 60%;
+	left: 50%;
+	margin-left: -700px;
+	line-height: 77px;
+}
+body.retina .ui-homebanner .img a.l1{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/line-bg3@2x.png);
+}
+.ui-homebanner .img a.l2{
+	display: inline-block;
+	width: 509px;
+	height: 55px;
+	background: url(../img/line-bg2.png);
+	background-size: 100% 100%;
+	top: 70%;
+	right: 50%;
+	margin-right: -800px;
+	line-height: 50px;
+}
+body.retina .ui-homebanner .img a.l2{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/line-bg2@2x.png);
+}
+.ui-homebanner .img a:before{
+	content: '';
+	display: inline-block;
+	width: 39px;
+	height: 7px;
+	background: url(../img/awlr.png);
+	background-size: 100% 100%;
+	vertical-align: middle;
+	margin-right: 15px;
+	transition: margin-left 300ms;
+}
+.ui-homebanner .img a:hover:before{
+	margin-left: 10px;
+}
+body.retina .ui-homebanner .img a:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/awlr@2x.png);
+}
+.ui-pagetool{
+	position: absolute;
+	z-index: 2;
+	left: 65px;
+	right: 65px;
+}
+.ui-pagetool.hd{
+	top: 65px;
+}
+.ui-pagetool.hd >.r{
+	float: right;
+	padding-top: 75px;
+}
+.ui-pagetool.ft{
+	bottom: 65px;
+}
+.ui-pagetool.ft >.r{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+.ui-pagetool.ft >.m{
+	position: absolute;
+	left: 50%;
+	margin-left: -100px;
+	text-align: center;
+	bottom: 0;
+	width: 200px;
+}
+.ui-pageplay{
+	display: inline-block;
+}
+.ui-pageplay >.hd{
+
+}
+.ui-pageplay >.hd p{
+	color: #0d0a26;
+	font-size: 26px;
+	font-weight: bold;
+}
+.ui-pageplay >.hd p:before{
+	content: '';
+	display: inline-block;
+	width: 35px;
+	height: 34px;
+	background: url(../img/icon-tv.png);
+	background-size: 100% 100%;
+	vertical-align: middle;
+	margin-right: 12px;
+}
+body.retina .ui-pageplay >.hd p:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-tv@2x.png);
+}
+.ui-pageplay >.ct{
+	margin-top: 18px;
+}
+.ui-pageplay >.ct p{
+
+}
+.ui-pageplay >.ct p label{
+	display: inline-block;
+	width: 220px;
+	height: 50px;
+	border: 4px solid #0d0a26;
+	line-height: 42px;
+	text-align: center;
+	color: #0d0a26;
+	font-size: 16px;
+	cursor: pointer;
+	font-weight: bold;
+}
+.ui-pageplay:hover >.ct p label{
+	background-color: #0d0a26;
+	color: #fff;
+}
+.ui-pageplay >.ct p label:before{
+	content: '';
+	display: inline-block;
+	width: 60px;
+	height: 42px;
+	background: url(../img/icon-play.png) no-repeat center #0d0a26;
+	background-size: 10px auto;
+	float: left;
+}
+.ui-pageplay:hover >.ct p label:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-play@2x.png);
+}
+body.dark .ui-pageplay >.hd p,
+.ui-pageplay.wt >.hd p{
+	color: #fff;
+}
+body.dark .ui-pageplay >.hd p:before,
+.ui-pageplay.wt >.hd p:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-tv-wt.png);
+}
+body.retina.dark .ui-pageplay >.hd p:before,
+body.retina .ui-pageplay.wt >.hd p:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-tv-wt@2x.png);
+}
+body.dark .ui-pageplay >.ct p label,
+.ui-pageplay.wt >.ct p label{
+	border-color: #fff;
+	color: #fff;
+}
+body.dark .ui-pageplay:hover >.ct p label,
+.ui-pageplay.wt:hover >.ct p label{
+	background-color: #fff;
+	color: #1e1352;
+}
+body.dark .ui-pageplay >.ct p label:before,
+.ui-pageplay.wt >.ct p label:before{
+	background-color: #fff;
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-play-dk.png);
+}
+body.retina.dark .ui-pageplay >.ct p label:before,
+body.retina .ui-pageplay.wt >.ct p label:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-play-dk@2x.png);
+}
+.ui-pagenavi{
+	display: inline-block;
+}
+.ui-pagenavi >.hd{
+
+}
+.ui-pagenavi >.hd p{
+	font-family: DIN;
+	font-size: 64px;
+	line-height: 1em;
+	letter-spacing: -8px;
+	color: #0d0a26;
+}
+.ui-pagenavi >.hd p small{
+	font-size: 14px;
+	letter-spacing: 0;
+	margin-left: 8px;
+}
+.ui-pagenavi >.ct{
+	border: 2px solid #0d0a26;
+	width: 85px;
+}
+.ui-pagenavi >.ct a{
+	display: inline-block;
+	width: 50%;
+	height: 40px;
+	background: none no-repeat center;
+	background-size: 7px 14px;
+	float: left;
+}
+.ui-pagenavi >.ct a:hover{
+	background-color: #0d0a26;
+}
+.ui-pagenavi >.ct a.l{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-l.png);
+	border-right: 2px solid #0d0a26;
+}
+.ui-pagenavi >.ct a:hover.l{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-l-wt.png);
+}
+.ui-pagenavi >.ct a.r{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-r.png);
+}
+.ui-pagenavi >.ct a:hover.r{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-r-wt.png);
+}
+body.dark .ui-pagenavi >.hd p{
+	color: #fff;
+}
+body.dark .ui-pagenavi >.ct{
+	border-color: #fff;
+}
+body.dark .ui-pagenavi >.ct a:hover{
+	background-color: #fff;
+}
+body.dark .ui-pagenavi >.ct a.l{
+	border-right-color: #fff;
+}
+body.dark .ui-pagenavi >.ct a.l{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-l-wt.png);
+}
+body.dark .ui-pagenavi >.ct a:hover.l{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-l.png);
+}
+body.dark .ui-pagenavi >.ct a.r{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-r-wt.png);
+}
+body.dark .ui-pagenavi >.ct a:hover.r{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-r.png);
+}
+.ui-pagenavi.dk >.ct{
+	border-color: #0d0a26 !important;
+}
+.ui-pagenavi.dk >.ct a:hover{
+	background-color: #0d0a26 !important;
+}
+.ui-pagenavi.dk >.ct a.l{
+	border-right-color: #0d0a26 !important;
+}
+.ui-pagenavi.dk >.ct a.l{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-l.png) !important;
+}
+.ui-pagenavi.dk >.ct a:hover.l{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-l-wt.png) !important;
+}
+.ui-pagenavi.dk >.ct a.r{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-r.png) !important;
+}
+.ui-pagenavi.dk >.ct a:hover.r{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-r-wt.png) !important;
+}
+.bg-home{
+
+}
+.bg-home:after{
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: none no-repeat 50% 100%;
+	background-size: 100% auto;
+}
+.ui-pagehead{
+	color: #1e1352;
+	text-align: right;
+}
+body.dark .ui-pagehead{
+	color: #fff;
+}
+.ui-pagehead h3{
+	line-height: 1em;
+	font-size: 36px;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+.ui-pagehead p{
+	font-size: 14px;
+	line-height: 20px;
+}
+.ui-homewhos{
+	margin-top: 200px;
+	margin-bottom: 120px;
+	transform: scale(.85);
+}
+.ui-homewhos ul{
+	border: 6px solid #fff;
+}
+.ui-homewhos ul li{
+	width: 16.66%;
+	float: left;
+	border-left: 6px solid #fff;
+	transition: width 600ms;
+}
+.ui-homewhos ul li.on{
+	width: 33.33%;
+}
+.ui-homewhos ul li:first-child{
+	border-left: none;
+}
+.ui-homewhos .i{
+	display: block;
+	position: relative;
+}
+.ui-homewhos .i .head{
+	padding-top: 100px;
+	padding-bottom: 90px;
+}
+.ui-homewhos .i .head >.hd{
+
+}
+.ui-homewhos .i .head >.hd p{
+	line-height: 1em;
+	text-align: center;
+	color: #fff;
+	font-size: 46px;
+	font-family: DIN;
+}
+.ui-homewhos .i .head >.ct{
+	padding: 130px 40px;
+	position: relative;
+	margin-top: 50px;
+}
+.ui-homewhos .i .head >.ct:before,
+.ui-homewhos .i .head >.ct:after{
+	content: '';
+	display: inline-block;
+	width: 32px;
+	height: 30px;
+	background: url(../img/line-i1.png);
+	background-size: 100% 100%;
+	position: absolute;
+	left: 50%;
+	margin-left: -16px;
+}
+body.dark .ui-homewhos .i .head >.ct:before,
+body.dark .ui-homewhos .i .head >.ct:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/line-i1@2x.png);
+}
+.ui-homewhos .i .head >.ct:before{
+	top: 0;
+}
+.ui-homewhos .i .head >.ct:after{
+	bottom: 0;
+}
+.ui-homewhos .i .head >.ct label{
+	display: block;
+	margin: 0 auto;
+	width: 110px;
+	height: 200px;
+	border-left: 2px solid #fff;
+	border-right: 4px solid #fff;
+	position: relative;
+}
+.ui-homewhos .i .head >.ct label:before,
+.ui-homewhos .i .head >.ct label:after{
+	content: '';
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 4px;
+	background-color: #fff;
+}
+.ui-homewhos .i .head >.ct label:before{
+	width: 4px;
+	left: 5px;
+}
+.ui-homewhos .i .head >.ct label:after{
+	width: 2px;
+	right: 5px;
+}
+.ui-homewhos .i .head >.ct label span{
+	color: #fff;
+	font-size: 42px;
+	line-height: 54px;
+	position: relative;
+	top: -8px;
+	display: block;
+	text-align: center;
+}
+.ui-homewhos .i .cont{
+	position: absolute;
+	top: -6px;
+	bottom: -6px;
+	left: 0;
+	right: 0;
+	background: url(../img/bg-c1.png);
+	display: none;
+	padding-top: 40px;
+}
+.ui-homewhos li.on .i .cont{
+	display: block;
+}
+.ui-homewhos .i .cont:after{
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 8px;
+	height: 100%;
+	background: url(../img/bg-c3.png);
+}
+.ui-homewhos .i .cont >.hd{
+	padding-left: 125px;
+	position: relative;
+}
+.ui-homewhos .i .cont >.hd >label{
+	position: absolute;
+	right: 65px;
+	bottom: -50px;
+	font-family: ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“;
+	width: 1em;
+	color: #fff;
+	font-size: 90px;
+	line-height: 1em;
+}
+.ui-homewhos .i .cont >.hd >label span{
+	display: block;
+	margin-bottom: -20px;
+}
+.ui-homewhos .i .cont >.hd >label span:nth-child(2){
+	margin-left: 25px;
+	margin-bottom: -50px;
+}
+.ui-homewhos .i .cont >.hd >label span:nth-child(3){
+	margin-left: -25px;
+	margin-bottom: -35px;
+}
+.ui-homewhos .i .cont >.hd p{
+
+}
+.ui-homewhos .i .cont >.hd p label{
+	display: inline-block;
+	padding-bottom: 18px;
+	border-bottom: 5px solid #fff;
+	width: 115px;
+	line-height: 1em;
+	color: #fff;
+	font-size: 18px;
+	cursor: pointer;
+}
+.ui-homewhos .i .cont >img{
+	position: absolute;
+	z-index: 1;
+	bottom: 0;
+	left: -33%;
+}
+.bg-home.bg-whos{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c3.png);
+}
+.bg-home.bg-whos:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/home-bg1.jpg);
+}
+.bg-home.bg-news{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c4.png);
+}
+.bg-home.bg-news:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/home-bg2.jpg);
+}
+.bg-home.bg-reco{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c1.png);
+}
+.bg-home.bg-reco:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/home-bg3.jpg);
+	background-size: auto 100%;
+	background-position: 0 0;
+}
+.ui-pagemore{
+	width: 180px;
+	height: 62px;
+	border-top: 3px solid;
+	border-bottom: 3px solid;
+	border-color: #0b0824;
+	position: relative;
+	color: #0b0824;
+	display: block;
+}
+.ui-pagemore:hover{
+	background-color: #0b0824;
+	color: #fff;
+}
+.ui-pagemore:before,
+.ui-pagemore:after{
+	content: '';
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background-color: #0b0824;
+}
+.ui-pagemore:before{
+	top: 7px;
+}
+.ui-pagemore:after{
+	bottom: 7px;
+}
+.ui-pagemore p{
+	line-height: 56px;
+	text-align: center;
+	font-size: 16px;
+	transition: font-size 300ms;
+}
+body.dark .ui-pagemore,
+.ui-pagemore.wt{
+	border-color: #fff;
+	color: #fff;
+}
+body.dark .ui-pagemore:hover,
+.ui-pagemore.wt:hover{
+	background-color: #fff;
+	color: #0d0a26;
+}
+body.dark .ui-pagemore:before,
+body.dark .ui-pagemore:after,
+.ui-pagemore.wt:before,
+.ui-pagemore.wt:after{
+	background-color: #fff;
+}
+.ui-homenews{
+	margin: 80px;
+}
+.ui-homenews >.p{
+	float: left;
+	padding: 0 20px;
+}
+.ui-homenews >.p.w1{
+	width: 65%;
+}
+.ui-homenews >.p.w2{
+	width: 35%;
+}
+.ui-homenews .i{
+	display: block;
+	background-color: #fff;
+	box-shadow: 0 0 30px rgba(0, 0, 0, .1);
+	margin-bottom: 35px;
+	position: relative;
+	top: 0;
+	transition: top 300ms;
+}
+.ui-homenews .i:hover{
+	top: -10px;
+}
+.ui-homenews .i:last-child{
+	margin-bottom: 0;
+}
+.ui-homenews .i .img{
+	overflow: hidden;
+}
+.ui-homenews .i .img img{
+	width: 100%;
+	transition: transform 300ms;
+}
+.ui-homenews .i:hover .img img{
+	transform: scale(1.05);
+}
+.ui-homenews .i .txt{
+	padding: 40px;
+}
+.ui-homenews .i .txt h5{
+	line-height: 1em;
+	color: #b3b3b3;
+	font-size: 16px;
+}
+.ui-homenews .i .txt h5 label{
+	font-size: 15px;
+	cursor: pointer;
+}
+.ui-homenews .i .txt h5 label:before{
+	content: '';
+	display: inline-block;
+	width: 30px;
+	height: 2px;
+	background-color: #d2d2d2;
+	vertical-align: middle;
+	margin-right: 15px;
+}
+.ui-homenews .i .txt p{
+	color: #1e1352;
+	font-size: 18px;
+	line-height: 28px;
+	margin: 15px 0;
+	font-weight: bold;
+}
+.ui-homenews .i .txt p.gt{
+	font-size: 22px;
+	line-height: 37px;
+}
+.ui-homenews .i.ml{
+	margin-left: 15%;
+}
+.ui-homenews .i.ml .img{
+	width: 50%;
+	float: left;
+}
+.ui-homenews .i.ml .txt{
+	margin-left: 50%;
+}
+.ui-homenews .i.ml .txt{
+	padding-bottom: 0;
+}
+.ui-homenews .i.mt{
+	margin-top: 100px;
+}
+.ui-homereco{
+	margin: 130px 50px;
+}
+.ui-homereco >.l{
+	width: 52%;
+	float: left;
+}
+.ui-homereco >.r{
+	width: 38%;
+	float: right;
+}
+.ui-homereco .view{
+	position: relative;
+	transition: transform 300ms;
+}
+.ui-homereco .view:hover{
+	transform: scale(.8);
+}
+.ui-homereco .view .img{
+	display: block;
+	position: relative;
+	box-shadow: 0 0 30px rgba(0, 0, 0, .1);
+	transition: transform 600ms, top 600ms;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	transform: scale(.6);
+	top: 165px;
+	z-index: 0;
+	border: 8px solid #fff;
+}
+.ui-homereco .view .img:nth-child(1){
+	transform: scale(1);
+	top: 0;
+	z-index: 3;
+}
+.ui-homereco .view .img:nth-child(2){
+	transform: scale(.9);
+	top: 65px;
+	z-index: 2;
+}
+.ui-homereco .view .img:nth-child(3){
+	transform: scale(.84);
+	top: 115px;
+	z-index: 1;
+}
+.ui-homereco .view .img:after{
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .5);
+	z-index: 1;
+	opacity: 1;
+	transition: opacity 600ms;
+}
+.ui-homereco .view .img:nth-child(1):after{
+	opacity: 0;
+}
+.ui-homereco .view .img img{
+	width: 100%;
+	position: relative;
+	z-index: 1;
+}
+.ui-homereco .view .img p{
+	position: absolute;
+	z-index: 1;
+	bottom: 40px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	font-size: 24px;
+}
+.ui-homereco .view .img p:before{
+	content: '';
+	display: inline-block;
+	width: 72px;
+	height: 72px;
+	background: url(../img/icon-go.png);
+	background-size: 100% 100%;
+	vertical-align: middle;
+	margin-right: 20px;
+}
+body.retina .ui-homereco .view .img p:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-go@2x.png);
+}
+.ui-homereco .text{
+	padding-top: 75px;
+}
+.ui-homereco .text >.hd{
+
+}
+.ui-homereco .text >.hd p{
+	font-family: ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“;
+	color: #fff;
+	font-size: 86px;
+	letter-spacing: -20px;
+	line-height: 1em;
+}
+.ui-homereco .text >.ct{
+	margin-top: 80px;
+}
+.ui-homereco .text .i{
+	width: 340px;
+	margin-left: 10px;
+	margin-bottom: 35px;
+}
+.ui-homereco .text .i:last-child{
+	margin-bottom: 0;
+}
+.ui-homereco .text .i h3{
+	color: #fff;
+	font-size: 30px;
+	border-bottom: 3px solid #fff;
+	height: 24px;
+	overflow: hidden;
+	padding-left: 18px;
+	line-height: 1em;
+	cursor: pointer;
+	transition: all 300ms;
+}
+.ui-homereco .text .i p{
+	margin-top: 16px;
+	color: #ffffff;
+	font-size: 14px;
+	line-height: 24px;
+	display: none;
+}
+.ui-homereco .text .i.on{
+	margin-bottom: 45px;
+}
+.ui-homereco .text .i.on h3{
+	height: auto;
+	padding-bottom: 20px;
+	padding-left: 0;
+}
+.ui-homereco .text .i.on p{
+	display: block;
+}
+.bg-home.bg-flip{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c2.png);
+}
+.bg-home.bg-flip:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/home-bg4-ex.png);
+	background-size: 1318px auto;
+	background-position: center;
+}
+body.retina .bg-home.bg-flip:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/home-bg4-ex@2x.png);
+}
+.ui-homeflip{
+	margin-bottom: 50px;
+}
+.ui-homeflip >.hd{
+
+}
+.ui-homeflip >.hd p{
+	text-align: center;
+	font-family: ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“;
+	color: #0b0824;
+	font-size: 80px;
+	letter-spacing: -20px;
+	line-height: 1em;
+}
+.ui-homeflip >.ct{
+	margin-top: 45px;
+}
+.ui-homeflip >.pg{
+	position: absolute;
+	top: 50%;
+	margin-top: -40px;
+	right: 65px;
+}
+.ui-homeflip .list{
+	margin: 0 15%;
+}
+.ui-homeflip .list ul{
+
+}
+.ui-homeflip .list ul li{
+	float: left;
+}
+.ui-homeflip .img{
+	display: block;
+	width: 500px;
+	max-width: 94%;
+	border: 6px solid #fff;
+	box-shadow: 0 0 30px rgba(0, 0, 0, .1);
+	transition: transform 300ms;
+	box-shadow: 0 0 50px rgba(0, 0, 0, .5);
+	margin: 50px auto;
+	perspective: 500;
+	overflow: hidden;
+}
+.ui-homeflip .list ul li:nth-child(1) .img{
+	box-shadow: 0 0 30px rgba(0, 0, 0, .2);
+	transform: perspective(600px) rotateY(40deg) scale(.8);
+}
+.ui-homeflip .list ul li:nth-child(3) .img{
+	box-shadow: 0 0 30px rgba(0, 0, 0, .2);
+	transform: perspective(600px) rotateY(-40deg) scale(.8);
+}
+.ui-homeflip .list >.ct{
+	padding: 0 50px;
+	position: relative;
+	left: -50px;
+}
+.ui-homeflip .img img{
+	width: 100%;
+	transition: transform 300ms;
+}
+.ui-homeflip .img:hover img{
+	transform: scale(1.05);
+}
+.ui-pagedots{
+	position: fixed;
+	z-index: 9;
+	left: 65px;
+	top: 50%;
+	margin-top: -65px;
+}
+.ui-pagedots ul{
+
+}
+.ui-pagedots ul li{
+	margin-bottom: 20px;
+}
+.ui-pagedots ul li:last-child{
+	margin-bottom: 0;
+}
+.ui-pagedots .i{
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	border: 2px solid transparent;
+	position: relative;
+}
+.ui-pagedots .i.on,
+.ui-pagedots .i:hover{
+	border-color: #1e1352;
+}
+.ui-pagedots .i:before{
+	content: '';
+	width: 4px;
+	height: 4px;
+	background-color: #1e1352;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	margin-top: -2px;
+	left: 50%;
+	margin-left: -2px;
+	transition: transform 300ms;
+	transform: scale(1);
+}
+.ui-pagedots .i.on:before,
+.ui-pagedots .i:hover:before{
+	transform: scale(0);
+}
+.ui-pagedots .i label{
+	position: absolute;
+	left: 24px;
+	color: #1e1352;
+	font-family: DIN;
+	font-size: 14px;
+	line-height: 1em;
+	top: 50%;
+	margin-top: -7px;
+	transition: transform 300ms;
+	transform: scale(0);
+	cursor: pointer;
+}
+.ui-pagedots .i.on label,
+.ui-pagedots .i:hover label{
+	transform: scale(1);
+}
+body.dark .ui-pagedots .i.on,
+body.dark .ui-pagedots .i:hover{
+	border-color: #fff;
+}
+body.dark .ui-pagedots .i:before{
+	background-color: #fff;
+}
+body.dark .ui-pagedots .i label{
+	color: #fff;
+}
+.ui-banner{
+	height: 1200px;
+	background: none no-repeat center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+.ui-banner >a{
+	position: absolute;
+	bottom: 30px;
+	left: 50%;
+	margin-left: -90px;
+	display: block;
+	width: 180px;
+	/*background: url(../img/mouse-dk.png) no-repeat 50% 0;
+	background-size: 33px auto;*/
+	padding-top: 88px;
+	text-align: center;
+}
+.ui-banner >a svg {
+	width: 33px;
+	height: auto;
+}
+/*body.retina .ui-banner >a{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/mouse-dk@2x.png);
+}*/
+.ui-banner >a p{
+	text-align: center;
+	color: #714a3f;
+	line-height: 1em;
+	font-size: 14px;
+}
+/*body.dark .ui-banner >a{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/mouse.png);
+}
+body.retina.dark .ui-banner >a{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/mouse@2x.png);
+}*/
+body.dark .ui-banner >a p{
+	color: #fff;
+}
+.ui-banner .cont{
+
+}
+.ui-banner .cont.cont1{
+	padding-top: 15%;
+}
+.ui-banner .cont.cont1 >.tt{
+	line-height: 1em;
+	text-align: center;
+}
+.ui-banner .cont.cont1 >.tt img{
+	width: 50%;
+}
+.ui-banner .cont.cont1 >.ct{
+	margin-top: 45px;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	padding: 45px 0;
+	width: 1020px;
+	margin: 0 auto;
+	margin-top: 45px;
+	position: relative;
+}
+.ui-banner .cont.cont1 >.ct:before,
+.ui-banner .cont.cont1 >.ct:after{
+	content: '';
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background: url(../img/li-1.png);
+	background-size: 100% 100%;
+	position: absolute;
+	top: 50%;
+	margin-top: -15px;
+}
+.ui-banner .cont.cont1 >.ct:before{
+	left: 42px;
+}
+.ui-banner .cont.cont1 >.ct:after{
+	right: 42px;
+}
+.ui-banner .cont.cont2{
+	padding-top: 80px;
+}
+.ui-banner .cont.cont2 >.hd{
+	position: relative;
+}
+.ui-banner .cont.cont2 .back{
+	display: inline-block;
+	width: 79px;
+	height: 83px;
+	background: url(../img/back-c.png);
+	background-size: 100% 100%;
+	position: absolute;
+	top: 0;
+	left: 100px;
+	transition: transform 300ms;
+}
+body.dark .ui-banner .cont.cont2 .back{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/back-c-wt.png);
+}
+.ui-banner .cont.cont2 .back:hover{
+	transform: scale(.8);
+}
+body.retina .ui-banner .cont.cont2 .back{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/back-c@2x.png);
+}
+body.retina.dark .ui-banner .cont.cont2 .back{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/back-c-wt@2x.png);
+}
+.ui-banner .cont.cont2 .back:before{
+	content: '';
+	display: inline-block;
+	width: 15px;
+	height: 23px;
+	background: url(../img/icon-back.png);
+	background-size: 100% 100%;
+	position: absolute;
+	top: 50%;
+	margin-top: -11px;
+	left: 50%;
+	margin-left: -7px;
+}
+body.retina .ui-banner .cont.cont2 .back:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-back@2x.png);
+}
+body.dark .ui-banner .cont.cont2 .back:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-back-wt.png);
+}
+body.retina.dark .ui-banner .cont.cont2 .back:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-back-wt@2x.png);
+}
+.ui-banner .cont.cont2 .text{
+	height: 72px;
+	border-radius: 36px;
+	box-shadow: 0 0 36px rgba(0, 0, 0, .1) inset;
+}
+.ui-banner .cont.cont2 .text p{
+	color: #724b3e;
+	font-size: 28px;
+	line-height: 72px;
+	text-align: center;
+	font-weight: bold;
+}
+.ui-banner .cont.cont2 .text p i{
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	/*background: none no-repeat center;
+	vertical-align: middle;*/
+	margin-right: 5px;
+	position: relative;
+	top: 5px;
+	background: none!important;
+}
+/*.ui-banner .cont.cont2 .text p i.ico1{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-time.png);
+	background-size: 24px auto;
+}
+body.retina .ui-banner .cont.cont2 .text p i.ico1{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-time@2x.png);
+}
+.ui-banner .cont.cont2 .text p i.ico2{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-loca.png);
+	background-size: 23px auto;
+}
+body.retina .ui-banner .cont.cont2 .text p i.ico2{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-loca@2x.png);
+}*/
+.ui-banner .cont.cont2 .text p b{
+	display: inline-block;
+	width: 2px;
+	height: 22px;
+	background-color: #724b3e;
+	margin: 0 50px;
+}
+.ui-banner .cont.cont3{
+	padding-top: 24%;
+}
+.ui-banner .cont.cont3 >.tt{
+	line-height: 1em;
+	text-align: center;
+}
+.ui-banner .cont.cont3 >.tt img{
+	width: 50%;
+}
+.ui-banner.lt{
+	height: 600px;
+}
+.ui-banner.lt .cont.cont4{
+	padding-top: 8%;
+}
+.ui-banner.lt .cont.cont4 >.tt{
+	line-height: 1em;
+	text-align: center;
+}
+.ui-banner.lt .cont.cont4 >.tt img{
+	width: 40% !important;
+}
+.ui-text{
+	color: #fff;
+}
+.ui-text h3{
+	line-height: 1em;
+	font-size: 30px;
+	margin-bottom: 30px;
+	font-weight: bold;
+}
+.ui-text p{
+	font-size: 18px;
+	line-height: 34px
+}
+.ui-text.dk{
+	color: #0e0b27;
+}
+.ui-text.dk p{
+	color: #666666;
+}
+.bg-home.bg-about1{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c1.png);
+}
+.bg-home.bg-about1:before{
+	content: '';
+	display: inline-block;
+	width: 608px;
+	height: 519px;
+	background: url(../img/about-bg1-ex1.png);
+	background-size: 100% 100%;
+	position: absolute;
+	z-index: 1;
+	bottom: -5%;
+	left: 0;
+}
+.bg-home.bg-about1:after{
+	content: '';
+	display: inline-block;
+	width: 479px;
+	height: 681px;
+	background: url(../img/about-bg1-ex2.png);
+	background-size: 100% 100%;
+	position: absolute;
+	bottom: 40%;
+	right: 0;
+	left: auto;
+}
+.ui-about1{
+	margin: 0 100px;
+}
+.ui-about1 >.hd{
+	text-align: center;
+}
+.ui-about1 >.ct{
+	margin-top: 125px;
+}
+.ui-about1 .head{
+	border: 5px solid #fff;
+	padding: 35px 75px;
+	display: inline-block;
+	position: relative;
+}
+.ui-about1 .head:before,
+.ui-about1 .head:after{
+	content: '';
+	display: inline-block;
+	width: 45px;
+	height: 45px;
+	background: url(../img/bg-c1.png);
+	border: 0 solid #fff;
+	position: absolute;
+	margin: -5px;
+}
+.ui-about1 .head:before{
+	border-bottom-width: 5px;
+	border-right-width: 5px;
+	top: 0;
+	left: 0;
+}
+.ui-about1 .head:after{
+	border-top-width: 5px;
+	border-left-width: 5px;
+	bottom: 0;
+	right: 0;
+}
+.ui-about1 .head p{
+	font-size: 66px;
+	color: #fff;
+	font-family: ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“;
+	line-height: 1em;
+}
+.ui-about1 .text{
+
+}
+.ui-about1 .text.t1{
+	margin-right: 18%;
+}
+.ui-about1 .text.t2{
+	margin-left: 18%;
+	margin-top: 90px;
+}
+.bg-home.bg-about2{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c2.png);
+}
+.bg-home.bg-about2:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/about-bg2-ex.png);
+	opacity: .2;
+}
+.ui-title{
+	margin-bottom: 120px;
+}
+.ui-title p{
+	line-height: 1em;
+	text-align: center;
+	font-size: 78px;
+	color: #fff;
+	font-family: ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“;
+	line-height: 1em;
+	color: #0e0b27;
+	letter-spacing: -18px;
+}
+.ui-title p:before,
+.ui-title p:after{
+	content: '';
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	background: url(../img/li-2.png);
+	background-size: 100% 100%;
+	margin: 0 15px;
+	vertical-align: middle;
+}
+.ui-about2{
+
+}
+.ui-about2 ul{
+
+}
+.ui-about2 ul li{
+	margin-bottom: 60px;
+}
+.ui-about2 ul li:last-child{
+	margin-bottom: 0;
+}
+.ui-about2 .i{
+	display: block;
+}
+.ui-about2 .i .view{
+	width: 46%;
+	float: left;
+	position: relative;
+}
+.ui-about2 .i .view:before{
+	content: '';
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+}
+.ui-about2 .i .view img{
+	width: 100%;
+	position: relative;
+	transition: transform 300ms;
+}
+.ui-about2 .i:hover .view img{
+	transform: scale(1.05);
+	box-shadow: 0 0 50px rgba(0, 0, 0, .5);
+}
+.ui-about2 .i .text{
+	width: 46%;
+	float: right;
+}
+.ui-about2 .i.df .view{
+	float: right;
+}
+.ui-about2 .i.df .text{
+	float: left;
+}
+.bg-home.bg-about3{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c3.png);
+}
+.bg-home.bg-about3:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/about-bg2-ex.png);
+	opacity: .2;
+}
+.bg-home.bg-about3:before{
+	content: '';
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url(../img/about-bg3-ex.png) no-repeat 80% 100%;
+	background-size: auto 85%;
+}
+.ui-about3{
+	margin: 40px 0;
+	width: 50%;
+}
+.ui-about3 .i{
+	border: 3px solid #fff;
+	padding: 40px 55px;
+	padding-top: 50px;
+	position: relative;
+	margin-bottom: 75px;
+}
+.ui-about3 .i:last-child{
+	margin-bottom: 0;
+}
+.ui-about3 .i:before{
+	content: '';
+	display: inline-block;
+	width: 33px;
+	height: 33px;
+	background: url(../img/bg-c3.png);
+	border: 0 solid #fff;
+	position: absolute;
+	margin: -3px;
+}
+.ui-about3 .i.i1:before{
+	border-bottom-width: 3px;
+	border-right-width: 3px;
+	top: 0;
+	left: 0;
+}
+.ui-about3 .i.i2:before{
+	border-top-width: 3px;
+	border-left-width: 3px;
+	bottom: 0;
+	right: 0;
+}
+.bg-home.bg-about4{
+	background-color: #eeeeee;
+}
+.bg-home.bg-about4:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/about-bg4-ex.png);
+	background-size: 793px auto;
+	background-position: 100% 100%;
+	top: 200px;
+}
+body.retina .bg-home.bg-about4:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/about-bg4-ex@2x.png);
+}
+.ui-about4{
+	margin: 0 15%;
+}
+.ui-about4 ul{
+
+}
+.ui-about4 ul li{
+	float: left;
+}
+.ui-about4 .i{
+	margin: 0 auto;
+	width: 360px;
+	border: 2px solid #0e0b27;
+	position: relative;
+	padding: 10px;
+	transition: transform 300ms;
+	max-width: 100%;
+}
+.ui-about4 ul li:nth-child(1) .i,
+.ui-about4 ul li:nth-child(3) .i{
+	transform: scale(.8);
+}
+.ui-about4 .i:before{
+	content: '';
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	bottom: 3px;
+	left: 3px;
+	border: 1px solid #0e0b27;
+}
+.ui-about4 .i >i{
+	display: inline-block;
+	width: 22px;
+	height: 20px;
+	margin: -2px;
+	position: absolute;
+	z-index: 1;
+	background-color: #eeeeee;
+}
+.ui-about4 .i >i.a{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/f1-d1.png);
+	top: 0;
+	left: 0;
+}
+.ui-about4 .i >i.b{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/f1-d2.png);
+	top: 0;
+	right: 0;
+}
+.ui-about4 .i >i.c{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/f1-d3.png);
+	bottom: 0;
+	right: 0;
+}
+.ui-about4 .i >i.d{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/f1-d4.png);
+	bottom: 0;
+	left: 0;
+}
+.ui-about4 .i >.hd{
+	overflow: hidden;
+}
+.ui-about4 .i >.hd img{
+	width: 100%;
+	transition: transform 300ms;
+}
+.ui-about4 .i:hover >.hd img{
+	transform: scale(1.05);
+}
+.ui-about4 .i >.ct{
+	margin-top: 32px;
+	padding: 0 20px;
+	padding-bottom: 15px;
+}
+.ui-about4 .i >.ct h3{
+	border-bottom: 1px solid #0e0b27;
+	padding-bottom: 18px;
+	line-height: 1em;
+	text-align: center;
+	color: #000000;
+	font-size: 22px;
+	font-weight: bold;
+	position: relative;
+	margin-bottom: 26px;
+}
+.ui-about4 .i >.ct h3:before,
+.ui-about4 .i >.ct h3:after{
+	content: '';
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	background: url(../img/li-2.png);
+	background-size: 100% 100%;
+	position: absolute;
+	top: 6px;
+}
+.ui-about4 .i >.ct h3:before{
+	left: 0;
+}
+.ui-about4 .i >.ct h3:after{
+	right: 0;
+}
+.ui-about4 .i >.ct p{
+	color: #000000;
+	font-size: 16px;
+	line-height: 26px;
+}
+.bg-home.bg-event1{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c3.png);
+}
+.bg-home.bg-event1:before{
+	content: '';
+	display: inline-block;
+	width: 446px;
+	height: 626px;
+	background: url(../img/event-bg1-ex1.png);
+	background-size: 100% 100%;
+	bottom: -240px;
+	position: absolute;
+	z-index: 2;
+}
+.bg-home.bg-event1:after{
+	content: '';
+	display: inline-block;
+	width: 491px;
+	height: 509px;
+	background: url(../img/event-bg1-ex2.png);
+	background-size: 100% 100%;
+	z-index: 1;
+	bottom: 30%;
+	right: 0;
+	left: auto;
+	position: absolute;
+}
+.ui-event1{
+
+}
+.ui-event1 >.hd{
+
+}
+.ui-event1 >.hd p{
+	line-height: 1em;
+	text-align: center;
+	color: #fff;
+	font-family: ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“;
+	font-size: 106px;
+	letter-spacing: -15px;
+}
+.ui-event1 >.ct{
+	margin-top: 100px;
+}
+.ui-event1 .text{
+	border: 4px solid #fff;
+	position: relative;
+	padding: 100px 140px;
+}
+.ui-event1 .text:before{
+	content: '';
+	position: absolute;
+	top: 14px;
+	right: 14px;
+	bottom: 14px;
+	left: 14px;
+	border: 1px solid #ffffff;
+}
+.ui-event1 .text >i{
+	display: inline-block;
+	width: 32px;
+	height: 29px;
+	margin: -4px;
+	position: absolute;
+	background-size: 100% 100%;
+}
+.ui-event1 .text >i.a{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/f2-d1.png);
+	top: 0;
+	left: 0;
+}
+.ui-event1 .text >i.b{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/f2-d2.png);
+	top: 0;
+	right: 0;
+}
+.ui-event1 .text >i.c{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/f2-d3.png);
+	bottom: 0;
+	right: 0;
+}
+.ui-event1 .text >i.d{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/f2-d4.png);
+	bottom: 0;
+	left: 0;
+}
+.ui-event1 .text >.ct{
+
+}
+.ui-event1 .text >.ct p{
+	font-size: 16px;
+	color: #fff;
+	line-height: 46px;
+}
+.ui-event1 .text >.ct .hr{
+	border-bottom: 1px solid #fff;
+	margin: 50px 0;
+}
+.bg-home.bg-event2{
+	background-color: #efefef;
+}
+.ui-event2{
+	margin: 0 20px;
+}
+.ui-event2 table{
+	width: 100%;
+}
+.ui-event2 table tr{
+
+}
+.ui-event2 table tr td{
+	padding: 30px;
+}
+.ui-event2 .i{
+	display: block;
+	position: relative;
+	transition: transform 300ms;
+}
+.ui-event2 .i:hover{
+	transform: scale(.8);
+}
+.ui-event2 .i:before{
+	content: '';
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 100%;
+	height: 100%;
+	background-color: #759f6f;
+}
+.ui-event2 .i.bl:before{
+	left: -10px;
+}
+.ui-event2 .i img{
+	width: 100%;
+	position: relative;
+}
+.ui-eventlist{
+	background: url(../img/bg-c2.png);
+}
+.ui-eventlist ul{
+
+}
+.ui-eventlist ul li{
+	border-bottom: 4px solid #fff;
+	position: relative;
+	z-index: 1;
+}
+.ui-eventlist ul li:last-child{
+	border-bottom: none;
+}
+.ui-eventlist .i{
+	display: block;
+	padding-top: 140px;
+	padding-bottom: 160px;
+	position: relative;
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c2.png);
+}
+.ui-eventlist .i:hover{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c1.png);
+}
+.ui-eventlist .i .view{
+	position: absolute;
+	left: 40%;
+	right: 0;
+	bottom: 0;
+	top: -90px;
+	overflow: hidden;
+}
+.ui-eventlist .i .view img{
+	position: absolute;
+	left: 0;
+	top: 180px;
+	filter: grayscale(100%);
+	transition: top 300ms, filter 300ms;
+}
+.ui-eventlist .i:hover .view img{
+	top: 0;
+	filter: grayscale(0);
+}
+.ui-eventlist .i .text{
+	color: #0e0b27;
+	width: 50%;
+}
+.ui-eventlist .i:hover .text{
+	color: #fff;
+}
+.ui-eventlist .i .text h5{
+	line-height: 1em;
+	font-size: 22px;
+}
+.ui-eventlist .i .text h3{
+	margin-top: 15px;
+	font-size: 26px;
+	line-height: 40px;
+}
+.ui-eventlist .i .text p{
+	margin-top: 70px;
+	font-size: 24px;
+}
+.ui-eventlist .i .text p:before{
+	content: '';
+	display: inline-block;
+	width: 30px;
+	height: 25px;
+	background: url(../img/icon-people.png);
+	background-size: 100% 100%;
+	vertical-align: middle;
+	margin-right: 6px;
+}
+body.retina .ui-eventlist .i .text p:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-people@2x.png);
+}
+.ui-eventlist .i:hover .text p:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-people-wt.png);
+}
+body.retina .ui-eventlist .i:hover .text p:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-people-wt@2x.png);
+}
+.ui-contacthead{
+	padding-top: 25%;
+}
+.ui-contacthead >.l{
+	width: 40%;
+	float: left;
+}
+.ui-contacthead >.r{
+	width: 50%;
+	float: right;
+}
+.ui-contacthead .text{
+	padding-top: 10px;
+}
+.ui-contacthead .text >.hd{
+
+}
+.ui-contacthead .text >.hd p{
+	font-size: 140px;
+	color: #fff;
+	font-family: ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“;
+	letter-spacing: -24px;
+}
+.ui-contacthead .text >.ct{
+
+}
+.ui-contacthead .text >.ct p{
+	color: #fff;
+	font-size: 16px;
+	line-height: 28px;
+}
+.ui-contacthead .text >.ft{
+	margin-top: 120px;
+}
+.ui-contacthead .text >.ft label{
+	display: inline-block;
+	width: 496px;
+	height: 92px;
+	background: url(../img/line-bg1.png);
+	background-size: 100% 100%;
+	line-height: 92px;
+	text-align: center;
+	color: #0a0a29;
+	font-size: 24px;
+}
+.ui-contacthead .text >.ft label:before{
+	content: '';
+	display: inline-block;
+	width: 17px;
+	height: 18px;
+	background: url(../img/icon-call.png);
+	background-size: 100% 100%;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+body.retina .ui-contacthead .text >.ft label:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-call@2x.png);
+}
+.ui-contacthead .view{
+
+}
+.ui-contacthead .view >.hd{
+	border: 3px solid #fff;
+	transition: transform 300ms;
+}
+.ui-contacthead .view >.hd:hover{
+	transform: scale(1.05);
+	box-shadow: 0 0 50px rgba(0, 0, 0, .5);
+}
+.ui-contacthead .view >.hd img{
+	width: 100%;
+}
+.ui-contacthead .view >.ct{
+	margin-top: 45px;
+	padding-left: 20px;
+}
+.ui-contacthead .view >.ct h3{
+	color: #fff;
+	font-size: 20px;
+	line-height: 1em;
+	font-weight: bold;
+	margin-bottom: 18px;
+}
+.ui-contacthead .view >.ct p{
+	font-size: 16px;
+	line-height: 30px;
+	color: #fff;
+}
+.ui-contacthead .view >.ct p a{
+	color: inherit;
+	text-decoration: underline !important;
+}
+.ui-contacthead .view >.ct p a:hover{
+	color: #bb3623;
+}
+.bg-contactlist{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c5.png);
+	padding-top: 100px;
+}
+.ui-contactlist{
+
+}
+.ui-contactlist >.hd{
+
+}
+.ui-contactlist >.hd p{
+	line-height: 1em;
+	color: #fff;
+	font-family: ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“;
+	font-size: 90px;
+	text-align: center;
+	letter-spacing: -18px;
+}
+.ui-contactlist >.ct{
+	margin-top: 90px;
+}
+.ui-contactlist >.ft{
+	margin-top: 100px;
+}
+.ui-contactlist >.ft p{
+
+}
+.ui-contactlist >.ft p a{
+	display: block;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	line-height: 110px;
+	text-align: center;
+	color: #fff;
+	font-size: 24px;
+}
+.ui-contactlist >.ft p a:hover{
+	background-color: #fff;
+	color: #090715;
+}
+.ui-contactlist .list{
+
+}
+.ui-contactlist .list ul{
+
+}
+.ui-contactlist .list ul li{
+	margin-bottom: 45px;
+}
+.ui-contactlist .list ul li:last-child{
+	margin-bottom: 0;
+}
+.ui-contactlist .i{
+	display: block;
+	border: 3px solid #fff;
+	padding: 50px 65px;
+	position: relative;
+	overflow: hidden;
+}
+.ui-contactlist .i:before{
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 230px;
+	background: url(../img/icon-mail.png) no-repeat center #fff;
+	background-size: 43px auto;
+	right: -230px;
+	transition: right 300ms;
+}
+body.retina .ui-contactlist .i:before{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/icon-mail@2x.png);
+}
+.ui-contactlist .i:hover:before{
+	right: 0;
+}
+.ui-contactlist .i h3{
+	color: #fff;
+	font-weight: bold;
+	font-size: 24px;
+	margin-bottom: 28px;
+}
+.ui-contactlist .i p{
+	color: #fff;
+	font-size: 16px;
+	line-height: 38px;
+}
+.bg-home.bg-history{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c1.png);
+}
+.bg-home.bg-history:after{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/history-bg.jpg);
+}
+.bg-home.bg-history >i{
+	position: absolute;
+	background: none no-repeat center;
+	background-size: 100% 100%;
+}
+.bg-home.bg-history >i.i1{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/thinghead-ex.png);
+	width: 265px;
+	height: 321px;
+	right: 0;
+	top: -240px;
+	z-index: 1;
+}
+body.retina .bg-home.bg-history >i.i1{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/thinghead-ex@2x.png);
+}
+.bg-home.bg-history >i.i2{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/history-ex.png);
+	width: 400px;
+	height: 377px;
+	left: 50%;
+	margin-left: -200px;
+	top: 10%;
+}
+body.retina .bg-home.bg-history >i.i2{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/history-ex@2x.png);
+}
+.ui-history{
+	margin-top: 100px;
+}
+.ui-history >.ct{
+
+}
+.ui-history >.ft{
+	margin-top: 85px;
+	text-align: center;
+}
+.ui-history >.sd{
+	margin-top: 80px;
+}
+.ui-history .list{
+	margin: 0 8%;
+}
+.ui-history .list ul{
+
+}
+.ui-history .list ul li{
+	float: left;
+}
+.ui-history .list .i{
+	display: block;
+	margin: 0 auto;
+	width: 480px;
+	max-width: 100%;
+	margin-top: 40px;
+	transition: transform 300ms;
+}
+.ui-history .list ul li:nth-child(1) .i,
+.ui-history .list ul li:nth-child(3) .i{
+	transform: scale(.6);
+	filter: blur(3px);
+}
+.ui-history .list .i .img{
+	overflow: hidden;
+	border: 8px solid #c8c8c8;
+	transform: rotate(-5deg);
+	box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+}
+.ui-history .list .i .img img{
+	width: 100%;
+	transition: transform 300ms;
+}
+.ui-history .list .i:hover .img img{
+	transform: rotate(-5deg) scale(1.05);
+}
+.ui-history .list .i .txt{
+	margin-top: -40px;
+}
+.ui-history .list .i .txt h3{
+	line-height: 1em;
+	text-align: center;
+	font-family: ç¦¹å«ä¹¦æ³•éš¶ä¹¦ç®€ä½“;
+	font-size: 160px;
+	color: #fff;
+	margin-bottom: 20px;
+}
+.ui-history .list .i .txt p{
+	line-height: 30px;
+	font-size: 18px;
+	text-align: center;
+	color: #fff;
+}
+.ui-history .side{
+	height: 28px;
+	background: url(../img/history-line.png) no-repeat center;
+	background-size: auto 100%;
+	position: relative;
+	width: 1140px;
+	margin: 0 auto;
+}
+body.retina .ui-history .side{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/history-line@2x.png);
+}
+.ui-history .side label{
+	display: inline-block;
+	width: 36px;
+	height: 36px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	position: absolute;
+	top: 0;
+	margin-left: -18px;
+	top: 5px;
+	background: url(../img/bg-c1.png);
+	transition: left 300ms;
+	cursor: pointer;
+}
+.ui-history .side label:before{
+	content: '';
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background-color: #fff;
+	position: absolute;
+	top: 50%;
+	margin-top: -7px;
+	left: 50%;
+	margin-left: -7px;
+}
+.ui-newstext{
+	position: absolute;
+	bottom: 80px;
+	width: 1140px;
+	left: 50%;
+	margin-left: -570px;
+}
+.ui-newstext h5{
+	color: #fff;
+	font-size: 27px;
+	margin-bottom: 30px;
+}
+.ui-newstext h5 small{
+	font-size: 24px;
+	color: #fff;
+	margin-right: 20px;
+}
+.ui-newstext p{
+	font-size: 52px;
+	line-height: 86px;
+	color: #fff;
+}
+.ui-article{
+
+}
+.ui-article p{
+	color: #333333;
+	font-size: 18px;
+	line-height: 34px;
+}
+.ui-article img{
+	transition: transform 300ms;
+}
+.ui-article img:hover{
+	transform: scale(1.05);
+	box-shadow: 0 0 50px rgba(0, 0, 0, .5);
+}
+.ui-fixshare{
+	position: fixed;
+	z-index: 9;
+	top: 50%;
+	left: 80px;
+}
+.ui-fixshare ul{
+
+}
+.ui-fixshare ul li{
+	margin-bottom: 10px;
+}
+.ui-fixshare ul li:last-child{
+	margin-bottom: 0;
+}
+.ui-fixshare a{
+	display: inline-block;
+	width: 42px;
+	height: 42px;
+	transition: transform 300ms;
+	border-radius: 50%;
+}
+.ui-fixshare a:hover{
+	transform: scale(.8);
+}
+.ui-fixshare a.ico1{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/fshare-ico1.png);
+}
+.ui-fixshare a.ico2{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/fshare-ico2.png);
+}
+.ui-fixshare a.ico3{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/fshare-ico3.png);
+}
+.ui-fixshare a.ico4{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/fshare-ico4.png);
+}
+.bg-newsview{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c1.png);
+	padding: 30px 0;
+}
+.bg-newsview >img{
+	position: absolute;
+	z-index: 2;
+	right: 0;
+	bottom: 0;
+	max-height: 120%;
+}
+.ui-newsview{
+	margin-top: 40px;
+	width: 55%;
+}
+.ui-newsview h3{
+	color: #ffffff;
+	font-size: 34px;
+	line-height: 54px;
+}
+.ui-newsview h5{
+	margin: 20px 5px;
+}
+.ui-newsview h5 i{
+	display: inline-block;
+	width: 3px;
+	height: 30px;
+	background-color: #fff;
+}
+.ui-newsview p{
+	font-size: 18px;
+	line-height: 28px;
+	color: #fff;
+}
+.ui-newsview p small{
+	font-size: 16px;
+}
+.bg-newslist{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/bg-c2.png);
+}
+.ui-newsnavi{
+	position: absolute;
+	top: 160px;
+	left: 80px;
+}
+.ui-newsnavi h3{
+	line-height: 1em;
+	color: #333333;
+	font-size: 20px;
+	margin-bottom: 15px;
+}
+.ui-newsnavi p{
+	color: #888888;
+	font-size: 16px;
+	line-height: 44px;
+}
+.ui-newsnavi p a{
+	color: #888;
+}
+.ui-newsnavi p a:hover{
+	color: #bb3623;
+}
+.ui-newslist{
+
+}
+.ui-newslist ul{
+	margin: -40px;
+}
+.ui-newslist ul li{
+	width: 50%;
+	padding: 40px;
+	float: left;
+}
+.ui-newslist .i{
+	display: block;
+}
+.ui-newslist .i .img{
+	overflow: hidden;
+}
+.ui-newslist .i .img img{
+	width: 100%;
+	transition: transform 300ms;
+}
+.ui-newslist .i:hover .img img{
+	transform: scale(1.05);
+}
+.ui-newslist .i .txt{
+	margin-top: 35px;
+}
+.ui-newslist .i .txt h3{
+	color: #333333;
+	font-size: 24px;
+	line-height: 34px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+.ui-newslist .i:hover .txt h3{
+	color: #bb3623;
+}
+.ui-newslist .i .txt p{
+	color: #888888;
+	font-size: 18px;
+	line-height: 30px;
+}
+.ui-newslist .i .txt p b{
+	color: #333;
+}
+.ui-paging{
+	margin-top: 100px;
+	border-top: 1px solid #d1d1d1;
+	border-bottom: 1px solid #d1d1d1;
+	text-align: center;
+	position: relative;
+}
+.ui-paging >a{
+	display: inline-block;
+	line-height: 20px;
+	color: #000;
+	font-size: 18px;
+	position: absolute;
+	top: 50%;
+	margin-top: -10px;
+	opacity: .5;
+}
+.ui-paging >a:hover{
+	opacity: 1;
+}
+.ui-paging >a i{
+	display: inline-block;
+	width: 7px;
+	height: 14px;
+	vertical-align: middle;
+	position: relative;
+	top: -1px;
+}
+.ui-paging >a.l{
+	left: 0;
+}
+.ui-paging >a.l i{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-l.png);
+	margin-right: 10px;
+}
+.ui-paging >a.r{
+	right: 0;
+}
+.ui-paging >a.r i{
+	background-image: url(http://cdn.pilicn.com/wp-content/themes/pili/assets/app/img/pg-r.png);
+	margin-left: 10px;
+}
+.ui-paging ul{
+	display: inline-block;
+	vertical-align: middle;
+}
+.ui-paging ul li{
+	float: left;
+	margin: 0 10px;
+}
+.ui-paging ul li a{
+	display: block;
+	line-height: 80px;
+	padding: 0 20px;
+	font-size: 16px;
+	color: #000000;
+	border-bottom: 2px solid transparent;
+	font-weight: bold;
+}
+.ui-paging ul li a:hover,
+.ui-paging ul li a.on{
+	border-bottom-color: #000000;
+}
+
+
+
+
+
+
+
+
+/*!
+ * plugin.css
+ */
+.lrlist{
+
+}
+.lrlist .ct{
+	overflow: hidden;
+}
+.lrlist .ct ul{
+	position: relative;
+	left: 0;
+}

@@ -1,0 +1,292 @@
+{% extends 'models/showbase.html' %} {% block childstyle %}
+<style>
+    .music-wrap {
+        width: 980px;
+        margin: 10px auto;
+    }
+
+    .title {
+        font-size: 26px;
+        color: #323c99;
+        padding: 20px 0;
+    }
+
+    .list {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .list>.list-item {
+        width: 26%;
+        margin-bottom: 80px;
+    }
+
+    .item-link {
+        width: 100%;
+        color: black;
+    }
+
+    .img-wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+    }
+
+    .img-wrap::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 121%;
+        height: 100%;
+        top: 0;
+        left: -1px;
+        background-image: url('/public/images/music_item_bg.png');
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+        z-index: -1;
+    }
+
+    .music-img {
+        width: 85%;
+    }
+
+    .music-title {
+        margin-top: 20px;
+    }
+
+    body {
+        color: black;
+    }
+
+    .music-thead {
+        color: white;
+        background-color: #0e0b27;
+        font-weight: bold;
+    }
+
+    .music-list-wrap {
+        width: 100%;
+        margin: 20px auto;
+    }
+
+    .music-table {
+        width: 100%;
+        color: #666;
+    }
+
+    .music-table tr {
+        border: 1px solid #d9d9d9;
+    }
+
+    .music-table th {
+        padding: 20px;
+        vertical-align: middle;
+        border-right: 1px solid #d9d9d9;
+    }
+
+    .music-select-btn,
+    .music-play-btn {
+        width: 40px;
+        height: 40px;
+        background-image: url('/public/images/music_play.png');
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+    }
+
+    tbody>tr:nth-child(2n) {
+        background-color: #f2f2f2;
+    }
+
+    .music-select-btn {
+        width: 20px;
+        height: 20px;
+        background-image: url('/public/images/music_select.png');
+    }
+
+    .bottom {
+        text-align: right;
+        margin: 20px;
+    }
+
+    .bottom>.back {
+        border-bottom: 1px solid transparent;
+    }
+
+    .bottom:hover>.back {
+        border-bottom-color: #0e0b27;
+    }
+
+    @media only screen and (max-width:1100px) {
+        .music-wrap {
+            width: 80%;
+        }
+
+    }
+
+    @media only screen and (max-width:850px) {
+        .music-table {
+            font-size: 14px;
+        }
+        .music-table th:nth-child(3) {
+            display: none;
+        }
+        .music-table th:nth-child(4) {
+            display: none;
+        }
+       
+    }
+
+    @media only screen and (max-width:520px) {
+        .title {
+            font-size: 16px;
+            color: #323c99;
+            padding: 20px 0;
+        }
+        .music-thead th{
+            padding:10px;
+        }
+        .music-tbody th {
+            padding: 5px;
+        }
+        .music-wrap {
+            width: 90%;
+        }
+        .music-list-wrap {
+            font-size: 10px;
+        }
+        .music-play-btn {
+        width: 20px;
+        height: 20px;
+    }
+    .music-select-btn {
+        width: 15px;
+        height: 15px;
+    }
+
+    }
+</style> {% endblock %} {% block childmain %}
+<div class="music-wrap" id="music">
+    <ul class="list" v-show="isShow">
+        <li class="list-item" v-for="(item,index) in musicList">
+            <a href="#" class="item-link" @click="openMusicList()">
+                <div class="img-wrap">
+                    <img :src="item.imgUrl" class="music-img" alt="">
+                </div>
+                <h3 class="music-title">${item.title}</h3>
+            </a>
+        </li>
+    </ul>
+    <div class="music-list-wrap" v-show="!isShow">
+        <p class="title">专辑曲目资讯：</p>
+        <table class="music-table">
+            <thead class="music-thead">
+                <tr>
+                    <th>选项</th>
+                    <th>曲目名称</th>
+                    <th>作者</th>
+                    <th>曲目长度</th>
+                    <th>在线播放</th>
+                </tr>
+            </thead>
+            <tbody class="music-tbody">
+                <tr>
+                    <th><button class="music-select-btn"></button></th>
+                    <th>04 煙雨過客 (洛平秋角色曲)</th>
+                    <th>无</th>
+                    <th>4:20</th>
+                    <th><button class="music-play-btn"></button></th>
+                </tr>
+                <tr>
+                    <th><button class="music-select-btn"></button></th>
+                    <th>04 煙雨過客 (洛平秋角色曲)</th>
+                    <th>无</th>
+                    <th>4:20</th>
+                    <th><button class="music-play-btn"></button></th>
+                </tr>
+                <tr>
+                    <th><button class="music-select-btn"></button></th>
+                    <th>04 煙雨過客 (洛平秋角色曲)</th>
+                    <th>无</th>
+                    <th>4:20</th>
+                    <th><button class="music-play-btn"></button></th>
+                </tr>
+                <tr>
+                    <th><button class="music-select-btn"></button></th>
+                    <th>04 煙雨過客 (洛平秋角色曲)</th>
+                    <th>无</th>
+                    <th>4:20</th>
+                    <th><button class="music-play-btn"></button></th>
+                </tr>
+                <tr>
+                    <th><button class="music-select-btn"></button></th>
+                    <th>04 煙雨過客 (洛平秋角色曲)</th>
+                    <th>无</th>
+                    <th>4:20</th>
+                    <th><button class="music-play-btn"></button></th>
+                </tr>
+            </tbody>
+        </table>
+        <div class="bottom"><button class="back" @click="backMusics()">返回音乐专辑首页</button></div>
+    </div>
+</div>
+
+{% endblock %} {% block childjs %}
+<script>
+    var music = new Vue({
+        delimiters: ['${', '}'],
+        el: '#music',
+        data: {
+            musicList: [
+                {
+                    imgUrl: '/public/images/music2.png',
+                    title: '霹雳音乐'
+                },
+                {
+                    imgUrl: '/public/images/music2.png',
+                    title: '霹雳音乐'
+                },
+                {
+                    imgUrl: '/public/images/music2.png',
+                    title: '霹雳音乐'
+                },
+                {
+                    imgUrl: '/public/images/music2.png',
+                    title: '霹雳音乐'
+                },
+                {
+                    imgUrl: '/public/images/music2.png',
+                    title: '霹雳音乐'
+                },
+                {
+                    imgUrl: '/public/images/music2.png',
+                    title: '霹雳音乐'
+                },
+                {
+                    imgUrl: '/public/images/music2.png',
+                    title: '霹雳音乐'
+                },
+                {
+                    imgUrl: '/public/images/music2.png',
+                    title: '霹雳音乐'
+                },
+                {
+                    imgUrl: '/public/images/music2.png',
+                    title: '霹雳音乐'
+                },
+              
+            ],
+            isShow: true,
+        },
+        methods: {
+            openMusicList: function () {
+                this.isShow = !this.isShow;
+            },
+            backMusics: function () {
+                this.isShow = !this.isShow;
+            }
+        }
+    })
+</script> {% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'models/showbase.html' %} {% block childstyle %}
+<style>
+    .figure-wrap {
+        width: 90%;
+        max-width: 1100px;
+        margin: 20px auto;
+    }
+
+    .figure-wrap>.figure-list {
+        display: flex;
+        flex-wrap: wrap;
+
+    }
+
+    .figure-link::after,
+    .figure-link::before {
+        content: '';
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        left: 0;
+        transition: opacity .4s ease-in-out;
+        -webkit-transition: opacity .4s ease-in-out;
+        -moz-transition: opacity .4s ease-in-out;
+    }
+
+    .figure-list>.figure-item {
+        position: relative;
+        width: 23%;
+        margin: 0 1% 20px;
+        background-color: rgba(53, 63, 156, 0.45);
+        border-radius: 10px;
+    }
+
+    .figure-link::before{
+        height: 30%;
+        bottom:0;
+        background-image:url('/public/images/figure_img_bg.png');
+        background-size:100% auto;
+        z-index: 10;
+    }
+    .figure-link::after{
+        height: 100%;
+        top:0;
+        background-color: rgba(53, 63, 156, 0.45);
+    }
+    .figure-item>.title {
+        position: absolute;
+        opacity: 0;
+        bottom: 10px;
+        left: 5px;
+        font-weight: bold;
+        font-size: 20px;
+        z-index: 16;
+        transition: opacity 1s ease-in-out;
+        -webkit-transition: opacity 1s ease-in-out;
+        -moz-transition: opacity 1s ease-in-out;
+    }
+
+    .figure-link:hover::before,
+    .figure-link:hover::after,
+    .figure-item:hover>.title {
+        opacity: 1;
+    }
+
+    .figure-link {
+        height: 100%;
+    }
+
+    .figure-img {
+        width: 100%;
+        height: 100%;
+    }
+@media only screen and (max-width:500px) {
+    .figure-list>.figure-item {
+        width: 31.3%;
+        margin: 0 1% 20px;
+    }
+
+}   
+</style>
+{% endblock %} {% block childmain %}
+<div class="figure-wrap" id="figure">
+    <ul class="figure-list">
+        <li class="figure-item" v-for="(item,index) in figureList">
+            <span class="title">${item.title}</span>
+            <a :href="'/view/figure/noe?title='+item.title" class="figure-link"><img class="figure-img" :src="item.imgUrl" alt=""></a>
+        </li>
+    </ul>
+</div>
+
+{% endblock %} {% block childjs %}
+<script>
+    var figure = new Vue({
+        delimiters: ['${', '}'],
+        el: '#figure',
+        data: {
+            figureList: [
+                { title: '御均衡', imgUrl: '/public/images/figure1.png' },
+                { title: '众天邪王', imgUrl: '/public/images/figure2.png' },
+                { title: '宫无后', imgUrl: '/public/images/figure3.png' },
+                { title: '原无乡', imgUrl: '/public/images/figure4.png' },
+                { title: '倦收天', imgUrl: '/public/images/figure5.png' },
+                { title: '御均衡', imgUrl: '/public/images/figure1.png' },
+                { title: '众天邪王', imgUrl: '/public/images/figure2.png' },
+                { title: '宫无后', imgUrl: '/public/images/figure3.png' },
+                { title: '原无乡', imgUrl: '/public/images/figure4.png' },
+                { title: '倦收天', imgUrl: '/public/images/figure5.png' },
+               
+            ],
+            currentPage:0,
+            maxPage:0,
+        }
+    })
+</script> {% endblock %}

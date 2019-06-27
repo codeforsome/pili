@@ -1,0 +1,466 @@
+ {% extends 'layout_top.html' %} {% block style %}
+<style>
+    .slideshow-wrap {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        margin-top: 50px;
+    }
+
+    .slide-item {
+        position: absolute;
+        width: 100%;
+        background: none no-repeat center;
+        background-size: cover;
+        transition: transform .8s ease-in-out;
+        -webkit-transition: transform .8s ease-in-out;
+        -moz-transition: transform .8s ease-in-out;
+    }
+
+    .slide-button-wrap {
+        position: absolute;
+        right: 60px;
+        bottom: 60px;
+    }
+
+    .currentindex {
+        font-size: 3em;
+        color: white;
+    }
+
+    .item-count {
+        color: white;
+    }
+
+    .choise-button {
+        display: flex;
+        margin-top: 5px;
+    }
+
+    .choise-button>.left,
+    .choise-button>.right {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        border: 2px solid white;
+    }
+
+    .left::after,
+    .right::after {
+        content: '';
+        position: absolute;
+        display: inline-block;
+        width: 0;
+        height: 0;
+        left: 2px;
+        top: 9px;
+        border: 10px solid white;
+    }
+
+    .left::after {
+        border-color: transparent white transparent transparent;
+    }
+
+    .right::after {
+        left: 15px;
+        border-color: transparent transparent transparent white;
+    }
+
+    .left:hover,
+    .right:hover {
+        cursor: pointer;
+        background-color: white;
+    }
+
+    .left:hover::after {
+        border-color: transparent black transparent transparent;
+    }
+
+    .right:hover::after {
+        border-color: transparent transparent transparent black;
+    }
+
+    .line-wrap>.line-right,
+    .line-wrap>.line-left {
+        position: absolute;
+        transition: bottom .5s ease-in,
+        left .5s ease-in,
+        right .5s ease-in;
+        -webkit-transition: bottom .5s ease-in,
+        left .5s ease-in,
+        right .5s ease-in;
+        ;
+        -moz-transition: bottom .5s ease-in,
+        left .5s ease-in,
+        right .5s ease-in;
+        ;
+    }
+
+    .init {
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+    }
+
+    .left-move {
+        bottom: 188px;
+        left: 46px
+    }
+
+    .right-move {
+        bottom: 150px;
+        right: 40px;
+    }
+
+    .line-left>a,
+    .line-right>a {
+        display: inline-block;
+        width: 500px;
+        height: 54px;
+        background-size: 100% 100%;
+        text-align: center;
+        line-height: 54px;
+        color: #0d0a26;
+    }
+
+    .line-left>a {
+        padding-left: 2em;
+        background-image: url('/public/images/line-left.png');
+    }
+
+    .line-right>a {
+        background-image: url('/public/images/line-right.png');
+    }
+
+    .options {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .options a {
+        font-size: 2em;
+    }
+</style>
+{% endblock %} {% block content %}8
+<div class="options">
+    <div class="updata">
+        <button class="btn btn-primary " id="updataBtn" type="button" data-toggle="modal" data-target="#primaryModal">修改当前轮播图信息</button>
+    </div>
+    <div class="delete">
+        <button class="btn btn-primary " id="deleteBtn" type="button" data-toggle="modal" data-target="#dangerModal">删除当前轮播图</button>
+    </div>
+    <div class="add">
+        <button class="btn btn-primary " id="addBtn" type="button" data-toggle="modal" data-target="#primaryModal">添加新的轮播图信息</button>
+    </div>
+
+</div>
+<div class="modal fade" id="dangerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">删除</h4>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>确定删除当前轮播图信息？</p>
+                <p class="upload-tip" style="color:red"></p>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">不删除</button>
+                <button class="btn btn-danger" id="deleteDataBtn" type="button">确定删除</button>
+            </div>
+        </div>
+        <!-- /.modal-content-->
+    </div>
+    <!-- /.modal-dialog-->
+</div>
+
+
+
+<div class="modal fade " id="primaryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">修改</h4>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>图像上传</label> <input type="file" id="img-file"><br>
+                <label>左侧文字</label> <input type="text" style="width:280px;" name="leftText" id="leftText"><br>
+                <label>右侧文字</label> <input type="text" style="width:280px;" name="rightText" id="rightText">
+                <p class="upload-tip" style="color:red"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">关闭窗口</button>
+                <button class="btn btn-primary" type="button" id="saveChange">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="slideshow" class="slideshow-wrap" v-bind:style="{height:getClientHeight()}">
+    <!-- 轮播图 -->
+    <div class=" slide-item " v-bind:style="[{backgroundImage:'url('+imgUrl[imgUrl.length-1].url+')',height:getClientHeight(),left:-100+'%'},transitionStyle]">
+    </div>
+    <div v-for="(item,index) in imgUrl" :key='index' class=" slide-item " v-bind:style="[{backgroundImage:'url('+item.url+')',height:getClientHeight(),left:index*100+'%'},transitionStyle]">
+    </div>
+    <div class=" slide-item " v-bind:style="[{backgroundImage:'url('+imgUrl[0].url+')',height:getClientHeight(),left:imgUrl.length*100+'%'},transitionStyle]">
+    </div>
+    <!-- 控制轮播图左右移动 -->
+    <div class="slide-button-wrap">
+        <div class="number">
+            <span class="currentindex">${currentIndex+1}</span>
+            <span class="item-count">/${imgUrl.length}</span>
+        </div>
+        <div class="choise-button">
+            <div class="left" @click="leftMove">
+            </div>
+            <div class="right" @click="rightMove">
+            </div>
+        </div>
+    </div>
+    <!--轮播图信息  -->
+    <div class="line-wrap">
+        <div class="line-left" v-bind:class="{'init': isTure, 'left-move': !isTure}">
+            <a href="#">${imgUrl[currentIndex].leftContent}</a>
+        </div>
+        <div class="line-right" v-bind:class="{'init': isTure, 'right-move': !isTure}">
+            <a href="#">${imgUrl[currentIndex].rightContent}</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %} {% block script %}
+<script>
+    var updataBtn = $("#updataBtn");
+    var addBtn = $('#addBtn');
+    var saveChange = $('#saveChange');
+    var deleteBtn = $("#deleteBtn");
+    var leftText = $('#leftText');
+    var rightText = $('#rightText');
+    //定义修改框弹出事件
+    $('#primaryModal').on('show.bs.modal', function (e) {
+        $('.upload-tip').html('');
+        if (e.relatedTarget == addBtn[0]) {
+            leftText.val('');
+            rightText.val('');
+            saveChange.on('click', function () {
+                var data = {};
+                data['leftContent'] = leftText.val();
+                data['rightContent'] = rightText.val();
+                var file = document.getElementById("img-file").files[0];
+                if (file) {
+                    data['imgFile'] = file;
+                    uploadImgFile(file, function (success) {
+                        if (!success) {
+                            return;
+                        } else {
+                            uploadData('/admin/add/slideshow', data);
+                        }
+                    });
+                } else {
+                     $('.upload-tip').html('图片文件不能为空，请上传图片');
+                }
+            });
+        } else if (e.relatedTarget == updataBtn[0]) {
+            $('.upload-tip').html('提示：如果不选择上传图片，则默认使用原图片');
+            leftText.val(slideshow.imgUrl[slideshow.currentIndex].leftContent);
+            rightText.val(slideshow.imgUrl[slideshow.currentIndex].rightContent);
+            saveChange.on('click', function () {
+                var data = {};
+                data['leftContent'] = leftText.val();
+                data['rightContent'] = rightText.val();
+                data['imgId'] = slideshow.imgUrl[slideshow.currentIndex]._id;
+                var file = document.getElementById("img-file").files[0];
+                if (file) {
+                    data['imgFile'] = file;
+                    uploadImgFile(file, function (isSuccess) {
+                        if (!isSuccess) {
+                            return;
+                        } else {
+                            uploadData('/admin/updata/slideshow', data);
+                        }
+                    });
+                } else {
+                    uploadData('/admin/updata/slideshow', data);
+                }
+            });
+        }
+    });
+    $('#deleteDataBtn').on('click', function () {
+        $.ajax({
+            url: '/admin/delete/slideshow?id=' + slideshow.imgUrl[slideshow.currentIndex]._id,
+            type: 'get',
+            success: function (result) {
+                $('.upload-tip').html(result.msg);
+                setTimeout(() => {
+                    window.location.href = "";
+                }, 1000);
+            },
+        })
+    })
+
+
+    //检查上传图片文件
+    function uploadImgFile(file, callback) {
+        var maxSize = 5 * 1024 * 1024, imgType = ['png', 'jpg', 'jpeg'];
+        var result = checkImgSpecifi(file, maxSize, imgType); //检查图片格式 文件大小是否符合
+        if (!result.success) {
+            $('.upload-tip').html(result.msg);
+            callback(false);
+        }
+        checkIsImgFile(file, function (flag) { //检查上传的是不是图片
+            if (flag) {
+                callback(true);
+            } else {
+                $('.upload-tip').html('请上传图片文件，此文件不是图片文件');
+                callback(false);
+            }
+        });
+    };
+
+    //上传数据
+    function uploadData(reqUrl, data) {
+        var formData = new FormData();
+        formData.enctype = "multipart/form-data";
+        // 把要上传的数据赋值给formdata
+        for (key in data) {
+            formData.append(key, data[key]);
+        }
+        $.ajax({
+            url: reqUrl,
+            type: "post",
+            // contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data: formData,
+            // 告诉jQuery不要去处理发送的数据
+            processData: false,
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType: false,
+            success: function (result) {
+                $('.upload-tip').html(result.msg);
+                setTimeout(() => {
+                    window.location.href = "";
+                }, 1000);
+            },
+            error: function (error) {
+            }
+        });
+
+    }
+
+
+    var slideshow = new Vue({
+        delimiters: ['${', '}'],
+        el: '#slideshow',
+        data: {
+            imgUrl: [],
+            isTure: false,
+            currentIndex: 0,
+            distance: 0, //图片移动的距离
+            maxdistance: 0,
+            mixdistance: 0,
+            transitionStyle: {},
+            scale: 100, //移到的距离增加的比例为1倍即100%
+        },
+        created: function () {
+            this.maxDistance = 100;
+            //    this.autoPlay();
+        },
+        methods: {
+            timer: function () { },
+            autoPlay: function () {
+                var _this = this;
+                this.timer = setInterval(function () {
+                    _this.rightMoveAll();
+                }, 5000);
+            },
+            stopPlay: function () {
+                clearInterval(this.timer);
+            },
+            moveDistance: function (distance, style) {
+                this.minDistance = -this.imgUrl.length * this.scale;
+
+                this.distance += distance;
+                this.transitionStyle = {
+                    transition: style,
+                    transform: 'translateX(' + this.distance + '%)',
+                };
+            },
+            rightMoveAll: function () {
+                setTimeout(() => {
+                    this.isTure = true;
+                }, 300);
+                setTimeout(() => {
+                    this.currentIndex++;
+                    if (this.currentIndex >= this.imgUrl.length) {
+                        this.currentIndex = 0;
+                    }
+                    this.isTure = false;
+                }, 700);
+                if (this.distance <= this.minDistance) {
+                    setTimeout(() => {
+                        this.moveDistance(-this.scale, 'transform 1s ease-in-out');
+                    }, 100);
+                    this.distance = 0;
+                    this.moveDistance(0, 'none');
+                    return;
+                }
+                this.moveDistance(-this.scale, 'transform 1s ease-in-out');
+            },
+            leftMoveAll: function () {
+                setTimeout(() => {
+                    this.isTure = true;
+                }, 300);
+                setTimeout(() => {
+                    this.currentIndex--;
+                    if (this.currentIndex < 0) {
+                        this.currentIndex = this.imgUrl.length - 1;
+                    }
+                    this.isTure = false;
+                }, 700);
+                if (this.distance >= this.maxDistance) {
+                    setTimeout(() => {
+                        this.moveDistance(this.scale, 'transform 1s ease-in-out');
+                    }, 100);
+                    this.distance = this.minDistance + this.scale;
+                    this.moveDistance(0, 'none');
+                    return;
+                }
+                this.moveDistance(this.scale, 'transform 1s ease-in-out');
+            },
+            rightMove: function () {
+                clearInterval(this.timer);
+                this.rightMoveAll();
+            },
+            leftMove: function () {
+                clearInterval(this.timer);
+                this.leftMoveAll();
+            },
+            getClientHeight: function () {
+                var clientHeight = 0;
+                if (window.innerHeight)
+                    clientHeight = window.innerHeight;
+                else if ((document.body) && (document.body.clientHeight))
+                    clientHeight = document.body.clientHeight;
+                return clientHeight + 'px';
+            },
+        },
+    })
+
+    $.ajax({
+        url: '/data/slideshow',
+        type: 'get',
+        success: function (result) {
+            for (var index in result.data) {
+                slideshow.imgUrl.push(result.data[index])
+            }
+        },
+    })
+</script> {% endblock %}

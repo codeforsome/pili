@@ -1,0 +1,164 @@
+<!-- 一些资料产品展示通用的页面模板 -->
+
+{% extends 'base.html' %} {% block style %}
+<style>
+    .wallpaper {
+        height: 230px;
+        padding-top: 200px;
+        background-image: url({{data.bgUrl}});
+        background-size: 100% 100%;
+    }
+
+    .wallpaper>h2 {
+        height: 160px;
+        text-indent: -1000px;
+        background-repeat: no-repeat;
+        background-image: url({{data.bgFontUrl}});
+        background-size: auto 100%;
+        background-position: center center;
+    }
+
+    .search-wrap {
+        padding: 45px 0;
+        background-image: url('/public/images/wallpaper_search_bg.png');
+    }
+
+    .search-wrap>.input-wrap {
+        width: 1000px;
+        background-image: url('/public/images/wallpaper_input_bg.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+
+        margin: 0 auto;
+        padding: 16px 6px 14px;
+    }
+
+    .input-wrap {
+        position: relative;
+    }
+
+    .input-wrap>.search-input {
+        box-sizing: border-box;
+        font-size: 14px;
+        width: 100%;
+        height: 55px;
+        line-height: 55px;
+        color: #323c99;
+        font-weight: bold;
+        border: none;
+        outline: 0;
+        margin-left: 30px;
+        background-color: transparent;
+    }
+
+    .input-wrap>.search-icon {
+        position: absolute;
+        display: inline-block;
+        height: 40px;
+        width: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 10px;
+        cursor: pointer;
+        background-image: url('/public/images/search.png');
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    .page-wrap {
+        display: flex;
+        justify-content: space-between;
+        width: 1024px;
+        padding-top: 25px;
+        margin: 20px auto;
+        border-top: 1px solid #d9d9d9;
+        border-bottom: 1px solid #d9d9d9;
+    }
+
+    .page-wrap a {
+        color: black;
+        font-weight: bold;
+        margin-right: 30px;
+    }
+
+    .center>a {
+        height: 40px;
+    }
+
+    .page-number {
+        font-size: 16px;
+        padding: 0 20px;
+        margin: 0 10px;
+    }
+
+    .page-wrap>.left {
+        margin-left: 60px;
+    }
+
+    .page-wrap>.right {
+        margin-right: 60px;
+    }
+
+    .selected-link {
+        border-bottom: 2px solid black;
+    }
+
+    @media only screen and (max-width:1100px) {
+        .page-wrap {
+            width: 100%;
+        }
+        .search-wrap>.input-wrap {
+            width: 85%;
+
+        }
+    }
+
+    @media only screen and (max-width:800px) {
+        .page-wrap>.left {
+            margin-left: 20px;
+        }
+        .page-wrap>.right {
+            margin-right: 20px;
+        }
+        .page-wrap a {
+            margin-right: 0;
+        }
+        .page-number {
+            padding: 5px;
+        }
+        .center>a {
+            height: 20px;
+        }
+        .search-wrap>.input-wrap {
+            width: 80%;
+
+        }
+    }
+</style>
+{% block childstyle %} {% endblock %} {% endblock %} {% block main %}
+<div class="wallpaper">
+    <h2>{{data.title}}</h2>
+</div>
+<div class="search-wrap">
+    <div class="input-wrap">
+        <input type="text" class="search-input" placeholder={{ '搜索'+data.title}}>
+        <span class="search-icon"></span>
+    </div>
+</div>
+{% block childmain %} {% endblock %}
+<div class="page-wrap">
+    <div class="left">
+        <a href="#">上一页</a>
+    </div>
+    <div class="center">
+        <a class="page-number selected-link" href="#">1</a>
+        <a class="page-number" href="#">2</a>
+        <a class="page-number" href="#">3</a>
+        <a class="page-number" href="#">4</a>
+        <a class="page-number" href="#">5</a>
+    </div>
+    <div class="right">
+        <a href="#"> 下一页</a>
+    </div>
+</div>
+{% endblock %} {% block js %} {% block childjs %} {% endblock %} {% endblock %}

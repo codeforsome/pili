@@ -7,3 +7,6 @@ clone https://github.com/codeforsome/pili <br>
 cd pili <br>
 npm install <br>
 node app.js <br>
+## 项目用到的技术  <br>
+前台用到了h5+css3+js+vue+jquery <br>
+后台用到了node+express+mongoose <br>

@@ -13,7 +13,7 @@
     float: left;
     width: 100vw;
     min-height: 400px;
-    max-height: 660px;
+    max-height: 760px;
     background: none no-repeat center;
     background-size: cover;
     transition: transform .8s ease-in-out;
@@ -87,7 +87,7 @@
     position: absolute;
     width: 40%;
     max-width: 500px;
-    min-width: 350px;
+    min-width: 280px;
     transition: bottom .5s ease-in,
     left .5s ease-in,
     right .5s ease-in;
@@ -140,10 +140,10 @@
 
 /* 展示新手入门标题信息导航 */
 .container-wrap {
-    position: relative;
+    position: relative; 
     min-height: 720px;
     padding: 20px;
-    background-image: url('/public/images/container-top.png');
+     background-image: url('/public/images/container-top.png');
 }
 
 .container-top-wrap {
@@ -215,8 +215,8 @@
 }
 
 .container-item>.title>p {
-    width: 1em;
-    font-size: 28px;
+    width: 2rem;
+    font-size: 2rem;
     padding: 0 10px;
     margin: 0 auto;
     font-family: sans-serif;
@@ -248,8 +248,8 @@
 }
 
 .hd>p {
-    width: 1em;
-    font-size: 2em;
+    width: 5rem;
+    font-size: 5rem;
 }
 
 .hd .char:nth-child(1),
@@ -386,9 +386,8 @@
 }
 
 .text>.text-title {
-    font-size: 2.5em;
+    font-size: 2.5rem;
     font-weight: bold;
-    line-height: 1.25em;
 }
 
 .text>.text-content {
@@ -492,9 +491,33 @@
 }
 
 @media only screen and (max-width:580px) {
-    .reco-show{
-        height: 1000px;
+    .line-left>a, .line-right>a{
+        font-size: 0.75rem;
     }
+    .left-move, .right-move  {
+        left: 20px
+    }
+    .hd>p {
+        width: 3rem;
+        font-size: 3rem;
+    }
+    .news-show>.left-wrap, .news-show .right-wrap{
+        width: 80%;
+    }
+    .text>.text-title {
+        font-size: 1.5rem;
+    }
+    .container-item>.title>p {
+        width: 1rem;
+        font-size: 1rem;
+    }
+    .reco-show{
+        height: 950px;
+    }
+    .container-item{
+        font-size: 1rem;
+    }
+   
     .reco-show .reco-item{
         width:75%;
     }

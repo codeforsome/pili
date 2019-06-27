@@ -1,5 +1,4 @@
 <!-- 一些资料产品展示通用的页面模板 -->
-<!-- left:-100+'%'  left:index*100+'%'  left:imgUrl.length*100+'%' -->
 {% extends 'models/base.html' %} {% block style %}
 <link href="/public/css/index.css" rel="stylesheet">
  {% endblock %} 
@@ -47,7 +46,6 @@
             </p>
         </div>
     </div>
-    <!--  v-bind:style="{width:+getItemWidth(index)+'%',}" -->
     <div class="container-show" >
         <ul class="container-list">
             <li class="container-item" :class="seleted(index)" v-for="(item,index) in  containerList" @mousemove="show(index)">

@@ -4,6 +4,7 @@ const admin=require('./admin');
 const figure=require('./figure');
 const music=require('./music');
 const index=require('./index');
+const utils=require('../common/utils');
 
 exports.use=function(app){
     app.use('/',index);
@@ -11,9 +12,6 @@ exports.use=function(app){
     app.use('/view',view)  //返回前端所需要的各个页面
     app.use('/admin',admin);// 管理员
     app.use('/figure',figure);// 霹雳人物
-    // app.use('/music',music);//霹雳音乐
-    // 404 页面
-//     app.use(function (req, res, next) {
-//          return res.render('404');
-//    });
+    app.use('/captcha',utils.getCaptcha) //验证码
+
 };

@@ -1,4 +1,3 @@
-// 应用的启动点
 const express = require('express');
 const app = express();
 const router = require('./router');
@@ -10,7 +9,7 @@ const path = require('path');
 const config = require('./config');
 const routers = require('./routers/routers');
 const  MongoStore = require('connect-mongo')(session);
-// const ueditor_backend = require('ueditor-backend');
+const ueditor_backend = require('ueditor-backend');
 
 //加载ueditor 模块
 const ueditor = require("ueditor");
@@ -26,12 +25,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var Cookies = require('cookies');
 
-// 设置静态文件托管
-// 当用户访问的url以publuc 开始 直接返回对应的__dirname +'public'下的文件
+// 设置静态文件托管 当用户访问的url以publuc 开始 直接返回对应的__dirname +'public'下的文件
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/ueditor', express.static(__dirname + '/ueditor'));
 
-// 定义当前应用所用的模块引擎
 // 参数：模板引擎的名称也是模板文件的后缀名； 表示用于解析处理模板内容的方法
 app.engine('html', swig.renderFile);
 // 设置模板文件的存放目录 第一个参数不能变 第二参数是目录
@@ -120,9 +117,9 @@ mongoose.connect('mongodb://localhost:27017/pili', function (error) {
     return;
   } else {
     app.listen(config.port, config.host, function () {
-      console.log('服务器启动了。。。。');
-
+      console.log('服务器启动了,端口号是：'+config.port);
     });
+    
   }
 });
 /**

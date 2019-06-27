@@ -52,10 +52,10 @@ var slideshow = new Vue({
     methods: {
         timer: function () { }, //自动滚动图片的计时器
         autoPlay: function () {
-            var _this = this;
-            this.timer = setInterval(function () {
-                _this.leftMoveAll();
-            }, 5000);
+            // var _this = this;
+            // this.timer = setInterval(function () {
+            //     _this.leftMoveAll();
+            // }, 5000);
         },
         stopPlay: function () {//停止自动滚动图片
             clearInterval(this.timer);

@@ -1,7 +1,7 @@
 /* 首页头部导航 */
 html,
 body {
-    height: 100%;
+    /* height: 100%; */
 }
 
 body {
@@ -204,8 +204,9 @@ footer{
 }
 @media only screen and (max-width:850px) {
         header {
+            position: fixed;
             z-index: 100;
-            top: 0;
+            top:0;
         }
         .sub-menu-item:hover,.sub-menu-item{
             background-color: transparent;
@@ -226,9 +227,7 @@ footer{
             display: block;
         }
         .header-wrap {
-            position: fixed;
             display: flex;
-            width: 100%;
             justify-content: space-between;
             background-color: black;
         }

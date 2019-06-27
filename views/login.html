@@ -12,27 +12,21 @@
         body {
             background-image: url('../public/images/login/login_bg.jpg');
             background-repeat: no-repeat;
-            background-size: 100% auto;
+            background-size: auto auto;
         }
 
-        @media only screen and (max-width:1000px) {
-            body {
-                background-size: auto auto;
-                background-position: 0 0;
-            }
-        }
 
         .login {
-            width: 400px;
+            width: 90%;
+            max-width: 400px;
             margin: 70px auto;
             color: white;
             background-color: rgba(33, 55, 55, 0.7);
-            padding: 40px;
+            padding: 10px;
         }
 
         .form>div {
             margin-top: 30px;
-            /* margin-left: 30px; */
         }
 
         .form input {
@@ -75,19 +69,19 @@
             vertical-align: 150%;
             margin-left: 20px;
         }
-        .captcha-wrap{
-            display: flex;
-            align-items:flex-end;
-        }
+
+
         .captcha-img {
             display: inline-block;
-            width: 133px;
-            height: 36px;
+            width: 143px;
+            height: 46px;
             background-color: white;
         }
-        .captcha{
+
+        .captcha {
             margin-right: 10px;
         }
+
         input::after {
             content: 'afdssssss';
             position: absolute;
@@ -96,6 +90,26 @@
             left: 3px;
             width: 20px;
             height: 30px;
+        }
+
+        .login-link {
+            padding-bottom: 5px;
+            border-bottom: 1px solid white;
+        }
+
+        @media only screen and (max-width:850px) {
+            body {
+                background-position: 30% 10%;
+            }
+            .captcha {
+                margin-bottom: 10px;
+            }
+        }
+        @media only screen and (max-width:500px) {
+           
+            .captcha {
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -115,36 +129,43 @@
             <div class="password-wrap">
                 <label>输入密码：</label><input class="password" name="password" type="password">
             </div>
-           
+
             <div class="captcha-wrap">
                 <label>验证码：</label><input class="captcha" class="" name="captcha" type="text">
-                <img src="/data/captcha" alt="" class="captcha-img" onclick="this.src='/captcha?'+new Date()" id="captcha-img">
+                <img src="/captcha" alt="" class="captcha-img" onclick="this.src='/captcha?'+new Date()" id="captcha-img">
             </div>
-            <div class="button">
+            <div class="submit-wrap">
                 <button class="submit" id="submit">点击登陆</button>
                 <p class="msg-tip" style="color:red;font-size: 18px;margin-top:15px;">
                 </p>
+                <div>
+                    <span>还没注册？</span>
+                    <a class="login-link" href="/user/register">点击注册</a>
+                </div>
             </div>
         </div>
     </div>
     <script src="../public/js/public/base.js"></script>
     <script>
         function submitData() {
-            var submit = document.getElementById('submit');
-            var username = document.getElementsByClassName('username')[0];
-            var password = document.getElementsByClassName('password')[0];
-            var captcha = document.getElementsByClassName('captcha')[0];
+            var submit = document.getElementById('submit'),
+                username = document.getElementsByClassName('username')[0],
+                password = document.getElementsByClassName('password')[0],
+                captcha = document.getElementsByClassName('captcha')[0],
+                captchaImg = document.getElementsByClassName('captcha-img')[0];
             submit.addEventListener('click', function (event) {
                 var data = {};
                 data.username = username.value;
                 data.password = password.value;
                 data.captcha = captcha.value;
                 Ajax.post('/user/login', JSON.stringify(data), function (result) {
-                    var data=JSON.parse(result);
-                    if(data.success){
-                        window.location.href="/";
-                    }else{
-                        document.getElementsByClassName('msg-tip')[0].innerText=data.msg;
+                    var data = JSON.parse(result);
+                    if (data.success) {
+                        window.location.href = "/";
+                    } else {
+                        document.getElementsByClassName('msg-tip')[0].innerText = data.msg;
+                        captchaImg.src = '/captcha?' + new Date();
+
                     }
                 })
             })

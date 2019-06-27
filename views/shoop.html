@@ -1,7 +1,8 @@
 {% extends 'models/showbase.html' %} {% block childstyle %}
 <style>
     .shoop-wrap {
-        width:1024px;
+        width: 90%;
+        max-width:1024px;
         margin:20px auto;
     }
 
@@ -17,9 +18,10 @@
     .shoop-item{
         box-sizing: border-box;
         width:25%;
+        padding:0 5px;
     }
     .shoop-link{
-        width:90%;
+        width:100%;
         overflow:hidden;
     }
     .shoop-link:hover{
@@ -38,6 +40,11 @@
     .price{
         color: #4e4e4e;
     }
+@media only screen and (max-width:500px) {
+    .shoop-item{
+        width:50%;
+    }
+}
 </style>
 {% endblock %} {% block childmain %}
 <div class="shoop-wrap" id="shoop">

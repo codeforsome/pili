@@ -10,3 +10,5 @@ node app.js <br>
 ## 项目用到的技术  <br>
 前台用到了h5+css3+js+vue+jquery <br>
 后台用到了node+express+mongoose <br>
+## 项目实现的功能<br>
+首页的浏览，导航功能（人物，图库，音乐，商品，活动）的浏览，登陆注册的实现<br>
